@@ -37,13 +37,13 @@ jobs:
           NUGET_AUTH_TOKEN: ${{secrets.NUGET_TOKEN}}
           
       - name: Restore
-        run: dotnet restore **/Shared.csproj
+        run: dotnet restore **/*/Shared.csproj
       
       - name: Build
-        run: dotnet build **/Shared.csproj --configuration Release
+        run: dotnet build **/*/Shared.csproj --configuration Release
     
       - name: Test
-        run: dotnet test **/Shared.csproj --no-restore --verbosity normal
+        run: dotnet test **/*/Shared.csproj --no-restore --verbosity normal
       
       - name: Publish NuGet
         run: | # | character makes the "run" property multi-line, so we can put multiple commands in the same step
