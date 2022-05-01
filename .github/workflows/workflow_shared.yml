@@ -49,5 +49,5 @@ jobs:
         run: | # | character makes the "run" property multi-line, so we can put multiple commands in the same step
           mkdir __nuget
           dotnet pack */Shared -c Release -o __nuget --no-restore
-          dotnet nuget push "./__nuget/*.nupkg" --skip-duplicate --no-symbols true --api-key ${{secrets.NUGET_TOKEN}}
+          dotnet nuget push "./__nuget/*.nupkg" --skip-duplicate --no-symbols true --api-key ${{secrets.NUGET_TOKEN}} --source https://api.nuget.org/v3/index.json
           rm -rf __out
