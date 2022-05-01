@@ -12,7 +12,9 @@ public class ResultsWrapperTests
     private Hero _expectedHero = Hero.Get();
     private Villian _expectedVillian = Villian.Get();
     private const string _expectedErrorMessage = "An unhandled error has occurred.";
+    private const string _expectedSuccessMessage = "Process completed successfully.";
     private IEnumerable<string> _expectedErrorMessages = new List<string>() { "An unhandled error has occurred.", "You are not authorized to access this resource." };
+    private IEnumerable<string> _expectedSuccessMessages = new List<string>() { "Process completed successfully.", "You have been granted access this resource." };
 
     public ResultsWrapperTests(ITestOutputHelper output)
     {
@@ -131,5 +133,119 @@ public class ResultsWrapperTests
 
         _output.WriteLine($"'Data' property must contain expected data.");
         Assert.Equal(_expectedHero, result.Data);
+    }
+
+    [Fact]
+    public void Success_No_Message()
+    {
+        var result = Result.Success();
+
+        _output.WriteLine($"'Result' object must not be null.");
+        Assert.NotNull(result);
+
+        _output.WriteLine($"'Succeeded' property must have true value.");
+        Assert.True(result.Succeeded);
+    }
+
+    [Fact]
+    public void Success_With_Message()
+    {
+        var result = Result.Success(_expectedSuccessMessage);
+
+        _output.WriteLine($"'Result' object must not be null.");
+        Assert.NotNull(result);
+
+        _output.WriteLine($"'Succeeded' property must have true value.");
+        Assert.True(result.Succeeded);
+
+        _output.WriteLine($"'Messages' property must contain a single element.");
+        Assert.True(result.Messages.Count() == 1);
+
+        _output.WriteLine($"'Messages' property must contain the message: {_expectedSuccessMessage}");
+        Assert.Contains(_expectedSuccessMessage, result.Messages.First());
+    }
+
+    [Fact]
+    public void Success_With_Messages()
+    {
+        var result = Result.Success(_expectedSuccessMessages);
+
+        _output.WriteLine($"'Result' object must not be null.");
+        Assert.NotNull(result);
+
+        _output.WriteLine($"'Succeeded' property must have true value.");
+        Assert.True(result.Succeeded);
+
+        _output.WriteLine($"'Messages' property must contain {_expectedSuccessMessages.Count()} elements.");
+        Assert.True(result.Messages.Count() == _expectedSuccessMessages.Count());
+
+        _output.WriteLine($"'Messages' property must contain the expected messages.");
+        Assert.Equal(_expectedSuccessMessages, result.Messages);
+    }
+
+    [Fact]
+    public void Success_No_Message_Data()
+    {
+        var result = Result<Villian>.Success(_expectedVillian);
+
+        _output.WriteLine($"'Result' object must not be null.");
+        Assert.NotNull(result);
+
+        _output.WriteLine($"'Succeeded' property must have true value.");
+        Assert.True(result.Succeeded);
+
+        _output.WriteLine($"'Data' property must be type of: {_expectedVillian.GetType()}.");
+        Assert.IsType<Villian>(result.Data);
+
+        _output.WriteLine($"'Data' property must contain expected data.");
+        Assert.Equal(_expectedVillian, result.Data);
+    }
+
+    [Fact]
+    public void Success_With_Message_Data()
+    {
+        var result = Result<Villian>.Success(_expectedSuccessMessage, _expectedVillian);
+
+        _output.WriteLine($"'Result' object must not be null.");
+        Assert.NotNull(result);
+
+        _output.WriteLine($"'Succeeded' property must have true value.");
+        Assert.True(result.Succeeded);
+
+        _output.WriteLine($"'Messages' property must contain a single element.");
+        Assert.True(result.Messages.Count() == 1);
+
+        _output.WriteLine($"'Messages' property must contain the message: {_expectedSuccessMessage}");
+        Assert.Contains(_expectedSuccessMessage, result.Messages.First());
+
+        _output.WriteLine($"'Data' property must be type of: {_expectedVillian.GetType()}.");
+        Assert.IsType<Villian>(result.Data);
+
+        _output.WriteLine($"'Data' property must contain expected data.");
+        Assert.Equal(_expectedVillian, result.Data);
+    }
+
+    [Fact]
+    public void Success_With_Messages_Data()
+    {
+        var result = Result<Villian>.Success(_expectedSuccessMessages, _expectedVillian);
+
+        _output.WriteLine($"'Result' object must not be null.");
+        Assert.NotNull(result);
+
+        _output.WriteLine($"'Succeeded' property must have true value.");
+        Assert.True(result.Succeeded);
+
+        _output.WriteLine($"'Messages' property must contain {_expectedSuccessMessages.Count()} elements.");
+        Assert.True(result.Messages.Count() == _expectedSuccessMessages.Count());
+
+        _output.WriteLine($"'Messages' property must contain the expected messages.");
+        Assert.Equal(_expectedSuccessMessages, result.Messages);
+
+        _output.WriteLine($"'Data' property must be type of: {_expectedVillian.GetType()}.");
+        Assert.IsType<Villian>(result.Data);
+
+        _output.WriteLine($"'Data' property must contain expected data.");
+        Assert.Equal(_expectedVillian, result.Data);
     }
 }
