@@ -4,7 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Version>1.0.0-alpha</Version>
+    <Version>1.0.0</Version>
     <Authors>Viwe Nkepu</Authors>
     <Company>gitViwe</Company>
     <Description>This shared library will house common implementation and wrapper classes</Description>
