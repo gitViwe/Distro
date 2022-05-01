@@ -42,3 +42,5 @@ jobs:
       - name: Build
         run: dotnet build **/*/Shared.csproj --configuration Release
     
+      - name: Test
+        run: dotnet test **/*/Shared.Test.csproj --no-restore --verbosity normal
