@@ -1,0 +1,135 @@
+using Shared.Test.Data;
+using System.Collections.Generic;
+using System.Linq;
+using Xunit;
+using Xunit.Abstractions;
+
+namespace Shared.Test;
+
+public class ResultsWrapperTests
+{
+    private readonly ITestOutputHelper _output;
+    private Hero _expectedHero = Hero.Get();
+    private Villian _expectedVillian = Villian.Get();
+    private const string _expectedErrorMessage = "An unhandled error has occurred.";
+    private IEnumerable<string> _expectedErrorMessages = new List<string>() { "An unhandled error has occurred.", "You are not authorized to access this resource." };
+
+    public ResultsWrapperTests(ITestOutputHelper output)
+    {
+        _output = output;
+    }
+
+    [Fact]
+    public void Fail_No_Message()
+    {
+        var result = Result.Fail();
+
+        _output.WriteLine($"'Result' object must not be null.");
+        Assert.NotNull(result);
+
+        _output.WriteLine($"'Succeeded' property must have false value.");
+        Assert.False(result.Succeeded);
+    }
+
+    [Fact]
+    public void Fail_With_Message()
+    {
+        var result = Result.Fail(_expectedErrorMessage);
+
+        _output.WriteLine($"'Result' object must not be null.");
+        Assert.NotNull(result);
+
+        _output.WriteLine($"'Succeeded' property must have false value.");
+        Assert.False(result.Succeeded);
+
+        _output.WriteLine($"'Messages' property must contain a single element.");
+        Assert.True(result.Messages.Count() == 1);
+
+        _output.WriteLine($"'Messages' property must contain the error message: {_expectedErrorMessage}");
+        Assert.Contains(_expectedErrorMessage, result.Messages.First());
+    }
+
+    [Fact]
+    public void Fail_With_Messages()
+    {
+        var result = Result.Fail(_expectedErrorMessages);
+
+        _output.WriteLine($"'Result' object must not be null.");
+        Assert.NotNull(result);
+
+        _output.WriteLine($"'Succeeded' property must have false value.");
+        Assert.False(result.Succeeded);
+
+        _output.WriteLine($"'Messages' property must contain {_expectedErrorMessages.Count()} elements.");
+        Assert.True(result.Messages.Count() == _expectedErrorMessages.Count());
+
+        _output.WriteLine($"'Messages' property must contain the expected error messages.");
+        Assert.Equal(_expectedErrorMessages, result.Messages);
+    }
+
+    [Fact]
+    public void Fail_No_Message_Data()
+    {
+        var result = Result<Hero>.Fail(_expectedHero);
+
+        _output.WriteLine($"'Result' object must not be null.");
+        Assert.NotNull(result);
+
+        _output.WriteLine($"'Succeeded' property must have false value.");
+        Assert.False(result.Succeeded);
+
+        _output.WriteLine($"'Data' property must be type of: {_expectedHero.GetType()}.");
+        Assert.IsType<Hero>(result.Data);
+
+        _output.WriteLine($"'Data' property must contain expected data.");
+        Assert.Equal(_expectedHero, result.Data);
+    }
+
+    [Fact]
+    public void Fail_With_Message_Data()
+    {
+        var result = Result<Hero>.Fail(_expectedErrorMessage, _expectedHero);
+
+        _output.WriteLine($"'Result' object must not be null.");
+        Assert.NotNull(result);
+
+        _output.WriteLine($"'Succeeded' property must have false value.");
+        Assert.False(result.Succeeded);
+
+        _output.WriteLine($"'Messages' property must contain a single element.");
+        Assert.True(result.Messages.Count() == 1);
+
+        _output.WriteLine($"'Messages' property must contain the error message: {_expectedErrorMessage}");
+        Assert.Contains(_expectedErrorMessage, result.Messages.First());
+
+        _output.WriteLine($"'Data' property must be type of: {_expectedHero.GetType()}.");
+        Assert.IsType<Hero>(result.Data);
+
+        _output.WriteLine($"'Data' property must contain expected data.");
+        Assert.Equal(_expectedHero, result.Data);
+    }
+
+    [Fact]
+    public void Fail_With_Messages_Data()
+    {
+        var result = Result<Hero>.Fail(_expectedErrorMessages, _expectedHero);
+
+        _output.WriteLine($"'Result' object must not be null.");
+        Assert.NotNull(result);
+
+        _output.WriteLine($"'Succeeded' property must have false value.");
+        Assert.False(result.Succeeded);
+
+        _output.WriteLine($"'Messages' property must contain {_expectedErrorMessages.Count()} elements.");
+        Assert.True(result.Messages.Count() == _expectedErrorMessages.Count());
+
+        _output.WriteLine($"'Messages' property must contain the expected error messages.");
+        Assert.Equal(_expectedErrorMessages, result.Messages);
+
+        _output.WriteLine($"'Data' property must be type of: {_expectedHero.GetType()}.");
+        Assert.IsType<Hero>(result.Data);
+
+        _output.WriteLine($"'Data' property must contain expected data.");
+        Assert.Equal(_expectedHero, result.Data);
+    }
+}
