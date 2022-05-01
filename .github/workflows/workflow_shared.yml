@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Build, Test and Publish
+name: Build and Test
 
 # Controls when the workflow will run
 on:
@@ -42,12 +42,3 @@ jobs:
       - name: Build
         run: dotnet build **/*/Shared.csproj --configuration Release
     
-      - name: Test
-        run: dotnet test **/*/Shared.csproj --no-restore --verbosity normal
-      
-      - name: Publish NuGet
-        run: | # | character makes the "run" property multi-line, so we can put multiple commands in the same step
-          mkdir __nuget
-          dotnet pack */Shared -c Release -o __nuget --no-restore
-          dotnet nuget push "./__nuget/*.nupkg" --skip-duplicate --no-symbols true --api-key ${{secrets.NUGET_TOKEN}} --source https://api.nuget.org/v3/index.json
-          rm -rf __out
