@@ -8,7 +8,7 @@
     <Authors>Viwe Nkepu</Authors>
     <Company>gitViwe</Company>
     <Description>This shared library will house common implementation and wrapper classes</Description>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <GenerateDocumentationFile>False</GenerateDocumentationFile>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
   </PropertyGroup>
 
