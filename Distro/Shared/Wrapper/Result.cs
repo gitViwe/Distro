@@ -62,6 +62,16 @@ public class Result : IResult
     {
         return new Result { Succeeded = true, Messages = new List<string> { message } };
     }
+
+    /// <summary>
+    /// Successful result
+    /// </summary>
+    /// <param name="messages">The error messages to add</param>
+    /// <returns>The <see cref="Succeeded"/> and <see cref="Messages"/> property values</returns>
+    public static IResult Success(IEnumerable<string> messages)
+    {
+        return new Result { Succeeded = true, Messages = messages };
+    }
 }
 
 /// <summary>
