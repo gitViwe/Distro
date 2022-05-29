@@ -12,10 +12,18 @@ public static class Startup
         services.Configure<CacheConfiguration>(configuration.GetSection(nameof(CacheConfiguration)));
 
         // get the current value from the appsettings.json section
+        // https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/options?view=aspnetcore-6.0#options-interfaces
         services.AddSingleton(serviceProvider => serviceProvider.GetRequiredService<IOptions<CacheConfiguration>>().Value);
 
-        // add In-Memory Caching
+        // add in-memory caching
         services.AddMemoryCache();
+
+        // add distributed caching
+        services.AddStackExchangeRedisCache(options =>
+        {
+            options.Configuration = "localhost:4455";
+        });
+
         // register services
         services.AddTransient<MemoryCacheService>();
         services.AddTransient<RedisCacheService>();

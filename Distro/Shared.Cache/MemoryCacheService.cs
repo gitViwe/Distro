@@ -7,7 +7,6 @@ internal class MemoryCacheService : ICacheService
     private readonly IMemoryCache _memoryCache;
     private readonly MemoryCacheEntryOptions _cacheOptions = new();
 
-    // https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/options?view=aspnetcore-6.0#options-interfaces
     public MemoryCacheService(IMemoryCache memoryCache, CacheConfiguration cacheConfiguration)
     {
         _memoryCache = memoryCache;
@@ -22,25 +21,28 @@ internal class MemoryCacheService : ICacheService
         }
     }
 
-    public Task<TResult> GetAsync<TResult>(string key)
+    public async ValueTask<TResult> GetAsync<TResult>(string key, CancellationToken token = default) where TResult : class, new()
     {
-        return Task.FromResult(_memoryCache.Get<TResult>(key));
+        // get the cached item
+        var data = await Task.Run(() => _memoryCache.Get<TResult>(key), token);
+
+        if (data is null)
+        {
+            return new TResult();
+        }
+
+        return data;
     }
 
-    public Task RemoveAsync(string key)
+    public async ValueTask RemoveAsync(string key, CancellationToken token = default)
     {
-        return Task.Run(() => _memoryCache.Remove(key));
+        // remove the cached item
+        await Task.Run(() => _memoryCache.Remove(key), token);
     }
 
-    public Task<TData> SetAsync<TData>(string key, TData data)
+    public async ValueTask SetAsync<TData>(string key, TData data, CancellationToken token = default)
     {
-        return Task.FromResult(_memoryCache.Set(key, data, _cacheOptions));
-    }
-
-    public Task<bool> TryGetAsync<TResult>(string key, out TResult data)
-    {
-        _memoryCache.TryGetValue(key, out data);
-
-        return Task.FromResult(data is not null);
+        // add the item to cache
+        await Task.Run(() => _memoryCache.Set(key, data, _cacheOptions), token);
     }
 }
