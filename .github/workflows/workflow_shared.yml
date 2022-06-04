@@ -37,10 +37,10 @@ jobs:
           NUGET_AUTH_TOKEN: ${{secrets.NUGET_TOKEN}}
           
       - name: Restore
-        run: dotnet restore **/*/Shared.csproj 
+        run: dotnet restore **/*/Shared.csproj; **/*/Shared.Cache.csproj
       
       - name: Build
-        run: dotnet build **/*/Shared.csproj --configuration Release
+        run: dotnet build **/*/Shared.csproj; **/*/Shared.Cache.csproj --configuration Release
     
       - name: Test
         run: dotnet test **/*/Shared.Test.csproj --verbosity normal
