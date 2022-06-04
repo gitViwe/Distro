@@ -44,10 +44,10 @@ jobs:
     
       - name: Test
         run: dotnet test **/*/Shared.Test.csproj --verbosity normal
-        
+
       - name: Publish NuGet
         run: | # | character makes the "run" property multi-line, so we can put multiple commands in the same step
           mkdir __nuget
           dotnet pack Distro -c Release -o __nuget --no-restore
-          dotnet nuget push "./__nuget/*.nupkg" --skip-duplicate --no-symbols true --api-key ${{secrets.PAT_GITHUB}} --source https://nuget.pkg.github.com/Distro/index.json
+          dotnet nuget push ./__nuget/*.nupkg --skip-duplicate --no-symbols true --api-key ${{secrets.NUGET_TOKEN}}
           rm -rf __out
