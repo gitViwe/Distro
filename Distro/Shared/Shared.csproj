@@ -10,6 +10,7 @@
     <Description>This shared library will house common implementation and wrapper classes</Description>
     <GenerateDocumentationFile>False</GenerateDocumentationFile>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+    <PackageId>gitViwe.$(AssemblyName)</PackageId>
   </PropertyGroup>
 
 </Project>
