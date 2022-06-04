@@ -37,10 +37,10 @@ jobs:
           NUGET_AUTH_TOKEN: ${{secrets.NUGET_TOKEN}}
           
       - name: Restore
-        run: dotnet restore **/*/Shared.csproj 
+        run: dotnet restore Distro
       
       - name: Build
-        run: dotnet build **/*/Shared.csproj --configuration Release
+        run: dotnet build Distro --configuration Release
     
       - name: Test
         run: dotnet test **/*/Shared.Test.csproj --verbosity normal
@@ -49,5 +49,5 @@ jobs:
         run: | # | character makes the "run" property multi-line, so we can put multiple commands in the same step
           mkdir __nuget
           dotnet pack Distro --configuration Release -o __nuget --no-restore
-          dotnet nuget push "./__nuget/*.nupkg" --skip-duplicate --no-symbols true
+          dotnet nuget push "./__nuget/*.nupkg" --skip-duplicate --no-symbols true -k ${{secrets.NUGET_TOKEN}}
           rm -rf __out
