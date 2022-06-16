@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Shared\Shared.csproj" />
+    <ProjectReference Include="..\gitViwe.Shared\gitViwe.Shared.csproj" />
   </ItemGroup>
 
 </Project>

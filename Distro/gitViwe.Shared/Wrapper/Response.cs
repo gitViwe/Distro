@@ -1,4 +1,4 @@
-﻿namespace Shared.Wrapper;
+﻿namespace gitViwe.Shared;
 
 /// <summary>
 /// A unified return type for the API endpoint
