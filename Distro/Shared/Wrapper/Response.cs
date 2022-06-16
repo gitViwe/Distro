@@ -19,7 +19,7 @@ public class Response : IResponse
     /// Unsuccessful result
     /// </summary>
     /// <returns>The <see cref="Succeeded"/> property value</returns>
-    public static IResponse Fail()
+    public static Response Fail()
     {
         return new Response { Succeeded = false };
     }
@@ -29,7 +29,7 @@ public class Response : IResponse
     /// </summary>
     /// <param name="message">The error message to add</param>
     /// <returns>The <see cref="Succeeded"/> and <see cref="Messages"/> property values</returns>
-    public static IResponse Fail(string message)
+    public static Response Fail(string message)
     {
         return new Response { Succeeded = false, Messages = new List<string> { message } };
     }
@@ -39,7 +39,7 @@ public class Response : IResponse
     /// </summary>
     /// <param name="messages">The error messages to add</param>
     /// <returns>The <see cref="Succeeded"/> and <see cref="Messages"/> property values</returns>
-    public static IResponse Fail(IEnumerable<string> messages)
+    public static Response Fail(IEnumerable<string> messages)
     {
         return new Response { Succeeded = false, Messages = messages };
     }
@@ -48,7 +48,7 @@ public class Response : IResponse
     /// Successful result
     /// </summary>
     /// <returns>The <see cref="Succeeded"/> property value</returns>
-    public static IResponse Success()
+    public static Response Success()
     {
         return new Response { Succeeded = true };
     }
@@ -58,7 +58,7 @@ public class Response : IResponse
     /// </summary>
     /// <param name="message">The success message to add</param>
     /// <returns>The <see cref="Succeeded"/> and <see cref="Messages"/> property values</returns>
-    public static IResponse Success(string message)
+    public static Response Success(string message)
     {
         return new Response { Succeeded = true, Messages = new List<string> { message } };
     }
@@ -68,17 +68,17 @@ public class Response : IResponse
     /// </summary>
     /// <param name="messages">The error messages to add</param>
     /// <returns>The <see cref="Succeeded"/> and <see cref="Messages"/> property values</returns>
-    public static IResponse Success(IEnumerable<string> messages)
+    public static Response Success(IEnumerable<string> messages)
     {
         return new Response { Succeeded = true, Messages = messages };
     }
 }
 
 /// <summary>
-/// Extends on <see cref="IResponse"/> to return data
+/// Extends on <see cref="Response"/> to return data
 /// </summary>
 /// <typeparam name="TData">The data type returned from the request</typeparam>
-public class Result<TData> : IResponse<TData> where TData : class, new()
+public class Response<TData> : IResponse<TData> where TData : class, new()
 {
     /// <summary>
     /// The content returned from the request
@@ -100,9 +100,9 @@ public class Result<TData> : IResponse<TData> where TData : class, new()
     /// </summary>
     /// <param name="data">The content to add</param>
     /// <returns>The <see cref="Succeeded"/> property value</returns>
-    public static IResponse<TData> Fail(TData data)
+    public static Response<TData> Fail(TData data)
     {
-        return new Result<TData> { Succeeded = false, Data = data };
+        return new Response<TData> { Succeeded = false, Data = data };
     }
 
     /// <summary>
@@ -111,9 +111,9 @@ public class Result<TData> : IResponse<TData> where TData : class, new()
     /// <param name="message">The error message to add</param>
     /// <param name="data">The content to add</param>
     /// <returns>The <see cref="Succeeded"/> and <see cref="Messages"/> property values</returns>
-    public static IResponse<TData> Fail(string message, TData data)
+    public static Response<TData> Fail(string message, TData data)
     {
-        return new Result<TData> { Succeeded = false, Messages = new List<string> { message }, Data = data };
+        return new Response<TData> { Succeeded = false, Messages = new List<string> { message }, Data = data };
     }
 
     /// <summary>
@@ -122,9 +122,9 @@ public class Result<TData> : IResponse<TData> where TData : class, new()
     /// <param name="messages">The error messages to add</param>
     /// <param name="data">The content to add</param>
     /// <returns>The <see cref="Succeeded"/> and <see cref="Messages"/> property values</returns>
-    public static IResponse<TData> Fail(IEnumerable<string> messages, TData data)
+    public static Response<TData> Fail(IEnumerable<string> messages, TData data)
     {
-        return new Result<TData> { Succeeded = false, Messages = messages, Data = data };
+        return new Response<TData> { Succeeded = false, Messages = messages, Data = data };
     }
 
     /// <summary>
@@ -132,9 +132,9 @@ public class Result<TData> : IResponse<TData> where TData : class, new()
     /// </summary>
     /// <param name="data">The content to add</param>
     /// <returns>The <see cref="Data"/> property value</returns>
-    public static IResponse<TData> Success(TData data)
+    public static Response<TData> Success(TData data)
     {
-        return new Result<TData> { Succeeded = true, Data = data };
+        return new Response<TData> { Succeeded = true, Data = data };
     }
 
     /// <summary>
@@ -143,9 +143,9 @@ public class Result<TData> : IResponse<TData> where TData : class, new()
     /// <param name="message">The success message to add</param>
     /// <param name="data">The content to add</param>
     /// <returns>The <see cref="Succeeded"/> and <see cref="Messages"/> property values</returns>
-    public static IResponse<TData> Success(string message, TData data)
+    public static Response<TData> Success(string message, TData data)
     {
-        return new Result<TData> { Succeeded = true, Messages = new List<string> { message }, Data = data };
+        return new Response<TData> { Succeeded = true, Messages = new List<string> { message }, Data = data };
     }
 
     /// <summary>
@@ -154,8 +154,8 @@ public class Result<TData> : IResponse<TData> where TData : class, new()
     /// <param name="messages">The success messages to add</param>
     /// <param name="data">The content to add</param>
     /// <returns>The <see cref="Data"/> and <see cref="Messages"/> property values</returns>
-    public static Result<TData> Success(IEnumerable<string> messages, TData data)
+    public static Response<TData> Success(IEnumerable<string> messages, TData data)
     {
-        return new Result<TData> { Succeeded = true, Data = data, Messages = messages };
+        return new Response<TData> { Succeeded = true, Data = data, Messages = messages };
     }
 }

@@ -72,7 +72,7 @@ public class ResultsWrapperTests
     [Fact]
     public void Fail_No_Message_Data()
     {
-        var result = Result<Hero>.Fail(_expectedHero);
+        var result = Response<Hero>.Fail(_expectedHero);
 
         _output.WriteLine($"'Result' object must not be null.");
         Assert.NotNull(result);
@@ -90,7 +90,7 @@ public class ResultsWrapperTests
     [Fact]
     public void Fail_With_Message_Data()
     {
-        var result = Result<Hero>.Fail(_expectedErrorMessage, _expectedHero);
+        var result = Response<Hero>.Fail(_expectedErrorMessage, _expectedHero);
 
         _output.WriteLine($"'Result' object must not be null.");
         Assert.NotNull(result);
@@ -114,7 +114,7 @@ public class ResultsWrapperTests
     [Fact]
     public void Fail_With_Messages_Data()
     {
-        var result = Result<Hero>.Fail(_expectedErrorMessages, _expectedHero);
+        var result = Response<Hero>.Fail(_expectedErrorMessages, _expectedHero);
 
         _output.WriteLine($"'Result' object must not be null.");
         Assert.NotNull(result);
@@ -186,7 +186,7 @@ public class ResultsWrapperTests
     [Fact]
     public void Success_No_Message_Data()
     {
-        var result = Result<Villian>.Success(_expectedVillian);
+        var result = Response<Villian>.Success(_expectedVillian);
 
         _output.WriteLine($"'Result' object must not be null.");
         Assert.NotNull(result);
@@ -204,7 +204,7 @@ public class ResultsWrapperTests
     [Fact]
     public void Success_With_Message_Data()
     {
-        var result = Result<Villian>.Success(_expectedSuccessMessage, _expectedVillian);
+        var result = Response<Villian>.Success(_expectedSuccessMessage, _expectedVillian);
 
         _output.WriteLine($"'Result' object must not be null.");
         Assert.NotNull(result);
@@ -228,7 +228,7 @@ public class ResultsWrapperTests
     [Fact]
     public void Success_With_Messages_Data()
     {
-        var result = Result<Villian>.Success(_expectedSuccessMessages, _expectedVillian);
+        var result = Response<Villian>.Success(_expectedSuccessMessages, _expectedVillian);
 
         _output.WriteLine($"'Result' object must not be null.");
         Assert.NotNull(result);
