@@ -4,7 +4,7 @@
 /// A unified return type for the API endpoint
 /// </summary>
 /// <typeparam name="TData">The data type returned from the request</typeparam>
-public class PaginatedResult<TData> : Result where TData : class, new()
+public class PaginatedResponse<TData> : Response where TData : class, new()
 {
     /// <summary>
     /// Instantiate a new page-able result to return 
@@ -15,7 +15,7 @@ public class PaginatedResult<TData> : Result where TData : class, new()
     /// <param name="count">The total number of items</param>
     /// <param name="page">The current page number</param>
     /// <param name="pageSize">The number of items in a single page</param>
-    internal PaginatedResult(bool succeeded, IEnumerable<TData> data, IEnumerable<string> messages, int count = 0, int page = 1, int pageSize = 15)
+    internal PaginatedResponse(bool succeeded, IEnumerable<TData> data, IEnumerable<string> messages, int count = 0, int page = 1, int pageSize = 15)
     {
         Succeeded = succeeded;
         Data = data;
@@ -27,25 +27,46 @@ public class PaginatedResult<TData> : Result where TData : class, new()
 
     }
 
-
-    public static PaginatedResult<TData> Failure()
+    /// <summary>
+    /// A failed response
+    /// </summary>
+    /// <returns>An empty instance of <typeparamref name="TData"/></returns>
+    public static PaginatedResponse<TData> Failure()
     {
-        return new PaginatedResult<TData>(false, new List<TData>(), new List<string>());
+        return new PaginatedResponse<TData>(false, new List<TData>(), new List<string>());
     }
 
-    public static PaginatedResult<TData> Failure(string message)
+    /// <summary>
+    /// A failed response
+    /// </summary>
+    /// <param name="message">The error message to add</param>
+    /// <returns>An empty instance of <typeparamref name="TData"/></returns>
+    public static PaginatedResponse<TData> Failure(string message)
     {
-        return new PaginatedResult<TData>(false, new List<TData>(), new List<string> { message });
+        return new PaginatedResponse<TData>(false, new List<TData>(), new List<string> { message });
     }
 
-    public static PaginatedResult<TData> Failure(IEnumerable<string> messages)
+    /// <summary>
+    /// A failed response
+    /// </summary>
+    /// <param name="messages">The error messages to add</param>
+    /// <returns>An empty instance of <typeparamref name="TData"/></returns>
+    public static PaginatedResponse<TData> Failure(IEnumerable<string> messages)
     {
-        return new PaginatedResult<TData>(false, new List<TData>(), messages);
+        return new PaginatedResponse<TData>(false, new List<TData>(), messages);
     }
 
-    public static PaginatedResult<TData> Success(IEnumerable<TData> data, int count, int page, int pageSize)
+    /// <summary>
+    /// A succcessful response
+    /// </summary>
+    /// <param name="data">The content returned from the request</param>
+    /// <param name="count">The total number of items</param>
+    /// <param name="page">The current page number</param>
+    /// <param name="pageSize">The number of items in a single page</param>
+    /// <returns>An instance of <typeparamref name="TData"/></returns>
+    public static PaginatedResponse<TData> Success(IEnumerable<TData> data, int count, int page, int pageSize)
     {
-        return new PaginatedResult<TData>(true, data, new List<string>(), count, page, pageSize);
+        return new PaginatedResponse<TData>(true, data, new List<string>(), count, page, pageSize);
     }
 
     /// <summary>

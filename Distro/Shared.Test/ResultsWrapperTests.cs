@@ -24,7 +24,7 @@ public class ResultsWrapperTests
     [Fact]
     public void Fail_No_Message()
     {
-        var result = Result.Fail();
+        var result = Response.Fail();
 
         _output.WriteLine($"'Result' object must not be null.");
         Assert.NotNull(result);
@@ -36,7 +36,7 @@ public class ResultsWrapperTests
     [Fact]
     public void Fail_With_Message()
     {
-        var result = Result.Fail(_expectedErrorMessage);
+        var result = Response.Fail(_expectedErrorMessage);
 
         _output.WriteLine($"'Result' object must not be null.");
         Assert.NotNull(result);
@@ -54,7 +54,7 @@ public class ResultsWrapperTests
     [Fact]
     public void Fail_With_Messages()
     {
-        var result = Result.Fail(_expectedErrorMessages);
+        var result = Response.Fail(_expectedErrorMessages);
 
         _output.WriteLine($"'Result' object must not be null.");
         Assert.NotNull(result);
@@ -138,7 +138,7 @@ public class ResultsWrapperTests
     [Fact]
     public void Success_No_Message()
     {
-        var result = Result.Success();
+        var result = Response.Success();
 
         _output.WriteLine($"'Result' object must not be null.");
         Assert.NotNull(result);
@@ -150,7 +150,7 @@ public class ResultsWrapperTests
     [Fact]
     public void Success_With_Message()
     {
-        var result = Result.Success(_expectedSuccessMessage);
+        var result = Response.Success(_expectedSuccessMessage);
 
         _output.WriteLine($"'Result' object must not be null.");
         Assert.NotNull(result);
@@ -168,7 +168,7 @@ public class ResultsWrapperTests
     [Fact]
     public void Success_With_Messages()
     {
-        var result = Result.Success(_expectedSuccessMessages);
+        var result = Response.Success(_expectedSuccessMessages);
 
         _output.WriteLine($"'Result' object must not be null.");
         Assert.NotNull(result);

@@ -3,7 +3,7 @@
 /// <summary>
 /// A unified return type for the API endpoint
 /// </summary>
-public interface IResult
+public interface IResponse
 {
     /// <summary>
     /// The response messages
@@ -17,10 +17,10 @@ public interface IResult
 }
 
 /// <summary>
-/// Extends on <see cref="IResult"/> to return data
+/// Extends on <see cref="IResponse"/> to return data
 /// </summary>
 /// <typeparam name="TData">The data type returned from the request</typeparam>
-public interface IResult<out TData> : IResult
+public interface IResponse<out TData> : IResponse
 {
     /// <summary>
     /// The content returned from the request
