@@ -4,8 +4,14 @@ using Microsoft.Extensions.Options;
 
 namespace Shared.Cache;
 
+/// <summary>
+/// Implementation of the services registered in the DI container
+/// </summary>
 public static class Startup
 {
+    /// <summary>
+    /// Registers all required cache services
+    /// </summary>
     public static IServiceCollection AddCustomCache(this IServiceCollection services, IConfiguration configuration)
     {
         // add 'CacheConfiguration' section to dependency container
