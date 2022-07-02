@@ -12,16 +12,10 @@ internal class LocalStorageService : ILocalStorageService
         _jsRuntime = jsRuntime;
     }
 
-    public async Task<TResult> GetAsync<TResult>(string key, CancellationToken token = default) where TResult : class, new()
+    public async Task<TResult> GetAsync<TResult>(string key, CancellationToken token = default)
     {
         // run a JavaScript function to get item based on the 'key'
         var jsonResult = await _jsRuntime.InvokeAsync<string>("localStorage.getItem", token, key);
-
-        if (jsonResult is null)
-        {
-            // return default value of the object type
-            return new TResult();
-        }
 
         // deserialize JSON string to object type
         return JsonSerializer.Deserialize<TResult>(jsonResult);
