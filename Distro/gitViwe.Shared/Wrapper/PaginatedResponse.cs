@@ -9,6 +9,11 @@ public class PaginatedResponse<TData> : Response where TData : class, new()
     /// <summary>
     /// Instantiate a new page-able result to return 
     /// </summary>
+    public PaginatedResponse() { }
+
+    /// <summary>
+    /// Instantiate a new page-able result to return 
+    /// </summary>
     /// <param name="succeeded">Flags whether the process was successful</param>
     /// <param name="data">The content returned from the request</param>
     /// <param name="messages">The response messages</param>
