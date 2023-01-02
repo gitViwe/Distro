@@ -19,7 +19,7 @@ internal class StatusCodeProblemDetails
     {
         var details = new ProblemDetails();
 
-        SetDetails(new ProblemDetails(), statusCode);
+        SetDetails(details, statusCode);
 
         return details;
     }
