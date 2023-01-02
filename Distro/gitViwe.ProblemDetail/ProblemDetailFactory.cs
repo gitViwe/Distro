@@ -9,7 +9,7 @@ namespace gitViwe.ProblemDetail;
 /// <summary>
 /// A custom factory to produce <see cref="ProblemDetails"/> and <see cref="ValidationProblemDetails"/>.
 /// </summary>
-internal class ProblemDetailFactory : ProblemDetailsFactory, IProblemDetailFactory
+public class ProblemDetailFactory : ProblemDetailsFactory, IProblemDetailFactory
 {
     private const string CONTENT_TYPE = "application/problem+json";
 
