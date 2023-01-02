@@ -21,6 +21,18 @@ public class DefaultProblemDetails : ProblemDetails
     }
 
     /// <summary>
+    /// Creates a custom <see cref="ProblemDetails"/> class
+    /// </summary>
+    /// <param name="traceIdentifier">Theunique identifier to represent this request in trace logs</param>
+    /// <param name="problemDetails">The default <see cref="ProblemDetails"/></param>
+    /// <param name="extensions">Problem type definitions MAY extend the problem details object with additional members.</param>
+    public DefaultProblemDetails(string traceIdentifier, ProblemDetails problemDetails, IDictionary<string, object?> extensions)
+        :this(traceIdentifier, problemDetails)
+    {
+        AddExtensions(extensions);
+    }
+
+    /// <summary>
     /// A unique identifier to represent this request in trace logs
     /// </summary>
     [JsonPropertyName("traceId")]
@@ -45,14 +57,29 @@ public class DefaultProblemDetails : ProblemDetails
 
     private void SetProblemDefaults(ProblemDetails problem)
     {
-        this.Status = problem.Status;
-        this.Title = problem.Title;
-        this.Type = problem.Type;
-        this.Detail = problem.Detail;
-        this.Instance = problem.Instance;
-        foreach (var item in problem.Extensions)
+        Status = problem.Status;
+        Title = problem.Title;
+        Type = problem.Type;
+
+        if (!string.IsNullOrWhiteSpace(problem.Detail))
         {
-            this.Extensions.Add(item);
+            Detail = problem.Detail;
+        }
+
+        if (!string.IsNullOrWhiteSpace(problem.Instance))
+        {
+            Instance = problem.Instance;
+        }
+    }
+
+    private void AddExtensions(IDictionary<string, object?> extensions)
+    {
+        if (extensions is not null && extensions.Any())
+        {
+            foreach (var item in extensions)
+            {
+                Extensions.Add(item);
+            }
         }
     }
 }

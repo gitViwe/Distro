@@ -19,6 +19,12 @@ internal class ProblemDetailFactory : ProblemDetailsFactory, IProblemDetailFacto
         return new DefaultProblemDetails(context.TraceIdentifier, problemDetails);
     }
 
+    public DefaultProblemDetails CreateProblemDetails(HttpContext context, int statusCode, IDictionary<string, object?> extensions, string? detail = null)
+    {
+        var problemDetails = CreateProblemDetails(context, statusCode, title: null, type: null, detail, instance: context.Request.Path);
+        return new DefaultProblemDetails(context.TraceIdentifier, problemDetails, extensions);
+    }
+
     public ValidationProblemDetails CreateValidationProblemDetails(HttpContext context, int statusCode, IDictionary<string, string[]> errors, string? detail = null)
     {
         return CreateValidationProblemDetails(context, errors, statusCode, title: null, type: null, detail, instance: context.Request.Path);
@@ -61,7 +67,7 @@ internal class ProblemDetailFactory : ProblemDetailsFactory, IProblemDetailFacto
     /// Creates a <see cref="ValidationProblemDetails" /> instance that configures defaults based on values specified in <see cref="ApiBehaviorOptions" />.
     /// </summary>
     /// <param name="context">The <see cref="HttpContext" />.</param>
-    /// <param name="errors">The <see cref="IDictionary{string, string[]}" />.</param>
+    /// <param name="errors">The key value pair of the errors.</param>
     /// <param name="statusCode">The value for <see cref="ProblemDetails.Status"/>.</param>
     /// <param name="title">The value for <see cref="ProblemDetails.Title" />.</param>
     /// <param name="type">The value for <see cref="ProblemDetails.Type" />.</param>

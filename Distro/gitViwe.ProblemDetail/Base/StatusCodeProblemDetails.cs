@@ -7,7 +7,7 @@ namespace gitViwe.ProblemDetail.Base;
 /// A basic problem details representation for an HTTP status code.
 /// It includes default values for <see cref="ProblemDetails.Status"/>, <see cref="ProblemDetails.Type"/> and <see cref="ProblemDetails.Title"/>.
 /// </summary>
-internal class StatusCodeProblemDetails : ProblemDetails
+internal class StatusCodeProblemDetails
 {
     /// <summary>
     /// Creates a <see cref="ProblemDetails"/> class based on the <paramref name="statusCode"/>
