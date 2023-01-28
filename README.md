@@ -3,6 +3,11 @@ This repository will house a collection of shared libraries that will be distrib
 
 ## Problem Details
 
+Nuget package:
+```
+dotnet add package gitViwe.ProblemDetail --version 1.0.5
+```
+
 Register the service:
 
 ```csharp
