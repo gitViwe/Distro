@@ -33,3 +33,39 @@ public IActionResult Result([FromServices] IProblemDetailFactory problemDetailFa
     return StatusCode(problem.Status!.Value, problem);
 }
 ```
+IProblemDetailFactory from the exception handler:
+
+```csharp
+// Resolve and use 'IProblemDetailFactory' interface
+internal static void UseHubExceptionHandler(this IApplicationBuilder app, ILogger logger, IServiceProvider serviceProvider)
+{
+    app.UseExceptionHandler(options =>
+    {
+        options.Run(async context =>
+        {
+            // default error status code
+            int statusCode = StatusCodes.Status500InternalServerError;
+            // resolve 'IProblemDetailFactory' from the DI container
+            var problemDetailsFactory = serviceProvider.GetRequiredService<IProblemDetailFactory>();
+            // default response content
+            string response = JsonSerializer.Serialize(problemDetailsFactory.CreateProblemDetails(context, statusCode));
+
+            var exceptionFeature = context.Features.Get<IExceptionHandlerPathFeature>();
+            // override response based on exception
+            if (exceptionFeature.Error is ValidationException validationException)
+            {
+                statusCode = StatusCodes.Status400BadRequest;
+                response = JsonSerializer.Serialize(problemDetailsFactory.CreateValidationProblemDetails(
+                                                                            context,
+                                                                            statusCode,
+                                                                            validationException.ToDictionary()));
+            }
+
+            context.Response.StatusCode = statusCode;
+            context.Response.ContentType = "application/problem+json";
+            await context.Response.WriteAsync(response);
+            await context.Response.CompleteAsync();
+        });
+    });
+}
+```
