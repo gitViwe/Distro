@@ -10,15 +10,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared.Test", "Shared.Test\Shared.Test.csproj", "{9F1C36CC-5431-494E-ADA3-CA344AF669B8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared.Cache", "Shared.Cache\Shared.Cache.csproj", "{2CC345BA-AC4F-442D-9C53-9993AE69E870}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gitViwe.Shared", "gitViwe.Shared\gitViwe.Shared.csproj", "{4054E02E-8717-4838-89CD-9C36A7E45EB0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gitViwe.Shared.Cache", "gitViwe.Shared.Cache\gitViwe.Shared.Cache.csproj", "{4C9E215D-F761-4D29-B8F1-6ED6F686C031}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gitViwe.ProblemDetail", "gitViwe.ProblemDetail\gitViwe.ProblemDetail.csproj", "{A0106741-C93E-47B3-ACF6-BB22180D8280}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gitViwe.Shared.Extension", "gitViwe.Shared.Extension\gitViwe.Shared.Extension.csproj", "{30D0FF74-858B-4954-8914-3C4D3401145F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gitViwe.Shared.Extension", "gitViwe.Shared.Extension\gitViwe.Shared.Extension.csproj", "{30D0FF74-858B-4954-8914-3C4D3401145F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,10 +28,6 @@ Global
 		{9F1C36CC-5431-494E-ADA3-CA344AF669B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F1C36CC-5431-494E-ADA3-CA344AF669B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F1C36CC-5431-494E-ADA3-CA344AF669B8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2CC345BA-AC4F-442D-9C53-9993AE69E870}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2CC345BA-AC4F-442D-9C53-9993AE69E870}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2CC345BA-AC4F-442D-9C53-9993AE69E870}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2CC345BA-AC4F-442D-9C53-9993AE69E870}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4054E02E-8717-4838-89CD-9C36A7E45EB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4054E02E-8717-4838-89CD-9C36A7E45EB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4054E02E-8717-4838-89CD-9C36A7E45EB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
