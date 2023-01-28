@@ -5,20 +5,13 @@ This repository will house a collection of shared libraries that will be distrib
 
 Nuget package:
 ```
-dotnet add package gitViwe.ProblemDetail --version 1.0.5
+dotnet add package gitViwe.ProblemDetail --version 1.1.0
 ```
 
-Register the service:
+ProblemDetailFactory static class:
 
 ```csharp
-// Add Custom Problem Detail Factory inside ConfigureServices
-services.AddCustomProblemDetailFactory();
-```
-IProblemDetailFactory from the controller:
-
-```csharp
-// Inject and use 'IProblemDetailFactory' interface
-public IActionResult Result([FromServices] IProblemDetailFactory problemDetailFactory)
+public IActionResult Result()
 {
     var extensionValue = new
     {
@@ -26,7 +19,7 @@ public IActionResult Result([FromServices] IProblemDetailFactory problemDetailFa
         Accounts = { "/account/12345", "/account/67890" }
     };
 
-    var problem = problemDetailFactory.CreateProblemDetails(
+    var problem = ProblemDetailFactory.CreateProblemDetails(
                     context: HttpContext,
                     statusCode: StatusCodes.Status412PreconditionFailed,
                     extensions: new Dictionary<string, object?>()
@@ -38,36 +31,27 @@ public IActionResult Result([FromServices] IProblemDetailFactory problemDetailFa
     return StatusCode(problem.Status!.Value, problem);
 }
 ```
-IProblemDetailFactory from the exception handler:
+ProblemDetailFactory from the exception handler:
 
 ```csharp
-// Resolve and use 'IProblemDetailFactory' interface
-internal static void UseHubExceptionHandler(this IApplicationBuilder app, ILogger logger, IServiceProvider serviceProvider)
+internal static void UseHubExceptionHandler(this IApplicationBuilder app, ILogger logger)
 {
     app.UseExceptionHandler(options =>
     {
         options.Run(async context =>
         {
-            // default error status code
-            int statusCode = StatusCodes.Status500InternalServerError;
-            // resolve 'IProblemDetailFactory' from the DI container
-            var problemDetailsFactory = serviceProvider.GetRequiredService<IProblemDetailFactory>();
-            // default response content
-            string response = JsonSerializer.Serialize(problemDetailsFactory.CreateProblemDetails(context, statusCode));
+            var handlerFeature = context.Features.Get<IExceptionHandlerPathFeature>();
 
-            var exceptionFeature = context.Features.Get<IExceptionHandlerPathFeature>();
-            // override response based on exception
-            if (exceptionFeature.Error is ValidationException validationException)
+            int statusCode = StatusCodes.Status500InternalServerError;
+            string response = JsonSerializer.Serialize(ProblemDetailFactory.CreateProblemDetails(context, statusCode));
+
+            if (handlerFeature is not null && handlerFeature.Error is ValidationException validation)
             {
                 statusCode = StatusCodes.Status400BadRequest;
-                response = JsonSerializer.Serialize(problemDetailsFactory.CreateValidationProblemDetails(
-                                                                            context,
-                                                                            statusCode,
-                                                                            validationException.ToDictionary()));
+                response = JsonSerializer.Serialize(ProblemDetailFactory.CreateValidationProblemDetails(context, statusCode, validation.ToDictionary()));
+                logger.Log(LogLevel.Information, validation, "A validation exception occurred. Problem detail: {response}", response);
             }
 
-            context.Response.StatusCode = statusCode;
-            context.Response.ContentType = "application/problem+json";
             await context.Response.WriteAsync(response);
             await context.Response.CompleteAsync();
         });
