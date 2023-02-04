@@ -12,6 +12,11 @@ public class DefaultProblemDetails : ProblemDetails
     /// <summary>
     /// Creates a custom <see cref="ProblemDetails"/> class
     /// </summary>
+    public DefaultProblemDetails() { }
+
+    /// <summary>
+    /// Creates a custom <see cref="ProblemDetails"/> class
+    /// </summary>
     /// <param name="traceIdentifier">Theunique identifier to represent this request in trace logs</param>
     /// <param name="problemDetails">The default <see cref="ProblemDetails"/></param>
     public DefaultProblemDetails(string traceIdentifier, ProblemDetails problemDetails)
@@ -36,7 +41,7 @@ public class DefaultProblemDetails : ProblemDetails
     /// A unique identifier to represent this request in trace logs
     /// </summary>
     [JsonPropertyName("traceId")]
-    public string TraceId { get; }
+    public string? TraceId { get; init; }
 
     /// <summary>
     /// A string that represents the current object.
