@@ -3,12 +3,12 @@ This repository will house a collection of shared libraries that will be distrib
 
 ## Problem Details
 
-Nuget package:
+### Nuget package:
 ```
-dotnet add package gitViwe.ProblemDetail --version 1.1.0
+dotnet add package gitViwe.ProblemDetail --version 1.1.2
 ```
 
-ProblemDetailFactory static class:
+### Usage:
 
 ```csharp
 public IActionResult Result()
@@ -31,30 +31,51 @@ public IActionResult Result()
     return StatusCode(problem.Status!.Value, problem);
 }
 ```
-ProblemDetailFactory from the exception handler:
+
+## Caching
+
+### Nuget package:
+```
+dotnet add package gitViwe.Shared.Cache --version 1.0.14
+```
+
+### Redis distributed cache:
+#### Register the `IRedisDistributedCache` service using settings from configuration file or manually set values
 
 ```csharp
-internal static void UseHubExceptionHandler(this IApplicationBuilder app, ILogger logger)
+builder.Services.AddGitViweRedisCache(builder.Configuration)
+```
+```
+builder.Services.AddGitViweRedisCache(options =>
 {
-    app.UseExceptionHandler(options =>
-    {
-        options.Run(async context =>
-        {
-            var handlerFeature = context.Features.Get<IExceptionHandlerPathFeature>();
+    options.Configuration = "localhost:6379";
+    options.InstanceName= "redis_demo";
+    options.AbsoluteExpirationInMinutes = 5;
+    options.SlidingExpirationInMinutes = 2;
+});
+```
 
-            int statusCode = StatusCodes.Status500InternalServerError;
-            string response = JsonSerializer.Serialize(ProblemDetailFactory.CreateProblemDetails(context, statusCode));
+#### Add configuration to `appsettings.json` file
+```json
+"ConnectionStrings": {
+    "Redis": "localhost:6379"
+  },
+  "RedisDistributedCacheOption": {
+    "InstanceName": "redis_demo",
+    "AbsoluteExpirationInMinutes": 5,
+    "SlidingExpirationInMinutes": 2
+  }
+```
 
-            if (handlerFeature is not null && handlerFeature.Error is ValidationException validation)
-            {
-                statusCode = StatusCodes.Status400BadRequest;
-                response = JsonSerializer.Serialize(ProblemDetailFactory.CreateValidationProblemDetails(context, statusCode, validation.ToDictionary()));
-                logger.Log(LogLevel.Information, validation, "A validation exception occurred. Problem detail: {response}", response);
-            }
+### Usage:
 
-            await context.Response.WriteAsync(response);
-            await context.Response.CompleteAsync();
-        });
-    });
+```csharp
+public IActionResult Result([FromServices] IRedisDistributedCache redis, [FromBody] UrlShortenRequest request)
+{
+    await redis.SetAsync(key: "mykey", value: request.Uri, absoluteExpirationRelativeToNow: TimeSpan.FromMinutes(request.MinutesUntilExpiry));
+
+    string value = await redis.GetAsync(key: "mykey") ?? string.Empty;
+
+    return value;
 }
 ```

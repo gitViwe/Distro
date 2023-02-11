@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using gitViwe.Shared.Cache.Option;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace gitViwe.Shared.Cache;
@@ -9,32 +10,41 @@ namespace gitViwe.Shared.Cache;
 public static class Startup
 {
     /// <summary>
-    /// Registers required cache services <see cref="IMemoryCacheService"/> and <see cref="IRedisCacheService"/>
-    /// <br />Requires appsettings section <see cref="CacheConfiguration"/>
+    /// Registers the <see cref="IRedisDistributedCache"/> with default <seealso cref="RedisDistributedCacheOption"/> values.
     /// </summary>
-    public static IServiceCollection GitViweCacheServices(
-        this IServiceCollection services,
-        IConfiguration configuration)
+    /// <param name="services">Specifies the contract for a collection of service descriptors.</param>
+    /// <param name="configuration">Represents a set of key/value application configuration properties.</param>
+    /// <returns>The <see cref="IServiceCollection"/> so that additional calls can be chained.</returns>
+    public static IServiceCollection AddGitViweRedisCache(this IServiceCollection services, IConfiguration configuration)
     {
-        // add 'CacheConfiguration' section to dependency container
-        services.Configure<CacheConfiguration>(configuration.GetSection(nameof(CacheConfiguration)));
-
-        // register services
-        services.AddSingleton<IMemoryCacheService, MemoryCacheService>();
-        services.AddSingleton<IRedisCacheService, RedisCacheService>();
-
-        return services;
+        return services.Configure<RedisDistributedCacheOption>(configuration.GetSection(nameof(RedisDistributedCacheOption)))
+            .AddTransient<IRedisDistributedCache, RedisDistributedCache>()
+            .AddSingleton<RedisDistributedCacheOption>()
+            .AddStackExchangeRedisCache(options =>
+            {
+                options.Configuration = configuration.GetConnectionString("Redis");
+                options.InstanceName = configuration["RedisDistributedCacheOption:InstanceName"];
+            });
     }
 
     /// <summary>
-    /// Registers local storage service <see cref="ILocalStorageService"/>
-    /// <br />Requires appsettings section <see cref="CacheConfiguration"/>
+    /// Registers the <see cref="IRedisDistributedCache"/> using values from <seealso cref="RedisDistributedCacheOption"/>.
     /// </summary>
-    public static IServiceCollection GitViweLocalStorageService(this IServiceCollection services)
+    /// <param name="services">Specifies the contract for a collection of service descriptors.</param>
+    /// <param name="options">The configuration options for Redis</param>
+    /// <returns>The <see cref="IServiceCollection"/> so that additional calls can be chained.</returns>
+    public static IServiceCollection AddGitViweRedisCache(this IServiceCollection services, Action<RedisDistributedCacheOption> options)
     {
-        // register services
-        services.AddSingleton<ILocalStorageService, LocalStorageService>();
+        var optionValue = new RedisDistributedCacheOption();
+        options(optionValue);
 
-        return services;
+        return services.Configure(options)
+            .AddTransient<IRedisDistributedCache, RedisDistributedCache>()
+            .AddSingleton<RedisDistributedCacheOption>()
+            .AddStackExchangeRedisCache(options =>
+            {
+                options.Configuration = optionValue.Configuration;
+                options.InstanceName = optionValue.InstanceName;
+            });
     }
 }
