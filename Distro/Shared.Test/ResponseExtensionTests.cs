@@ -76,8 +76,8 @@ public class ResponseExtensionTests
         var requestUri = new Uri("http://localhost:5161/api/account/register");
         var content = new TokenResponse()
         {
-            RefreshToken = "GXDERA05RV871ZTEW73XZSNFR6EMQTHREELVCZEOYB31AN91HTDX0XJELH8XKWRBK",
-            Token = "GXDERA05RV871ZTEW73XZSNFR6EMQTHREELVCZEOYB31AN91HTDX0XJELH8XKWRBK"
+            RefreshToken = Generator.RandomString(),
+            Token = Generator.RandomString()
         };
 
         var httpClient = _clientMockBuilder
