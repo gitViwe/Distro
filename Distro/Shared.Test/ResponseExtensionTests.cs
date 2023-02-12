@@ -1,9 +1,7 @@
 ﻿using gitViwe.ProblemDetail.Base;
 using gitViwe.Shared;
 using gitViwe.Shared.Extension;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.WebUtilities;
 using Shared.Test.Data;
 using Shared.Test.TestDataGenerator;
 using SoloX.CodeQuality.Test.Helpers.Http;
@@ -11,7 +9,6 @@ using System;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
-using System.Text.Json;
 using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
