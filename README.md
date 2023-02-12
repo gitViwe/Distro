@@ -5,7 +5,7 @@ This repository will house a collection of shared libraries that will be distrib
 
 ### Nuget package:
 ```
-dotnet add package gitViwe.ProblemDetail --version 1.1.2
+dotnet add package gitViwe.ProblemDetail --version 1.3.0
 ```
 
 ### Usage:
@@ -36,7 +36,7 @@ public IActionResult Result()
 
 ### Nuget package:
 ```
-dotnet add package gitViwe.Shared.Cache --version 1.0.14
+dotnet add package gitViwe.Shared.Cache --version 1.3.0
 ```
 
 ### Redis distributed cache:
