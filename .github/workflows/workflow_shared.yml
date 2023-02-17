@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Build and Test
+name: Build, Test, Pack and Push
 
 # Controls when the workflow will run
 on:
@@ -16,7 +16,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  default-workflow:
+  distro-workflow:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -31,9 +31,7 @@ jobs:
         with:
           # Specify the NuGet source to restore packages from
           source-url: https://api.nuget.org/v3/index.json
-          dotnet-version: | 
-            6.0.x
-            7.0.x
+          dotnet-version: 7.x.x
         env:
           # Use repository secret key to authenticate personal NuGet
           NUGET_AUTH_TOKEN: ${{secrets.NUGET_TOKEN}}
@@ -49,7 +47,6 @@ jobs:
 
       - name: Publish NuGet
         run: | # | character makes the "run" property multi-line, so we can put multiple commands in the same step
-          mkdir __nuget
-          dotnet pack Distro --configuration Release -o __nuget --no-restore
-          dotnet nuget push "./__nuget/*.nupkg" --skip-duplicate  --no-symbols --api-key ${{secrets.NUGET_TOKEN}}
+          dotnet pack Distro --configuration Release --no-restore
+          dotnet nuget push "./**/*.nupkg" --skip-duplicate  --no-symbols --api-key ${{secrets.NUGET_TOKEN}}
           rm -rf __out
