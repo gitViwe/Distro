@@ -30,8 +30,7 @@ public static class Generator
             CharacterCombination.SymbolAndNumberAndAlphabet => StringCharacter.SYMBOLANDNUMBERANDALPHABET,
             _ => throw new ArgumentOutOfRangeException(nameof(combination), $"Not expected combination value: {combination}")
         };
-        return new string(Enumerable.Repeat(characters, length)
-            .Select(x => x[random.Next(x.Length)]).ToArray());
+        return new string(Enumerable.Repeat(characters, length).Select(x => x[random.Next(x.Length)]).ToArray());
     }
 
     /// <summary>

@@ -1,6 +1,8 @@
 ﻿using gitViwe.Shared.Cache.Option;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Options;
 
 namespace gitViwe.Shared.Cache;
 
@@ -17,6 +19,8 @@ public static class Startup
     /// <returns>The <see cref="IServiceCollection"/> so that additional calls can be chained.</returns>
     public static IServiceCollection AddGitViweRedisCache(this IServiceCollection services, IConfiguration configuration)
     {
+        services.TryAddSingleton<IValidateOptions<RedisDistributedCacheOption>, RedisDistributedCacheOptionValidator>();
+
         return services.Configure<RedisDistributedCacheOption>(configuration.GetSection(nameof(RedisDistributedCacheOption)))
             .AddTransient<IRedisDistributedCache, RedisDistributedCache>()
             .AddSingleton<RedisDistributedCacheOption>()

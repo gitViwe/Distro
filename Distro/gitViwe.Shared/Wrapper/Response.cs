@@ -1,76 +1,70 @@
-﻿namespace gitViwe.Shared;
+﻿using gitViwe.Shared.Exception;
+
+namespace gitViwe.Shared;
 
 /// <summary>
-/// A unified return type for the API endpoint
+/// A unified return type for the API endpoint.
 /// </summary>
 public class Response : IResponse
 {
-    /// <summary>
-    /// The response messages
-    /// </summary>
-    public IEnumerable<string> Messages { get; set; } = new List<string>();
-
-    /// <summary>
-    /// Flags whether the process was successful
-    /// </summary>
-    public bool Succeeded { get; set; }
-
-    /// <summary>
-    /// Unsuccessful result
-    /// </summary>
-    /// <returns>The <see cref="Succeeded"/> property value</returns>
-    public static IResponse Fail()
+    internal Response(string message, int statusCode)
     {
-        return new Response { Succeeded = false };
+        Message = message;
+        StatusCode = statusCode;
     }
 
     /// <summary>
-    /// Unsuccessful result
+    /// The response messages.
     /// </summary>
-    /// <param name="message">The error message to add</param>
-    /// <returns>The <see cref="Succeeded"/> and <see cref="Messages"/> property values</returns>
+    public string Message { get; }
+
+    /// <summary>
+    /// The HTTP status code.
+    /// </summary>
+    public int StatusCode { get; }
+
+    /// <summary>
+    /// Creates a new <see cref="Response"/> instance.
+    /// </summary>
+    /// <param name="message">The message containing the failure details.</param>
+    /// <returns>A new <see cref="Response"/> instance with the <seealso cref="Response.StatusCode"/> value of 400.</returns>
     public static IResponse Fail(string message)
     {
-        return new Response { Succeeded = false, Messages = new List<string> { message } };
+        return new Response(message, 400);
     }
 
     /// <summary>
-    /// Unsuccessful result
+    /// Creates a new <see cref="Response"/> instance.
     /// </summary>
-    /// <param name="messages">The error messages to add</param>
-    /// <returns>The <see cref="Succeeded"/> and <see cref="Messages"/> property values</returns>
-    public static IResponse Fail(IEnumerable<string> messages)
+    /// <param name="message">The message containing the failure details.</param>
+    /// <param name="statusCode">The HTTP status code relating to this failure.</param>
+    /// <returns>A new <see cref="Response"/> instance..</returns>
+    public static IResponse Fail(string message, int statusCode)
     {
-        return new Response { Succeeded = false, Messages = messages };
+        GuardException.Against.SuccessStatusCode(statusCode);
+        return new Response(message, statusCode);
     }
 
     /// <summary>
-    /// Successful result
+    /// Creates a new <see cref="Response"/> instance.
     /// </summary>
-    /// <returns>The <see cref="Succeeded"/> property value</returns>
-    public static IResponse Success()
-    {
-        return new Response { Succeeded = true };
-    }
-
-    /// <summary>
-    /// Successful result
-    /// </summary>
-    /// <param name="message">The success message to add</param>
-    /// <returns>The <see cref="Succeeded"/> and <see cref="Messages"/> property values</returns>
+    /// <param name="message">The message containing the success details.</param>
+    /// <returns>A new <see cref="Response"/> instance with the <seealso cref="Response.StatusCode"/> value of 200.</returns>
     public static IResponse Success(string message)
     {
-        return new Response { Succeeded = true, Messages = new List<string> { message } };
+        return new Response(message, 200);
     }
 
     /// <summary>
-    /// Successful result
+    /// Creates a new <see cref="Response"/> instance.
     /// </summary>
-    /// <param name="messages">The error messages to add</param>
-    /// <returns>The <see cref="Succeeded"/> and <see cref="Messages"/> property values</returns>
-    public static IResponse Success(IEnumerable<string> messages)
+    /// <param name="message">The message containing the success details.</param>
+    /// <param name="statusCode">The HTTP status code relating to this response.</param>
+    /// <returns>A new <see cref="Response"/> instance.</returns>
+    public static IResponse Success(string message, int statusCode)
     {
-        return new Response { Succeeded = true, Messages = messages };
+        GuardException.Against.ErrorStatusCode(statusCode);
+        return new Response(message, statusCode);
     }
 }
 
@@ -78,84 +72,40 @@ public class Response : IResponse
 /// Extends on <see cref="Response"/> to return data
 /// </summary>
 /// <typeparam name="TData">The data type returned from the request</typeparam>
-public class Response<TData> : IResponse<TData> where TData : class, new()
+public class Response<TData> : Response, IResponse<TData> where TData : class, new()
 {
+    internal Response(string message, int statusCode, TData data)
+        : base(message, statusCode)
+    {
+        Data = data;
+    }
+
     /// <summary>
     /// The content returned from the request
     /// </summary>
-    public TData Data { get; set; } = new();
+    public TData Data { get; } = new();
 
     /// <summary>
-    /// The response messages
+    /// Creates a new <see cref="Response{TData}"/> instance.
     /// </summary>
-    public IEnumerable<string> Messages { get; set; } = new List<string>();
-
-    /// <summary>
-    /// Flags whether the process was successful
-    /// </summary>
-    public bool Succeeded { get; set; }
-
-    /// <summary>
-    /// Unsuccessful result
-    /// </summary>
-    /// <param name="data">The content to add</param>
-    /// <returns>The <see cref="Succeeded"/> property value</returns>
-    public static IResponse<TData> Fail(TData data)
-    {
-        return new Response<TData> { Succeeded = false, Data = data };
-    }
-
-    /// <summary>
-    /// Unsuccessful result
-    /// </summary>
-    /// <param name="message">The error message to add</param>
-    /// <param name="data">The content to add</param>
-    /// <returns>The <see cref="Succeeded"/> and <see cref="Messages"/> property values</returns>
-    public static IResponse<TData> Fail(string message, TData data)
-    {
-        return new Response<TData> { Succeeded = false, Messages = new List<string> { message }, Data = data };
-    }
-
-    /// <summary>
-    /// Unsuccessful result
-    /// </summary>
-    /// <param name="messages">The error messages to add</param>
-    /// <param name="data">The content to add</param>
-    /// <returns>The <see cref="Succeeded"/> and <see cref="Messages"/> property values</returns>
-    public static IResponse<TData> Fail(IEnumerable<string> messages, TData data)
-    {
-        return new Response<TData> { Succeeded = false, Messages = messages, Data = data };
-    }
-
-    /// <summary>
-    /// Successful result
-    /// </summary>
-    /// <param name="data">The content to add</param>
-    /// <returns>The <see cref="Data"/> property value</returns>
-    public static IResponse<TData> Success(TData data)
-    {
-        return new Response<TData> { Succeeded = true, Data = data };
-    }
-
-    /// <summary>
-    /// Successful result
-    /// </summary>
-    /// <param name="message">The success message to add</param>
-    /// <param name="data">The content to add</param>
-    /// <returns>The <see cref="Succeeded"/> and <see cref="Messages"/> property values</returns>
+    /// <param name="message">The message containing the success details.</param>
+    /// <param name="data">The content to add.</param>
+    /// <returns>A new <see cref="Response{TData}"/> instance where the data is <typeparamref name="TData"/> with the <seealso cref="Response.StatusCode"/> value of 200.</returns>
     public static IResponse<TData> Success(string message, TData data)
     {
-        return new Response<TData> { Succeeded = true, Messages = new List<string> { message }, Data = data };
+        return new Response<TData>(message, 200, data);
     }
 
     /// <summary>
-    /// Successful result
+    /// Creates a new <see cref="Response{TData}"/> instance.
     /// </summary>
-    /// <param name="messages">The success messages to add</param>
-    /// <param name="data">The content to add</param>
-    /// <returns>The <see cref="Data"/> and <see cref="Messages"/> property values</returns>
-    public static IResponse<TData> Success(IEnumerable<string> messages, TData data)
+    /// <param name="message">The message containing the success details.</param>
+    /// <param name="statusCode">The HTTP status code relating to this response.</param>
+    /// <param name="data">The content to add.</param>
+    /// <returns>A new <see cref="Response{TData}"/> instance where the data is <typeparamref name="TData"/> with the <seealso cref="Response.StatusCode"/> value of 200.</returns>
+    public static IResponse<TData> Success(string message, int statusCode, TData data)
     {
-        return new Response<TData> { Succeeded = true, Data = data, Messages = messages };
+        GuardException.Against.ErrorStatusCode(statusCode);
+        return new Response<TData>(message, statusCode, data);
     }
 }

@@ -8,12 +8,17 @@ public interface IResponse
     /// <summary>
     /// The response messages
     /// </summary>
-    IEnumerable<string> Messages { get; set; }
+    string Message { get; }
+
+    /// <summary>
+    /// The HTTP status code
+    /// </summary>
+    public int StatusCode { get; }
 
     /// <summary>
     /// Flags whether the process was successful
     /// </summary>
-    bool Succeeded { get; set; }
+    bool Succeeded() => (StatusCode >= 200) && (StatusCode <= 299);
 }
 
 /// <summary>

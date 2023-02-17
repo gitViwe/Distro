@@ -17,7 +17,7 @@ public class DefaultProblemDetails : ProblemDetails
     /// <summary>
     /// Creates a custom <see cref="ProblemDetails"/> class
     /// </summary>
-    /// <param name="traceIdentifier">Theunique identifier to represent this request in trace logs</param>
+    /// <param name="traceIdentifier">The unique identifier to represent this request in trace logs</param>
     /// <param name="problemDetails">The default <see cref="ProblemDetails"/></param>
     public DefaultProblemDetails(string traceIdentifier, ProblemDetails problemDetails)
     {
@@ -28,7 +28,7 @@ public class DefaultProblemDetails : ProblemDetails
     /// <summary>
     /// Creates a custom <see cref="ProblemDetails"/> class
     /// </summary>
-    /// <param name="traceIdentifier">Theunique identifier to represent this request in trace logs</param>
+    /// <param name="traceIdentifier">The unique identifier to represent this request in trace logs</param>
     /// <param name="problemDetails">The default <see cref="ProblemDetails"/></param>
     /// <param name="extensions">Problem type definitions MAY extend the problem details object with additional members.</param>
     public DefaultProblemDetails(string traceIdentifier, ProblemDetails problemDetails, IDictionary<string, object?> extensions)

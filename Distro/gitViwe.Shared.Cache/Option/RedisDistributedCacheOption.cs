@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Caching.StackExchangeRedis;
+using Microsoft.Extensions.Options;
 
 namespace gitViwe.Shared.Cache.Option;
 
@@ -16,4 +17,27 @@ public class RedisDistributedCacheOption : RedisCacheOptions
     /// This will not extend the entry lifetime beyond the absolute expiration (if set).
     /// </summary>
     public int SlidingExpirationInMinutes { get; set; } = 1;
+}
+
+internal class RedisDistributedCacheOptionValidator : IValidateOptions<RedisDistributedCacheOption>
+{
+    public ValidateOptionsResult Validate(string? name, RedisDistributedCacheOption options)
+    {
+        if (options.AbsoluteExpirationInMinutes < 1)
+        {
+            return ValidateOptionsResult.Fail($"{nameof(options.AbsoluteExpirationInMinutes)} must be greate than zero.");
+        }
+
+        if (options.SlidingExpirationInMinutes < 1)
+        {
+            return ValidateOptionsResult.Fail($"{nameof(options.SlidingExpirationInMinutes)} must be greate than zero.");
+        }
+
+        if (string.IsNullOrWhiteSpace(options.InstanceName))
+        {
+            return ValidateOptionsResult.Fail($"A value for {nameof(options.InstanceName)} must be provided.");
+        }
+
+        return ValidateOptionsResult.Success;
+    }
 }

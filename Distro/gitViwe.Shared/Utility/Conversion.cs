@@ -37,7 +37,7 @@ public static class Conversion
     /// </summary>
     /// <param name="length">The number of characters the string will have</param>
     /// <returns>A random string of the specified length</returns>
-    [Obsolete("This method is depricated. Please use " + nameof(Generator) + nameof(Generator.RandomString), false)]
+    [Obsolete($"This method is depricated. Please use {nameof(Generator)}.{nameof(Generator.RandomString)}()", true)]
     public static string RandomString(int length)
     {
         var random = new Random();
