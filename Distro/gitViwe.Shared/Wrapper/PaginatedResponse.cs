@@ -9,7 +9,7 @@ public class PaginatedResponse<TData> where TData : class, new()
     /// <summary>
     /// Instantiate a new page-able result to return 
     /// </summary>
-    public PaginatedResponse() { }
+    internal PaginatedResponse() { }
 
     /// <summary>
     /// Instantiate a new page-able result to return 
@@ -18,13 +18,21 @@ public class PaginatedResponse<TData> where TData : class, new()
     /// <param name="count">The total number of items</param>
     /// <param name="page">The current page number</param>
     /// <param name="pageSize">The number of items in a single page</param>
-    internal PaginatedResponse(IEnumerable<TData> data, int count = 0, int page = 1, int pageSize = 15)
+    internal PaginatedResponse(IEnumerable<TData> data, int count, int page, int pageSize)
     {
         Data = data;
         TotalCount = count;
         CurrentPage = page;
         PageSize = pageSize;
-        TotalPages = (int)Math.Ceiling(count / (double)pageSize);
+    }
+
+    /// <summary>
+    /// A failed response
+    /// </summary>
+    /// <returns>An empty instance of <typeparamref name="TData"/></returns>
+    public static PaginatedResponse<TData> Fail()
+    {
+        return new PaginatedResponse<TData>();
     }
 
     /// <summary>
@@ -41,6 +49,39 @@ public class PaginatedResponse<TData> where TData : class, new()
     }
 
     /// <summary>
+    /// Paginates the <paramref name="dataToPaginate"/> and returns a succcessful response
+    /// </summary>
+    /// <param name="dataToPaginate">The content to paginate and return</param>
+    /// <param name="page">The current page number</param>
+    /// <param name="pageSize">The number of items in a single page</param>
+    /// <returns>An instance of <typeparamref name="TData"/> if pagination is valid. Else an empty instance of <typeparamref name="TData"/></returns>
+    public static PaginatedResponse<TData> Success(IEnumerable<TData> dataToPaginate, int page, int pageSize)
+    {
+        if (IsValidPagination(dataToPaginate, page, pageSize, out int count))
+        {
+            var data = dataToPaginate.Skip((page - 1) * pageSize).Take(pageSize).ToArray();
+            return new PaginatedResponse<TData>(data, count, page, pageSize);
+        }
+
+        return new PaginatedResponse<TData>(Enumerable.Empty<TData>(), count, page, pageSize);
+    }
+
+    private static bool IsValidPagination(IEnumerable<TData> dataToPaginate, int page, int pageSize, out int count)
+    {
+        if (dataToPaginate is null)
+        {
+            count = 0;
+            return false;
+        }
+
+        count = dataToPaginate.Count();
+
+        int totalPages = (int)Math.Ceiling(count / (double)pageSize);
+
+        return page <= totalPages;
+    }
+
+    /// <summary>
     /// The content returned from the request
     /// </summary>
     public IEnumerable<TData> Data { get; } = Enumerable.Empty<TData>();
@@ -48,12 +89,7 @@ public class PaginatedResponse<TData> where TData : class, new()
     /// <summary>
     /// The current page number
     /// </summary>
-    public int CurrentPage { get; }
-
-    /// <summary>
-    /// The total number of pages
-    /// </summary>
-    public int TotalPages { get; }
+    public int CurrentPage { get; } = 1;
 
     /// <summary>
     /// The total number of items
@@ -63,7 +99,12 @@ public class PaginatedResponse<TData> where TData : class, new()
     /// <summary>
     /// The number of items in a single page
     /// </summary>
-    public int PageSize { get; }
+    public int PageSize { get; } = 15;
+
+    /// <summary>
+    /// The total number of pages
+    /// </summary>
+    public int TotalPages => (int)Math.Ceiling(TotalCount / (double)PageSize);
 
     /// <summary>
     /// Determines if there are  additional pages behind

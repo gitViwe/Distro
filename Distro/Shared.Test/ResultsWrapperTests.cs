@@ -1,6 +1,4 @@
 using gitViwe.Shared;
-using Microsoft.AspNetCore.Http;
-using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
 using System;
 using Xunit;
 using Xunit.Abstractions;
