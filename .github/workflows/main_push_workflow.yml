@@ -7,8 +7,6 @@ on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -31,7 +29,9 @@ jobs:
         with:
           # Specify the NuGet source to restore packages from
           source-url: https://api.nuget.org/v3/index.json
-          dotnet-version: 7.x.x
+          dotnet-version: |
+            6.x.x
+            7.x.x
         env:
           # Use repository secret key to authenticate personal NuGet
           NUGET_AUTH_TOKEN: ${{secrets.NUGET_TOKEN}}

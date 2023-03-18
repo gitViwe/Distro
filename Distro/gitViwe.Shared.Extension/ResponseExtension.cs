@@ -15,6 +15,7 @@ public static class ResponseExtension
     {
         PropertyNameCaseInsensitive = true,
         ReferenceHandler = ReferenceHandler.Preserve,
+        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
     };
 
     /// <summary>
