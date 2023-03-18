@@ -37,7 +37,7 @@ public static class Conversion
     /// </summary>
     /// <param name="length">The number of characters the string will have</param>
     /// <returns>A random string of the specified length</returns>
-    [Obsolete($"This method is depricated. Please use {nameof(Generator)}.{nameof(Generator.RandomString)}()", true)]
+    [Obsolete($"This method is deprecated. Please use {nameof(Generator)}.{nameof(Generator.RandomString)}()", true)]
     public static string RandomString(int length)
     {
         var random = new Random();
@@ -49,7 +49,7 @@ public static class Conversion
     /// <summary>
     /// Gets the <see cref="DateTime"/> value from the time stamp
     /// </summary>
-    /// <param name="unixTimeStamp">The unix time stamp to convert</param>
+    /// <param name="unixTimeStamp">The Unix time stamp to convert</param>
     /// <returns>A <see cref="DateTime"/> value</returns>
     public static DateTime UnixTimeStampToDateTime(long unixTimeStamp)
     {

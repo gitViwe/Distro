@@ -36,7 +36,7 @@ public class PaginatedResponse<TData> where TData : class, new()
     }
 
     /// <summary>
-    /// A succcessful response
+    /// A successful response
     /// </summary>
     /// <param name="data">The content returned from the request</param>
     /// <param name="count">The total number of items</param>
@@ -45,11 +45,16 @@ public class PaginatedResponse<TData> where TData : class, new()
     /// <returns>An instance of <typeparamref name="TData"/></returns>
     public static PaginatedResponse<TData> Success(IEnumerable<TData> data, int count, int page, int pageSize)
     {
-        return new PaginatedResponse<TData>(data, count, page, pageSize);
+        if (IsValidPagination(data, page, pageSize, out _))
+        {
+            return new PaginatedResponse<TData>(data, count, page, pageSize); 
+        }
+
+        return new PaginatedResponse<TData>(data?.Count() > 0 ? data : Enumerable.Empty<TData>(), count, 1, 15);
     }
 
     /// <summary>
-    /// Paginates the <paramref name="dataToPaginate"/> and returns a succcessful response
+    /// Paginates the <paramref name="dataToPaginate"/> and returns a successful response
     /// </summary>
     /// <param name="dataToPaginate">The content to paginate and return</param>
     /// <param name="page">The current page number</param>
@@ -63,7 +68,7 @@ public class PaginatedResponse<TData> where TData : class, new()
             return new PaginatedResponse<TData>(data, count, page, pageSize);
         }
 
-        return new PaginatedResponse<TData>(Enumerable.Empty<TData>(), count, page, pageSize);
+        return new PaginatedResponse<TData>(count > 0 ? dataToPaginate : Enumerable.Empty<TData>(), count, 1, 15);
     }
 
     private static bool IsValidPagination(IEnumerable<TData> dataToPaginate, int page, int pageSize, out int count)

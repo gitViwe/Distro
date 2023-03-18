@@ -13,7 +13,7 @@ namespace Shared.Test.TestDataGenerator;
 internal class ResponseExtensionTestProblemDetailData : IEnumerable<object[]>
 {
 
-    private readonly List<object[]> _data = new List<object[]>()
+    private readonly List<object[]> _data = new()
     {
         new object[]
         {
@@ -51,7 +51,7 @@ internal class ResponseExtensionTestProblemDetailData : IEnumerable<object[]>
 internal class ResponseExtensionTestValidationProblemDetailData : IEnumerable<object[]>
 {
 
-    private readonly List<object[]> _data = new List<object[]>()
+    private readonly List<object[]> _data = new()
     {
         new object[]
         {
@@ -59,7 +59,7 @@ internal class ResponseExtensionTestValidationProblemDetailData : IEnumerable<ob
             HttpStatusCode.BadRequest,
             new ValidationProblemDetails(new Dictionary<string, string[]>()
             {
-                { "property name", new string[]{ "Invalid", "Just plain wron" } }
+                { "property name", new string[]{ "Invalid", "Just plain wrong" } }
             })
             {
                 Status = StatusCodes.Status400BadRequest,
