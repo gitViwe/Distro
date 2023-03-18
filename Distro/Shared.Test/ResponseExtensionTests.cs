@@ -31,7 +31,7 @@ public class ResponseExtensionTests
     {
         var httpClient = _clientMockBuilder
             .WithBaseAddress(new Uri(requestUri.AbsoluteUri.Replace(requestUri.AbsolutePath, string.Empty)))
-            .WithJsonContentRequest<ITokenRequest>(requestUri.AbsolutePath, method)
+            .WithJsonContentRequest<TokenRequest>(requestUri.AbsolutePath, method)
             .RespondingJsonContent(content, statusCode)
             .Build();
 
@@ -52,7 +52,7 @@ public class ResponseExtensionTests
     {
         var httpClient = _clientMockBuilder
             .WithBaseAddress(new Uri(requestUri.AbsoluteUri.Replace(requestUri.AbsolutePath, string.Empty)))
-            .WithJsonContentRequest<ITokenRequest>(requestUri.AbsolutePath, method)
+            .WithJsonContentRequest<TokenRequest>(requestUri.AbsolutePath, method)
             .RespondingJsonContent(content, statusCode)
             .Build();
 
@@ -79,7 +79,7 @@ public class ResponseExtensionTests
 
         var httpClient = _clientMockBuilder
             .WithBaseAddress(new Uri(requestUri.AbsoluteUri.Replace(requestUri.AbsolutePath, string.Empty)))
-            .WithJsonContentRequest<ITokenRequest>(requestUri.AbsolutePath, HttpMethod.Post)
+            .WithJsonContentRequest<TokenRequest>(requestUri.AbsolutePath, HttpMethod.Post)
             .RespondingJsonContent(content, HttpStatusCode.OK)
             .Build();
 
