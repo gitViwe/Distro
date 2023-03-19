@@ -2,7 +2,7 @@
 using gitViwe.Shared;
 using gitViwe.Shared.Extension;
 using Microsoft.AspNetCore.Mvc;
-using Shared.Test.Data;
+using Shared.Test.Model;
 using Shared.Test.TestDataGenerator;
 using SoloX.CodeQuality.Test.Helpers.Http;
 using System;

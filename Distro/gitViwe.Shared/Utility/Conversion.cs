@@ -60,6 +60,16 @@ public static class Conversion
     }
 
     /// <summary>
+    /// Gets the unixTimeStamp as <see cref="Int64"/> value
+    /// </summary>
+    /// <param name="dateTime">The date value in <seealso cref="DateTimeKind.Utc"/> format</param>
+    /// <returns>A <see cref="Int64"/> value representing the unixTimeStamp</returns>
+    public static long DateTimeToUnixTimeStamp(DateTime dateTime)
+    {
+        return (long)dateTime.Subtract(DateTime.UnixEpoch).TotalSeconds;
+    }
+
+    /// <summary>
     /// This converts the base 64 string to a byte array
     /// </summary>
     /// <param name="payload">The base 64 string without padding</param>
