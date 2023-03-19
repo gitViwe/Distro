@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using gitViwe.Shared.Abstraction;
+using Microsoft.AspNetCore.Mvc;
 using System.Text;
 using System.Text.Json.Serialization;
 
@@ -7,7 +8,7 @@ namespace gitViwe.ProblemDetail.Base;
 /// <summary>
 /// The base implementation for creating a custom <see cref="ProblemDetails"/> class
 /// </summary>
-public class DefaultProblemDetails : ProblemDetails
+public class DefaultProblemDetails : ProblemDetails, IDefaultProblemDetails
 {
     /// <summary>
     /// Creates a custom <see cref="ProblemDetails"/> class

@@ -1,4 +1,4 @@
-﻿namespace Shared.Test.Data;
+﻿namespace Shared.Test.Model;
 
 internal class TokenRequest
 {
