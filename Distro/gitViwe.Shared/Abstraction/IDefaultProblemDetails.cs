@@ -1,4 +1,6 @@
-﻿namespace gitViwe.Shared.Abstraction;
+﻿using System.Text;
+
+namespace gitViwe.Shared.Abstraction;
 
 /// <summary>
 /// Defines the schema for the custom ProblemDetails class
@@ -40,4 +42,22 @@ public interface IDefaultProblemDetails
     /// Gets the System.Collections.Generic.IDictionary`2 for extension members.
     /// </summary>
     IDictionary<string, object?> Extensions { get; }
+
+    /// <summary>
+    /// A string that represents the current <seealso cref="IDefaultProblemDetails"/>.
+    /// </summary>
+    /// <returns>A string that represents the <seealso cref="IDefaultProblemDetails"/>.</returns>
+    public string ToString()
+    {
+        var stringBuilder = new StringBuilder();
+
+        stringBuilder.AppendLine($"TraceId : {TraceId}");
+        stringBuilder.AppendLine($"Type    : {Type}");
+        stringBuilder.AppendLine($"Title   : {Title}");
+        stringBuilder.AppendLine($"Status  : {Status}");
+        stringBuilder.AppendLine($"Detail  : {Detail}");
+        stringBuilder.AppendLine($"Instance: {Instance}");
+
+        return stringBuilder.ToString();
+    }
 }
