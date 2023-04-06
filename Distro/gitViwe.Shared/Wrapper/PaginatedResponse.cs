@@ -89,22 +89,22 @@ public class PaginatedResponse<TData> where TData : class, new()
     /// <summary>
     /// The content returned from the request
     /// </summary>
-    public IEnumerable<TData> Data { get; } = Enumerable.Empty<TData>();
+    public IEnumerable<TData> Data { get; set; } = Enumerable.Empty<TData>();
 
     /// <summary>
     /// The current page number
     /// </summary>
-    public int CurrentPage { get; } = 1;
+    public int CurrentPage { get; set; } = 1;
 
     /// <summary>
     /// The total number of items
     /// </summary>
-    public int TotalCount { get; }
+    public int TotalCount { get; set; }
 
     /// <summary>
     /// The number of items in a single page
     /// </summary>
-    public int PageSize { get; } = 15;
+    public int PageSize { get; set; } = 15;
 
     /// <summary>
     /// The total number of pages
