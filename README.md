@@ -5,56 +5,41 @@ This repository will house a collection of shared libraries that will be distrib
 
 ### Nuget package:
 ```
-dotnet add package gitViwe.ProblemDetail --version 1.3.0
+dotnet add package gitViwe.Shared.ProblemDetail --version 1.4.1
 ```
 
 ### Usage:
 
 ```csharp
-public IActionResult Result()
+var extensionValue = new
 {
-    var extensionValue = new
-    {
-        Balance = 30.0m,
-        Accounts = { "/account/12345", "/account/67890" }
-    };
+    Balance = 30.0m,
+    Accounts = { "/account/12345", "/account/67890" }
+};
 
-    var problem = ProblemDetailFactory.CreateProblemDetails(
-                    context: HttpContext,
-                    statusCode: StatusCodes.Status412PreconditionFailed,
-                    extensions: new Dictionary<string, object?>()
-                    {
-                        { "outOfCredit", extensionValue }
-                    },
-                    detail: "Your current balance is 30, but that costs 50.");
-
-    return StatusCode(problem.Status!.Value, problem);
-}
+var problem = ProblemDetailFactory.CreateProblemDetails(
+                context: HttpContext,
+                statusCode: StatusCodes.Status412PreconditionFailed,
+                extensions: new Dictionary<string, object?>()
+                {
+                    { "outOfCredit", extensionValue }
+                },
+                detail: "Your current balance is 30, but that costs 50.");
 ```
 
 ## Caching
 
 ### Nuget package:
 ```
-dotnet add package gitViwe.Shared.Cache --version 1.3.0
+dotnet add package gitViwe.Shared.Cache --version 1.4.1
 ```
 
 ### Redis distributed cache:
-#### Register the `IRedisDistributedCache` service using settings from configuration file or manually set values
+#### Register the `IRedisDistributedCache` service using settings from configuration file
 
 ```csharp
 builder.Services.AddGitViweRedisCache(builder.Configuration)
 ```
-```
-builder.Services.AddGitViweRedisCache(options =>
-{
-    options.Configuration = "localhost:6379";
-    options.InstanceName= "redis_demo";
-    options.AbsoluteExpirationInMinutes = 5;
-    options.SlidingExpirationInMinutes = 2;
-});
-```
-
 #### Add configuration to `appsettings.json` file
 ```json
 "ConnectionStrings": {
@@ -65,6 +50,17 @@ builder.Services.AddGitViweRedisCache(options =>
     "AbsoluteExpirationInMinutes": 5,
     "SlidingExpirationInMinutes": 2
   }
+```
+
+#### Register the `IRedisDistributedCache` service using by specifying the settings values
+```
+builder.Services.AddGitViweRedisCache(options =>
+{
+    options.Configuration = "localhost:6379";
+    options.InstanceName= "redis_demo";
+    options.AbsoluteExpirationInMinutes = 5;
+    options.SlidingExpirationInMinutes = 2;
+});
 ```
 
 ### Usage:

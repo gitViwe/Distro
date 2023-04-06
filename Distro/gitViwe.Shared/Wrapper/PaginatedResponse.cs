@@ -9,7 +9,7 @@ public class PaginatedResponse<TData> where TData : class, new()
     /// <summary>
     /// Instantiate a new page-able result to return 
     /// </summary>
-    internal PaginatedResponse() { }
+    public PaginatedResponse() { }
 
     /// <summary>
     /// Instantiate a new page-able result to return 

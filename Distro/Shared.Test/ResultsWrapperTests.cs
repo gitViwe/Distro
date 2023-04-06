@@ -23,7 +23,7 @@ public class ResultsWrapperTests
         Assert.NotNull(result);
 
         _output.WriteLine($"'Succeeded' property must have false value.");
-        Assert.False(result.Succeeded());
+        Assert.False(result.Succeeded);
 
         _output.WriteLine($"'StatusCode' property must contain 400.");
         Assert.True(result.StatusCode == 400);
@@ -40,7 +40,7 @@ public class ResultsWrapperTests
         Assert.NotNull(result);
 
         _output.WriteLine($"'Succeeded' property must have false value.");
-        Assert.False(result.Succeeded());
+        Assert.False(result.Succeeded);
 
         _output.WriteLine($"'Message' property must contain {message}.");
         Assert.True(result.Message == message);
@@ -67,7 +67,7 @@ public class ResultsWrapperTests
         Assert.NotNull(result);
 
         _output.WriteLine($"'Succeeded' property must have false value.");
-        Assert.True(result.Succeeded());
+        Assert.True(result.Succeeded);
 
         _output.WriteLine($"'StatusCode' property must contain 200.");
         Assert.True(result.StatusCode == 200);
@@ -84,7 +84,7 @@ public class ResultsWrapperTests
         Assert.NotNull(result);
 
         _output.WriteLine($"'Succeeded' property must have false value.");
-        Assert.True(result.Succeeded());
+        Assert.True(result.Succeeded);
 
         _output.WriteLine($"'Message' property must contain {message}.");
         Assert.True(result.Message == message);
