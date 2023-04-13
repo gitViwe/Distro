@@ -1,5 +1,8 @@
 using gitViwe.Shared;
+using Shared.Test.Model;
+using Shared.Test.TestDataGenerator;
 using System;
+using System.Collections.Generic;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -100,5 +103,52 @@ public class ResultsWrapperTests
     {
         _output.WriteLine($"'Result' object must throw an ArgumentException.");
         Assert.Throws<ArgumentException>(() => Response.Success(message, statusCode));
+    }
+
+    [Theory]
+    [ClassData(typeof(PaginatedResponseTestData))]
+    public void Success_PaginatedResponse_With_ValidData(IEnumerable<TokenResponse> data, int count, int page, int pageSize)
+    {
+        // Act
+        var result = PaginatedResponse<TokenResponse>.Success(data, count, page, pageSize);
+
+        // Assert
+        _output.WriteLine($"PaginatedResponse.Data property must be of type: {data.GetType()}.");
+        Assert.Equal(data, result.Data);
+        _output.WriteLine($"PaginatedResponse.TotalCount property must have a value of: {count}.");
+        Assert.Equal(count, result.TotalCount);
+        _output.WriteLine($"PaginatedResponse.CurrentPage property must have a value of: {page}.");
+        Assert.Equal(page, result.CurrentPage);
+        _output.WriteLine($"PaginatedResponse.PageSize property must have a value of: {pageSize}.");
+        Assert.Equal(pageSize, result.PageSize);
+        _output.WriteLine($"PaginatedResponse.TotalPages property must have a value of: {(int)Math.Ceiling(count / (double)pageSize)}.");
+        Assert.Equal((int)Math.Ceiling(count / (double)pageSize), result.TotalPages);
+        _output.WriteLine($"PaginatedResponse.HasPreviousPage property must be false.");
+        Assert.False(result.HasPreviousPage);
+        _output.WriteLine($"PaginatedResponse.HasNextPage property must be true.");
+        Assert.True(result.HasNextPage);
+    }
+
+    [Fact]
+    public void Fail_PaginatedResponse_With_EmptyData()
+    {
+        // Act
+        var result = PaginatedResponse<TokenResponse>.Fail();
+
+        // Assert
+        _output.WriteLine($"PaginatedResponse.Data property must be of empty.");
+        Assert.Empty(result.Data);
+        _output.WriteLine($"PaginatedResponse.TotalCount property must have a value of: {0}.");
+        Assert.Equal(0, result.TotalCount);
+        _output.WriteLine($"PaginatedResponse.CurrentPage property must have a value of: {1}.");
+        Assert.Equal(1, result.CurrentPage);
+        _output.WriteLine($"PaginatedResponse.PageSize property must have a value of: {15}.");
+        Assert.Equal(15, result.PageSize);
+        _output.WriteLine($"PaginatedResponse.TotalPages property must have a value of: {0}.");
+        Assert.Equal(0, result.TotalPages);
+        _output.WriteLine($"PaginatedResponse.HasPreviousPage property must be false.");
+        Assert.False(result.HasPreviousPage);
+        _output.WriteLine($"PaginatedResponse.HasNextPage property must be true.");
+        Assert.False(result.HasNextPage);
     }
 }

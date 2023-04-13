@@ -5,7 +5,7 @@
 /// </summary>
 public static class FileSizeFormatter
 {
-    private static readonly string[] suffixes = { "Bytes", "KB", "MB", "GB", "TB", "PB" };
+    private static readonly string[] _suffixes = { "Bytes", "KB", "MB", "GB", "TB", "PB" };
 
     /// <summary>
     /// Formats the bytes size to the nearest larger format<br></br>
@@ -22,6 +22,6 @@ public static class FileSizeFormatter
             number = number / 1024;
             counter++;
         }
-        return string.Format("{0:n1}{1}", number, suffixes[counter]);
+        return string.Format("{0:n1}{1}", number, _suffixes[counter]);
     }
 }

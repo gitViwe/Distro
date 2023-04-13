@@ -25,7 +25,7 @@ public interface IRedisDistributedCache
     /// </summary>
     /// <typeparam name="TResult">The value type to return.</typeparam>
     /// <param name="key">A string identifying the requested value.</param>
-    /// <param name="token">Optional. The <see cref="CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+    /// <param name="token">Optional. The <see cref="CancellationToken"/> used to propagate notifications that the operation should be cancelled.</param>
     /// <returns>The <see cref="Task"/> that represents the asynchronous operation, containing the located value or null.</returns>
     Task<TResult?> GetAsync<TResult>(string key, CancellationToken token = default) where TResult : class, new();
 
@@ -33,7 +33,7 @@ public interface IRedisDistributedCache
     /// Gets a value with the given key.
     /// </summary>
     /// <param name="key">A string identifying the requested value.</param>
-    /// <param name="token">Optional. The <see cref="CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+    /// <param name="token">Optional. The <see cref="CancellationToken"/> used to propagate notifications that the operation should be cancelled.</param>
     /// <returns>The <see cref="Task"/> that represents the asynchronous operation, containing the located value or null.</returns>
     Task<string?> GetAsync(string key, CancellationToken token = default);
 
@@ -61,7 +61,7 @@ public interface IRedisDistributedCache
     /// Gets or sets how long a cache entry can be inactive (e.g. not accessed) before it will be removed.
     /// This will not extend the entry lifetime beyond the absolute expiration (if set).
     /// </param>
-    /// <param name="token">Optional. The <see cref="CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+    /// <param name="token">Optional. The <see cref="CancellationToken"/> used to propagate notifications that the operation should be cancelled.</param>
     /// <returns>The <see cref="Task"/> that represents the asynchronous operation.</returns>
     Task SetAsync<TValue>(string key, TValue value, TimeSpan? absoluteExpirationRelativeToNow = null, TimeSpan? slidingExpiration = null, CancellationToken token = default);
 
@@ -75,7 +75,7 @@ public interface IRedisDistributedCache
     /// Refreshes a value in the cache based on its key, resetting its sliding expiration timeout (if any).
     /// </summary>
     /// <param name="key">A string identifying the requested value.</param>
-    /// <param name="token">Optional. The <see cref="CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+    /// <param name="token">Optional. The <see cref="CancellationToken"/> used to propagate notifications that the operation should be cancelled.</param>
     /// <returns>The <see cref="Task"/> that represents the asynchronous operation.</returns>
     Task RefreshAsync(string key, CancellationToken token = default);
 
@@ -89,7 +89,7 @@ public interface IRedisDistributedCache
     /// Removes the value with the given key.
     /// </summary>
     /// <param name="key">A string identifying the requested value.</param>
-    /// <param name="token">Optional. The <see cref="CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
+    /// <param name="token">Optional. The <see cref="CancellationToken"/> used to propagate notifications that the operation should be cancelled.</param>
     /// <returns>The <see cref="Task"/> that represents the asynchronous operation.</returns>
     Task RemoveAsync(string key, CancellationToken token = default);
 }

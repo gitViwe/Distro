@@ -12,10 +12,10 @@ public static class ClaimsPrincipalExtension
     /// Gets the Email value from the claims
     /// </summary>
     /// <param name="claimsPrincipal">The current <see cref="ClaimsPrincipal"/></param>
-    /// <returns>The <seealso cref="ClaimTypes.Email"/> value</returns>
+    /// <returns>The <seealso cref="JwtRegisteredClaimNames.Email"/> value</returns>
     public static string GetEmail(this ClaimsPrincipal claimsPrincipal)
     {
-        return claimsPrincipal.FindFirst(ClaimTypes.Email)?.Value ?? string.Empty;
+        return claimsPrincipal.FindFirst(JwtRegisteredClaimNames.Name)?.Value ?? string.Empty;
     }
 
     /// <summary>
@@ -42,10 +42,10 @@ public static class ClaimsPrincipalExtension
     /// Gets the Sub value from the claims
     /// </summary>
     /// <param name="claimsPrincipal">The current <see cref="ClaimsPrincipal"/></param>
-    /// <returns>The <seealso cref="ClaimTypes.Name"/> value</returns>
+    /// <returns>The <seealso cref="JwtRegisteredClaimNames.UniqueName"/> value</returns>
     public static string GetUsername(this ClaimsPrincipal claimsPrincipal)
     {
-        return claimsPrincipal.FindFirst(ClaimTypes.Name)?.Value ?? string.Empty;
+        return claimsPrincipal.FindFirst(JwtRegisteredClaimNames.UniqueName)?.Value ?? string.Empty;
     }
 
     /// <summary>

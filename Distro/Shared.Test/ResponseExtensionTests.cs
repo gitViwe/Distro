@@ -18,7 +18,7 @@ namespace Shared.Test;
 public class ResponseExtensionTests
 {
     private readonly ITestOutputHelper _output;
-    private readonly HttpClientMockBuilder _clientMockBuilder = new HttpClientMockBuilder();
+    private readonly HttpClientMockBuilder _clientMockBuilder = new();
 
     public ResponseExtensionTests(ITestOutputHelper output)
     {
