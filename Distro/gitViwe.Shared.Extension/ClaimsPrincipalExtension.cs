@@ -15,7 +15,7 @@ public static class ClaimsPrincipalExtension
     /// <returns>The <seealso cref="JwtRegisteredClaimNames.Email"/> value</returns>
     public static string GetEmail(this ClaimsPrincipal claimsPrincipal)
     {
-        return claimsPrincipal.FindFirst(JwtRegisteredClaimNames.Name)?.Value ?? string.Empty;
+        return claimsPrincipal.FindFirst(JwtRegisteredClaimNames.Email)?.Value ?? string.Empty;
     }
 
     /// <summary>

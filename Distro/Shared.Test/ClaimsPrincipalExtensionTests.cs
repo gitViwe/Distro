@@ -16,7 +16,7 @@ public class ClaimsPrincipalExtensionTests
         // Arrange
         var claims = new List<Claim>
         {
-            new Claim(ClaimTypes.Email, "test@test.com")
+            new Claim(JwtRegisteredClaimNames.Email, "test@test.com")
         };
         var identity = new ClaimsIdentity(claims);
         var claimsPrincipal = new ClaimsPrincipal(identity);
@@ -70,7 +70,7 @@ public class ClaimsPrincipalExtensionTests
         // Arrange
         var claims = new List<Claim>
         {
-            new Claim(ClaimTypes.Name, "test user")
+            new Claim(JwtRegisteredClaimNames.UniqueName, "test user")
         };
         var identity = new ClaimsIdentity(claims);
         var claimsPrincipal = new ClaimsPrincipal(identity);
