@@ -1,10 +1,80 @@
 # Distro
 This repository will house a collection of shared libraries that will be distributed in NuGet that should help quickly launch projects I would like to play around with.
 
+## gitViwe.Shared
+
+```csharp
+dotnet add package gitViwe.Shared --version 1.4.4
+```
+
+### Abstraction:
+
+Defines the schema for the custom ProblemDetails class
+```csharp
+interface IDefaultProblemDetails
+```
+
+
+### Exception:
+
+Some custom exceptions
+```csharp
+class ForbiddenException
+class NotFoundException
+class UnauthorizedException
+class ValidationException
+```
+
+### Utility:
+
+Some helper classes
+```csharp
+static class Conversion {
+    static string ByteArrayToString(byte[] value)
+    static byte[] StringToByteArray(string hex)
+    static string RandomString(int length)
+    static DateTime UnixTimeStampToDateTime(long unixTimeStamp)
+    static long DateTimeToUnixTimeStamp(DateTime dateTime)
+    static byte[] ParseBase64WithoutPadding(string payload)
+}
+
+static class FileSizeFormatter {
+    static string FormatSize(long bytes)
+}
+
+static class Generator {
+    static string RandomString(CharacterCombination combination, int length)
+}
+```
+
+### Wrapper:
+
+A unified return type for the API endpoint.
+```csharp
+Response {
+    static Response Fail(string message)
+    static Response Fail(string message, int statusCode)
+    static Response Success(string message)
+    static Response Success(string message, int statusCode)
+}
+
+Response<TData> {
+    static Response<TData> Fail(string message)
+    static Response<TData> Fail(string message, int statusCode)
+    static Response<TData> Success(string message, TData data)
+    static Response<TData> Success(string message, int statusCode, TData data)
+}
+
+PaginatedResponse<TData> {
+    static PaginatedResponse<TData> Success(IEnumerable<TData> data, int count, int page, int pageSize)
+    static PaginatedResponse<TData> Success(IEnumerable<TData> dataToPaginate, int page, int pageSize)
+}
+```
+
 ## Problem Details
 
 ### Nuget package:
-```
+```csharp
 dotnet add package gitViwe.Shared.ProblemDetail --version 1.4.1
 ```
 
