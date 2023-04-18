@@ -3,7 +3,7 @@ This repository will house a collection of shared libraries that will be distrib
 
 ## gitViwe.Shared
 
-```csharp
+```
 dotnet add package gitViwe.Shared --version 1.4.4
 ```
 
@@ -17,7 +17,7 @@ dotnet add package gitViwe.Shared.Cache --version 1.4.4
 ## Problem Details
 
 ### Nuget package:
-```csharp
+```
 dotnet add package gitViwe.Shared.ProblemDetail --version 1.4.4
 ```
 
