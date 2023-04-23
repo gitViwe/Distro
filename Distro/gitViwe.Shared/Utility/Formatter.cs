@@ -1,9 +1,9 @@
 ﻿namespace gitViwe.Shared.Utility;
 
 /// <summary>
-/// Provides a converter to format file sizes
+/// Provides a converter to formatting values
 /// </summary>
-public static class FileSizeFormatter
+public static class Formatter
 {
     private static readonly string[] _suffixes = { "Bytes", "KB", "MB", "GB", "TB", "PB" };
 
