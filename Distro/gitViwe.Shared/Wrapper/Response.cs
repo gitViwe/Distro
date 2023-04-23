@@ -72,9 +72,9 @@ public class Response : IResponse
 /// Extends on <see cref="Response"/> to return data
 /// </summary>
 /// <typeparam name="TData">The data type returned from the request</typeparam>
-public class Response<TData> : Response, IResponse<TData> where TData : class, new()
+public class Response<TData> : Response, IResponse<TData>
 {
-    internal Response(string message, int statusCode, TData data)
+    internal Response(string message, int statusCode, TData? data)
         : base(message, statusCode)
     {
         Data = data;
@@ -83,7 +83,7 @@ public class Response<TData> : Response, IResponse<TData> where TData : class, n
     /// <summary>
     /// The content returned from the request
     /// </summary>
-    public TData Data { get; } = new();
+    public TData? Data { get; }
 
     /// <summary>
     /// Creates a new <see cref="Response{TData}"/> instance.
@@ -92,7 +92,7 @@ public class Response<TData> : Response, IResponse<TData> where TData : class, n
     /// <returns>A new <see cref="Response{TData}"/> instance with the <seealso cref="Response.StatusCode"/> value of 400.</returns>
     public static new IResponse<TData> Fail(string message)
     {
-        return new Response<TData>(message, 400, new());
+        return new Response<TData>(message, 400, default);
     }
 
     /// <summary>
@@ -104,7 +104,7 @@ public class Response<TData> : Response, IResponse<TData> where TData : class, n
     public static new IResponse<TData> Fail(string message, int statusCode)
     {
         GuardException.Against.SuccessStatusCode(statusCode);
-        return new Response<TData>(message, statusCode, new());
+        return new Response<TData>(message, statusCode, default);
     }
 
     /// <summary>

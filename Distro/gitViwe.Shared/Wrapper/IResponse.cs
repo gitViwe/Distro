@@ -30,5 +30,5 @@ public interface IResponse<out TData> : IResponse
     /// <summary>
     /// The content returned from the request
     /// </summary>
-    TData Data { get; }
+    TData? Data { get; }
 }
