@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <Version>1.4.5</Version>
+    <Version>1.4.6</Version>
     <Authors>Viwe Nkepu</Authors>
     <Description>Helpful extension methods for ClaimsPrincipal, HttpResponseMessage.</Description>
     <PackageProjectUrl>https://github.com/gitViwe/Distro</PackageProjectUrl>

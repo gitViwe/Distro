@@ -48,15 +48,15 @@ public class DefaultProblemDetails : ProblemDetails, IDefaultProblemDetails
     /// A string that represents the current object.
     /// </summary>
     /// <returns>A string that represents the object.</returns>
-    public override string ToString()
+    public override string? ToString()
     {
-        var stringBuilder = new StringBuilder();
-
-        stringBuilder.AppendLine($"Type    : {Type}");
-        stringBuilder.AppendLine($"Title   : {Title}");
-        stringBuilder.AppendLine($"Status  : {Status}");
-        stringBuilder.AppendLine($"Detail  : {Detail}");
-        stringBuilder.AppendLine($"Instance: {Instance}");
+        var stringBuilder = new StringBuilder()
+            .AppendLine($"TraceId : {TraceId}")
+            .AppendLine($"Type    : {Type}")
+            .AppendLine($"Title   : {Title}")
+            .AppendLine($"Status  : {Status}")
+            .AppendLine($"Detail  : {Detail}")
+            .AppendLine($"Instance: {Instance}");
 
         return stringBuilder.ToString();
     }

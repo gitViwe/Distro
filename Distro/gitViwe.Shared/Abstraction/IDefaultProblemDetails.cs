@@ -47,16 +47,15 @@ public interface IDefaultProblemDetails
     /// A string that represents the current <seealso cref="IDefaultProblemDetails"/>.
     /// </summary>
     /// <returns>A string that represents the <seealso cref="IDefaultProblemDetails"/>.</returns>
-    public string ToString()
+    public string? ToString()
     {
-        var stringBuilder = new StringBuilder();
-
-        stringBuilder.AppendLine($"TraceId : {TraceId}");
-        stringBuilder.AppendLine($"Type    : {Type}");
-        stringBuilder.AppendLine($"Title   : {Title}");
-        stringBuilder.AppendLine($"Status  : {Status}");
-        stringBuilder.AppendLine($"Detail  : {Detail}");
-        stringBuilder.AppendLine($"Instance: {Instance}");
+        var stringBuilder = new StringBuilder()
+            .AppendLine($"TraceId : {TraceId}")
+            .AppendLine($"Type    : {Type}")
+            .AppendLine($"Title   : {Title}")
+            .AppendLine($"Status  : {Status}")
+            .AppendLine($"Detail  : {Detail}")
+            .AppendLine($"Instance: {Instance}");
 
         return stringBuilder.ToString();
     }

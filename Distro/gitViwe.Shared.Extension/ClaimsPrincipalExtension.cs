@@ -4,7 +4,7 @@ using System.Security.Claims;
 namespace gitViwe.Shared.Extension;
 
 /// <summary>
-/// Extension methods for getting values from <see cref="ClaimsPrincipal"/>
+/// Extension methods for getting <seealso cref="JwtRegisteredClaimNames"/> values from <see cref="ClaimsPrincipal"/>
 /// </summary>
 public static class ClaimsPrincipalExtension
 {
