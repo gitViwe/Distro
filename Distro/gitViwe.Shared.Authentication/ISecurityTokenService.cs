@@ -51,6 +51,6 @@ public interface ISecurityTokenService
     /// <returns>A collection of only the following claims if they are present: <br></br>
     /// <see cref="ClaimTypes.NameIdentifier"/> <br></br>
     /// <see cref="JwtRegisteredClaimNames.Jti"/>
-    /// </returns>A collection of claims</returns>
+    /// </returns>
     IEnumerable<Claim> GetRequiredClaims(ClaimsPrincipal claimsPrincipal);
 }
