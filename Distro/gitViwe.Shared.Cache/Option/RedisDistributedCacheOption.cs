@@ -25,17 +25,17 @@ internal class RedisDistributedCacheOptionValidator : IValidateOptions<RedisDist
     {
         if (options.AbsoluteExpirationInMinutes < 1)
         {
-            return ValidateOptionsResult.Fail($"{nameof(options.AbsoluteExpirationInMinutes)} must be greater than zero.");
+            return ValidateOptionsResult.Fail($"{name}.{nameof(options.AbsoluteExpirationInMinutes)} must be greater than zero.");
         }
 
         if (options.SlidingExpirationInMinutes < 1)
         {
-            return ValidateOptionsResult.Fail($"{nameof(options.SlidingExpirationInMinutes)} must be greater than zero.");
+            return ValidateOptionsResult.Fail($"{name}.{nameof(options.SlidingExpirationInMinutes)} must be greater than zero.");
         }
 
         if (string.IsNullOrWhiteSpace(options.InstanceName))
         {
-            return ValidateOptionsResult.Fail($"A value for {nameof(options.InstanceName)} must be provided.");
+            return ValidateOptionsResult.Fail($"A value for {name}.{nameof(options.InstanceName)} must be provided.");
         }
 
         return ValidateOptionsResult.Success;

@@ -7,7 +7,7 @@
 	<GenerateDocumentationFile>True</GenerateDocumentationFile>
     <Version>1.4.7</Version>
     <Authors>Viwe Nkepu</Authors>
-    <Description>Helpful extension methods for HttpResponseMessage.</Description>
+    <Description>Helpful services for Authenticating on the web.</Description>
     <PackageProjectUrl>https://github.com/gitViwe/Distro</PackageProjectUrl>
   </PropertyGroup>
 
@@ -17,12 +17,11 @@
   <ItemGroup Condition=" '$(TargetFramework)' == 'net7.0' ">
   </ItemGroup>
 	
-<ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
-  </ItemGroup>
-	
   <ItemGroup>
-    <ProjectReference Include="..\gitViwe.Shared.ProblemDetail\gitViwe.Shared.ProblemDetail.csproj" />
+	<PackageReference Include="Microsoft.Extensions.Options" Version="7.0.1" />
+	<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.30.0" />
+    <PackageReference Include="Otp.NET" Version="1.3.0" />
+    <PackageReference Include="QRCoder" Version="1.4.3" />
   </ItemGroup>
 
 </Project>
