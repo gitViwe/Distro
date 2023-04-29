@@ -22,7 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\gitViwe.Shared.Authentication\gitViwe.Shared.Authentication.csproj" />
     <ProjectReference Include="..\gitViwe.Shared.Extension\gitViwe.Shared.Extension.csproj" />
     <ProjectReference Include="..\gitViwe.Shared.ProblemDetail.Extension\gitViwe.Shared.ProblemDetail.Extension.csproj" />
     <ProjectReference Include="..\gitViwe.Shared\gitViwe.Shared.csproj" />

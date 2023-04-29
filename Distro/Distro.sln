@@ -20,7 +20,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gitViwe.Shared.ProblemDetai
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gitViwe.Shared.ProblemDetail.Extension", "gitViwe.Shared.ProblemDetail.Extension\gitViwe.Shared.ProblemDetail.Extension.csproj", "{7808C523-8422-49D0-8DD1-EED9D68B969A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gitViwe.Shared.Authentication", "gitViwe.Shared.Authentication\gitViwe.Shared.Authentication.csproj", "{439337B0-F5E5-4802-A97C-CDB7A20FBF90}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gitViwe.Shared.Authentication", "gitViwe.Shared.Authentication\gitViwe.Shared.Authentication.csproj", "{439337B0-F5E5-4802-A97C-CDB7A20FBF90}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gitViwe.Shared.MongoDB", "gitViwe.Shared.MongoDB\gitViwe.Shared.MongoDB.csproj", "{16B4E79D-B2A5-43D7-AAC8-453F1261E8B5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -56,6 +58,10 @@ Global
 		{439337B0-F5E5-4802-A97C-CDB7A20FBF90}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{439337B0-F5E5-4802-A97C-CDB7A20FBF90}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{439337B0-F5E5-4802-A97C-CDB7A20FBF90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16B4E79D-B2A5-43D7-AAC8-453F1261E8B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16B4E79D-B2A5-43D7-AAC8-453F1261E8B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16B4E79D-B2A5-43D7-AAC8-453F1261E8B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16B4E79D-B2A5-43D7-AAC8-453F1261E8B5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

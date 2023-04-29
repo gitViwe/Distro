@@ -1,8 +1,12 @@
 ﻿using gitViwe.Shared.Authentication.Option;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace gitViwe.Shared.Authentication;
 
+/// <summary>
+/// Implementation of the services registered in the DI container.
+/// </summary>
 public static class Startup
 {
     /// <summary>
@@ -15,5 +19,16 @@ public static class Startup
     {
         return services.Configure(options)
             .AddScoped<ISecurityTokenService, SecurityTokenService>();
+    }
+
+    /// <summary>
+    /// Registers the <see cref="ITimeBasedOTPService"/> with default implementation of <seealso cref="TimeBasedOTPService"/>
+    /// </summary>
+    /// <param name="services">Specifies the contract for a collection of service descriptors.</param>
+    /// <returns>The <see cref="IServiceCollection"/> so that additional calls can be chained.</returns>
+    public static IServiceCollection AddGitViweTimeBasedOTPService(this IServiceCollection services)
+    {
+        services.TryAddTransient<ITimeBasedOTPService, TimeBasedOTPService>();
+        return services;
     }
 }
