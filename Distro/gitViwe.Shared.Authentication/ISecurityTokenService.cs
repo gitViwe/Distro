@@ -24,6 +24,13 @@ public interface ISecurityTokenService
     SecurityToken CreateToken(SecurityTokenDescriptor tokenDescriptor);
 
     /// <summary>
+    /// Creates a JSON web token
+    /// </summary>
+    /// <param name="claims">The claims to add to the security token</param>
+    /// <returns>A new <see cref="SecurityToken"/> instance</returns>
+    SecurityToken CreateToken(IEnumerable<Claim> claims);
+
+    /// <summary>
     /// Creates a JSON web token string
     /// </summary>
     /// <param name="token">The security token to use</param>
@@ -53,4 +60,15 @@ public interface ISecurityTokenService
     /// <see cref="JwtRegisteredClaimNames.Jti"/>
     /// </returns>
     IEnumerable<Claim> GetRequiredClaims(ClaimsPrincipal claimsPrincipal);
+
+    /// <summary>
+    /// Generate the required claims from the claims principal
+    /// </summary>
+    /// <param name="claimsPrincipal">The claims principal to use</param>
+    /// <param name="additionalClaimTypes">The claim types to include</param>
+    /// <returns>A collection of the following claims if they are present and claim types specified in <paramref name="additionalClaimTypes"/>: <br></br>
+    /// <see cref="ClaimTypes.NameIdentifier"/> <br></br>
+    /// <see cref="JwtRegisteredClaimNames.Jti"/>
+    /// </returns>
+    IEnumerable<Claim> GetRequiredClaims(ClaimsPrincipal claimsPrincipal, params string[] additionalClaimTypes);
 }

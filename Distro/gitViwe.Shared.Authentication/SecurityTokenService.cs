@@ -31,6 +31,20 @@ internal class SecurityTokenService : ISecurityTokenService
         return new JwtSecurityTokenHandler().CreateToken(tokenDescriptor);
     }
 
+    public SecurityToken CreateToken(IEnumerable<Claim> claims)
+    {
+        var tokenDescriptor = new SecurityTokenDescriptor()
+        {
+            Audience = _option.Audience,
+            Issuer = _option.Issuer,
+            Subject = new ClaimsIdentity(claims),
+            Expires = DateTime.UtcNow.Add(_option.TokenExpiry),
+            SigningCredentials = _option.SigningCredentials,
+        };
+
+        return new JwtSecurityTokenHandler().CreateToken(tokenDescriptor);
+    }
+
     public IEnumerable<Claim> GetRequiredClaims(ClaimsPrincipal claimsPrincipal)
     {
         var requiredClaims = new string[]
@@ -39,6 +53,19 @@ internal class SecurityTokenService : ISecurityTokenService
         };
 
         var claimList = claimsPrincipal.Claims.Where(x => requiredClaims.Contains(x.Type)).ToList();
+        claimList.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()));
+
+        return claimList;
+    }
+
+    public IEnumerable<Claim> GetRequiredClaims(ClaimsPrincipal claimsPrincipal, params string[] additionalClaimTypes)
+    {
+        var requiredClaims = new string[]
+        {
+            ClaimTypes.NameIdentifier,
+        };
+
+        var claimList = claimsPrincipal.Claims.Where(x => requiredClaims.Contains(x.Type) || additionalClaimTypes.Contains(x.Type)).ToList();
         claimList.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()));
 
         return claimList;
