@@ -10,7 +10,7 @@ namespace gitViwe.Shared.MongoDB;
 public static class Startup
 {
     /// <summary>
-    /// 
+    /// Registers the <see cref="IMongoDBRepository{T}"/> with default implementation of <seealso cref="MongoDBRepository{T}"/>
     /// </summary>
     /// <param name="services">Specifies the contract for a collection of service descriptors.</param>
     /// <param name="options">The mongoDB client settings</param>
