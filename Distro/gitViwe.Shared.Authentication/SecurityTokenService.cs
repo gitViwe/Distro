@@ -14,11 +14,11 @@ internal class SecurityTokenService : ISecurityTokenService
         _option = options.CurrentValue;
     }
 
-    public SecurityTokenDescriptor CreateSecurityTokenDescriptor(IEnumerable<Claim> claims)
+    public SecurityTokenDescriptor CreateSecurityTokenDescriptor(IEnumerable<Claim> claims, string? audience = null)
     {
         return new SecurityTokenDescriptor()
         {
-            Audience = _option.Audience,
+            Audience = string.IsNullOrWhiteSpace(audience) ? _option.Audience : audience,
             Issuer = _option.Issuer,
             Subject = new ClaimsIdentity(claims),
             Expires = DateTime.UtcNow.Add(_option.TokenExpiry),
@@ -31,11 +31,11 @@ internal class SecurityTokenService : ISecurityTokenService
         return new JwtSecurityTokenHandler().CreateToken(tokenDescriptor);
     }
 
-    public SecurityToken CreateToken(IEnumerable<Claim> claims)
+    public SecurityToken CreateToken(IEnumerable<Claim> claims, string? audience = null)
     {
         var tokenDescriptor = new SecurityTokenDescriptor()
         {
-            Audience = _option.Audience,
+            Audience = string.IsNullOrWhiteSpace(audience) ? _option.Audience : audience,
             Issuer = _option.Issuer,
             Subject = new ClaimsIdentity(claims),
             Expires = DateTime.UtcNow.Add(_option.TokenExpiry),

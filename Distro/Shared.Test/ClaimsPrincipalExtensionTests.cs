@@ -52,7 +52,7 @@ public class ClaimsPrincipalExtensionTests
         // Arrange
         var claims = new List<Claim>
         {
-            new Claim(ClaimTypes.NameIdentifier, "12345")
+            new Claim(JwtRegisteredClaimNames.Sub, "12345")
         };
         var identity = new ClaimsIdentity(claims);
         var claimsPrincipal = new ClaimsPrincipal(identity);

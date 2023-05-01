@@ -1,6 +1,5 @@
-﻿using System.Security.Claims;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
+﻿using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
 
 namespace gitViwe.Shared.Authentication;
 
@@ -13,8 +12,9 @@ public interface ISecurityTokenService
     /// Creates a descriptor containing information which used to create a security token
     /// </summary>
     /// <param name="claims">The claims to add to the security token</param>
+    /// <param name="audience">The recipient for which the JWT is intended</param>
     /// <returns>A new <see cref="SecurityTokenDescriptor"/> instance</returns>
-    SecurityTokenDescriptor CreateSecurityTokenDescriptor(IEnumerable<Claim> claims);
+    SecurityTokenDescriptor CreateSecurityTokenDescriptor(IEnumerable<Claim> claims, string? audience = null);
 
     /// <summary>
     /// Creates a JSON web token
@@ -27,8 +27,9 @@ public interface ISecurityTokenService
     /// Creates a JSON web token
     /// </summary>
     /// <param name="claims">The claims to add to the security token</param>
+    /// <param name="audience">The recipient for which the JWT is intended</param>
     /// <returns>A new <see cref="SecurityToken"/> instance</returns>
-    SecurityToken CreateToken(IEnumerable<Claim> claims);
+    SecurityToken CreateToken(IEnumerable<Claim> claims, string? audience = null);
 
     /// <summary>
     /// Creates a JSON web token string

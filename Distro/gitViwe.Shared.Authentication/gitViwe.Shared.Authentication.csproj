@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 	<GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <Version>1.4.9</Version>
+    <Version>1.4.10</Version>
     <Authors>Viwe Nkepu</Authors>
     <Description>Helpful services for Authenticating on the web.</Description>
     <PackageProjectUrl>https://github.com/gitViwe/Distro</PackageProjectUrl>
