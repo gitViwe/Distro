@@ -29,17 +29,17 @@ public static class ClaimsPrincipalExtension
     }
 
     /// <summary>
-    /// Gets the NameIdentifier value from the claims
+    /// Gets the Sub value from the claims
     /// </summary>
     /// <param name="claimsPrincipal">The current <see cref="ClaimsPrincipal"/></param>
-    /// <returns>The <seealso cref="ClaimTypes.NameIdentifier"/> value</returns>
+    /// <returns>The <seealso cref="JwtRegisteredClaimNames.Sub"/> value</returns>
     public static string GetUserId(this ClaimsPrincipal claimsPrincipal)
     {
-        return claimsPrincipal.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? string.Empty;
+        return claimsPrincipal.FindFirst(JwtRegisteredClaimNames.Sub)?.Value ?? string.Empty;
     }
 
     /// <summary>
-    /// Gets the Sub value from the claims
+    /// Gets the UniqueName value from the claims
     /// </summary>
     /// <param name="claimsPrincipal">The current <see cref="ClaimsPrincipal"/></param>
     /// <returns>The <seealso cref="JwtRegisteredClaimNames.UniqueName"/> value</returns>
