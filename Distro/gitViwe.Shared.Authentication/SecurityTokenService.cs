@@ -45,32 +45,6 @@ internal class SecurityTokenService : ISecurityTokenService
         return new JwtSecurityTokenHandler().CreateToken(tokenDescriptor);
     }
 
-    public IEnumerable<Claim> GetRequiredClaims(ClaimsPrincipal claimsPrincipal)
-    {
-        var requiredClaims = new string[]
-        {
-            ClaimTypes.NameIdentifier,
-        };
-
-        var claimList = claimsPrincipal.Claims.Where(x => requiredClaims.Contains(x.Type)).ToList();
-        claimList.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()));
-
-        return claimList;
-    }
-
-    public IEnumerable<Claim> GetRequiredClaims(ClaimsPrincipal claimsPrincipal, params string[] additionalClaimTypes)
-    {
-        var requiredClaims = new string[]
-        {
-            ClaimTypes.NameIdentifier,
-        };
-
-        var claimList = claimsPrincipal.Claims.Where(x => requiredClaims.Contains(x.Type) || additionalClaimTypes.Contains(x.Type)).ToList();
-        claimList.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()));
-
-        return claimList;
-    }
-
     public ClaimsPrincipal ValidateToken(string token, bool isRefreshToken = false)
     {
         var handler = new JwtSecurityTokenHandler();

@@ -50,25 +50,4 @@ public interface ISecurityTokenService
     /// <exception cref="ArgumentException" />
     /// <returns>The <see cref="ClaimsPrincipal"/> from the JWT.</returns>
     ClaimsPrincipal ValidateToken(string token, bool isRefreshToken = false);
-
-    /// <summary>
-    /// Generate the required claims from the claims principal
-    /// </summary>
-    /// <param name="claimsPrincipal">The claims principal to use</param>
-    /// <returns>A collection of only the following claims if they are present: <br></br>
-    /// <see cref="ClaimTypes.NameIdentifier"/> <br></br>
-    /// <see cref="JwtRegisteredClaimNames.Jti"/>
-    /// </returns>
-    IEnumerable<Claim> GetRequiredClaims(ClaimsPrincipal claimsPrincipal);
-
-    /// <summary>
-    /// Generate the required claims from the claims principal
-    /// </summary>
-    /// <param name="claimsPrincipal">The claims principal to use</param>
-    /// <param name="additionalClaimTypes">The claim types to include</param>
-    /// <returns>A collection of the following claims if they are present and claim types specified in <paramref name="additionalClaimTypes"/>: <br></br>
-    /// <see cref="ClaimTypes.NameIdentifier"/> <br></br>
-    /// <see cref="JwtRegisteredClaimNames.Jti"/>
-    /// </returns>
-    IEnumerable<Claim> GetRequiredClaims(ClaimsPrincipal claimsPrincipal, params string[] additionalClaimTypes);
 }
