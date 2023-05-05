@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace gitViwe.Shared.Abstraction;
+namespace gitViwe.Shared;
 
 /// <summary>
 /// Extends on <seealso cref="IDefaultProblemDetails"/> to add <seealso cref="Errors"/>

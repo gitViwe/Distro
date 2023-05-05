@@ -1,4 +1,4 @@
-﻿using gitViwe.Shared.Abstraction;
+﻿using gitViwe.Shared;
 using Microsoft.AspNetCore.Mvc;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -33,7 +33,7 @@ public class DefaultProblemDetails : ProblemDetails, IDefaultProblemDetails
     /// <param name="problemDetails">The default <see cref="ProblemDetails"/></param>
     /// <param name="extensions">Problem type definitions MAY extend the problem details object with additional members.</param>
     public DefaultProblemDetails(string traceIdentifier, ProblemDetails problemDetails, IDictionary<string, object?> extensions)
-        :this(traceIdentifier, problemDetails)
+        : this(traceIdentifier, problemDetails)
     {
         AddExtensions(extensions);
     }

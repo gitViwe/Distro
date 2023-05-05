@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace gitViwe.Shared.Abstraction;
+namespace gitViwe.Shared;
 
 /// <summary>
 /// Defines the schema for the custom ProblemDetails class
