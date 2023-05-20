@@ -33,14 +33,7 @@ internal class SecurityTokenService : ISecurityTokenService
 
     public SecurityToken CreateToken(IEnumerable<Claim> claims, string? audience = null)
     {
-        var tokenDescriptor = new SecurityTokenDescriptor()
-        {
-            Audience = string.IsNullOrWhiteSpace(audience) ? _option.Audience : audience,
-            Issuer = _option.Issuer,
-            Subject = new ClaimsIdentity(claims),
-            Expires = DateTime.UtcNow.Add(_option.TokenExpiry),
-            SigningCredentials = _option.SigningCredentials,
-        };
+        var tokenDescriptor = CreateSecurityTokenDescriptor(claims, audience);
 
         return new JwtSecurityTokenHandler().CreateToken(tokenDescriptor);
     }

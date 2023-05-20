@@ -41,10 +41,10 @@ public class Appearance
     public string Race { get; set; } = string.Empty;
 
     [JsonPropertyName("height")]
-    public string[] Height { get; set; } = Array.Empty<string>();
+    public IEnumerable<string> Height { get; set; } = Enumerable.Empty<string>();
 
     [JsonPropertyName("weight")]
-    public string[] Weight { get; set; } = Array.Empty<string>();
+    public IEnumerable<string> Weight { get; set; } = Enumerable.Empty<string>();
 
     [JsonPropertyName("eyeColor")]
     public string EyeColor { get; set; } = string.Empty;
@@ -62,7 +62,7 @@ public class Biography
     public string AlterEgos { get; set; } = string.Empty;
 
     [JsonPropertyName("aliases")]
-    public string[] Aliases { get; set; } = Array.Empty<string>();
+    public IEnumerable<string> Aliases { get; set; } = Enumerable.Empty<string>();
 
     [JsonPropertyName("placeOfBirth")]
     public string PlaceOfBirth { get; set; } = string.Empty;
