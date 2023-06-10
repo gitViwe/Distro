@@ -26,17 +26,17 @@ public class SecurityTokenOption
     /// <summary>
     /// Gets or sets the SigningCredentials used to create a security token.
     /// </summary>
-    public SigningCredentials SigningCredentials { get; set; }
+    public SigningCredentials? SigningCredentials { get; set; }
 
     /// <summary>
     /// Contains a set of parameters that are used by a <see cref="SecurityTokenHandler"/> when validating a <see cref="SecurityToken"/>
     /// </summary>
-    public TokenValidationParameters ValidationParameters { get; set; }
+    public TokenValidationParameters? ValidationParameters { get; set; }
 
     /// <summary>
     /// Contains a set of parameters that are used by a <see cref="SecurityTokenHandler"/> when validating a <see cref="SecurityToken"/>
     /// </summary>
-    public TokenValidationParameters RefreshValidationParameters { get; set; }
+    public TokenValidationParameters? RefreshValidationParameters { get; set; }
 }
 
 internal class SecurityTokenOptionValidator : IValidateOptions<SecurityTokenOption>

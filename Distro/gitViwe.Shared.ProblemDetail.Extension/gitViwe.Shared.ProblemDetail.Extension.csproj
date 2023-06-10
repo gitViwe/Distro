@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 	<GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <Version>1.4.7</Version>
+    <Version>1.5.0</Version>
     <Authors>Viwe Nkepu</Authors>
     <Description>Helpful extension methods for HttpResponseMessage.</Description>
     <PackageProjectUrl>https://github.com/gitViwe/Distro</PackageProjectUrl>
@@ -15,10 +15,6 @@
   </ItemGroup>
 	
   <ItemGroup Condition=" '$(TargetFramework)' == 'net7.0' ">
-  </ItemGroup>
-	
-<ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
   </ItemGroup>
 	
   <ItemGroup>

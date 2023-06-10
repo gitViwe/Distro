@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <Version>1.4.8</Version>
+    <Version>1.5.0</Version>
     <Authors>Viwe Nkepu</Authors>
     <Description>Helpful extension methods for ClaimsPrincipal, HttpResponseMessage.</Description>
     <PackageProjectUrl>https://github.com/gitViwe/Distro</PackageProjectUrl>
@@ -18,7 +18,7 @@
   </ItemGroup>
 	
   <ItemGroup>
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.30.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.30.1" />
   </ItemGroup>
 	
   <ItemGroup>

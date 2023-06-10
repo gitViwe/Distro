@@ -11,7 +11,7 @@ public class MongoDBRepositoryOption
     /// <summary>
     /// The settings for the mongoDb client
     /// </summary>
-    public MongoClientSettings MongoClientSettings { get; set; }
+    public MongoClientSettings? MongoClientSettings { get; set; }
 
     /// <summary>
     /// The mongoDb database name
