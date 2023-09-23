@@ -12,9 +12,9 @@ dotnet add package gitViwe.Shared --version 2.0.0
 
 Defines the schema for the custom ProblemDetails class
 ```csharp
-interface IDefaultProblemDetails
-interface IPaginatedRequest
-interface IValidationProblemDetails
+interface IDefaultProblemDetails { }
+interface IPaginatedRequest { }
+interface IValidationProblemDetails { }
 ```
 
 
