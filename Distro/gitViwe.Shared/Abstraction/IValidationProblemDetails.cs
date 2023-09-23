@@ -24,20 +24,18 @@ public interface IValidationProblemDetails : IDefaultProblemDetails
     }
 
     /// <summary>
-    /// A string that represents the current <seealso cref="IDefaultProblemDetails"/>.
+    /// A string that represents the current <seealso cref="IValidationProblemDetails"/>.
     /// </summary>
-    /// <returns>A string that represents the <seealso cref="IDefaultProblemDetails"/>.</returns>
-    public new string? ToString()
-    {
-        var stringBuilder = new StringBuilder()
-            .AppendLine($"TraceId : {TraceId}")
-            .AppendLine($"Type    : {Type}")
-            .AppendLine($"Title   : {Title}")
-            .AppendLine($"Status  : {Status}")
-            .AppendLine($"Detail  : {Detail}")
-            .AppendLine($"Instance: {Instance}")
-            .AppendLine("Errors  : " + ErrorsToDebugString());
-
-        return stringBuilder.ToString();
-    }
+    /// <returns>A string that represents the <seealso cref="IValidationProblemDetails"/>.</returns>
+    public new string? ToString() =>
+        new StringBuilder()
+            .AppendLine($"TraceId   : {TraceId}")
+            .AppendLine($"Type      : {Type}")
+            .AppendLine($"Title     : {Title}")
+            .AppendLine($"Status    : {Status}")
+            .AppendLine($"Detail    : {Detail}")
+            .AppendLine($"Instance  : {Instance}")
+            .AppendLine($"Errors    : {ErrorsToDebugString()}")
+            .AppendLine($"Extensions: {ExtensionsToDebugString()}")
+            .ToString();
 }

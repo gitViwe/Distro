@@ -13,7 +13,6 @@ public static class Generator
     /// <returns>A random string of the specified length</returns>
     public static string RandomString(CharacterCombination combination = CharacterCombination.NumberAndUpper, int length = 5)
     {
-        var random = new Random();
         string characters = combination switch
         {
             CharacterCombination.Lower => StringCharacter.LOWER,
@@ -30,6 +29,7 @@ public static class Generator
             CharacterCombination.SymbolAndNumberAndAlphabet => StringCharacter.SYMBOLANDNUMBERANDALPHABET,
             _ => throw new ArgumentOutOfRangeException(nameof(combination), $"Not expected combination value: {combination}")
         };
+        var random = new Random();
         return new string(Enumerable.Repeat(characters, length).Select(x => x[random.Next(x.Length)]).ToArray());
     }
 

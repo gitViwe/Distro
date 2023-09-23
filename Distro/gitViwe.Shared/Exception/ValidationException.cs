@@ -38,5 +38,5 @@ public class ValidationException : System.Exception
     /// <summary>
     /// A collection of the validation errors without the key.
     /// </summary>
-    public IEnumerable<string> ErrorMessages() => _errors.SelectMany(x => x.Value).ToArray();
+    public IEnumerable<string> ToArray() => _errors.SelectMany(x => x.Value).ToArray();
 }

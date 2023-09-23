@@ -1,10 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-	<Version>1.5.1</Version>
+	<Version>2.0.0</Version>
     <Authors>Viwe Nkepu</Authors>
     <Description>Some class models</Description>
     <PackageProjectUrl>https://github.com/gitViwe/Distro</PackageProjectUrl>
