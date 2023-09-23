@@ -1,6 +1,5 @@
 ﻿using gitViwe.Shared;
 using Microsoft.AspNetCore.Mvc;
-using System.Text;
 using System.Text.Json.Serialization;
 
 namespace gitViwe.ProblemDetail.Base;
@@ -43,23 +42,6 @@ public class DefaultProblemDetails : ProblemDetails, IDefaultProblemDetails
     /// </summary>
     [JsonPropertyName("traceId")]
     public string? TraceId { get; init; }
-
-    /// <summary>
-    /// A string that represents the current object.
-    /// </summary>
-    /// <returns>A string that represents the object.</returns>
-    public override string? ToString()
-    {
-        var stringBuilder = new StringBuilder()
-            .AppendLine($"TraceId : {TraceId}")
-            .AppendLine($"Type    : {Type}")
-            .AppendLine($"Title   : {Title}")
-            .AppendLine($"Status  : {Status}")
-            .AppendLine($"Detail  : {Detail}")
-            .AppendLine($"Instance: {Instance}");
-
-        return stringBuilder.ToString();
-    }
 
     private void SetProblemDefaults(ProblemDetails problem)
     {

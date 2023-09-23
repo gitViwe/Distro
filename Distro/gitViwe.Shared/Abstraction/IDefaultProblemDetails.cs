@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using System.Text.Json;
 
 namespace gitViwe.Shared;
 
@@ -44,19 +45,28 @@ public interface IDefaultProblemDetails
     IDictionary<string, object?> Extensions { get; }
 
     /// <summary>
+    /// Format the <seealso cref="Extensions"/> dictionary into a readable string
+    /// </summary>
+    /// <returns>A string of the <seealso cref="Extensions"/> values</returns>
+    public string? ExtensionsToDebugString()
+    {
+        return Extensions is null
+        ? string.Empty
+            : '{' + string.Join(',', Extensions.Select(kv => kv.Key + '=' + JsonSerializer.Serialize(kv.Value, new JsonSerializerOptions { WriteIndented = true }) + '}'));
+    }
+
+    /// <summary>
     /// A string that represents the current <seealso cref="IDefaultProblemDetails"/>.
     /// </summary>
     /// <returns>A string that represents the <seealso cref="IDefaultProblemDetails"/>.</returns>
-    public string? ToString()
-    {
-        var stringBuilder = new StringBuilder()
-            .AppendLine($"TraceId : {TraceId}")
-            .AppendLine($"Type    : {Type}")
-            .AppendLine($"Title   : {Title}")
-            .AppendLine($"Status  : {Status}")
-            .AppendLine($"Detail  : {Detail}")
-            .AppendLine($"Instance: {Instance}");
-
-        return stringBuilder.ToString();
-    }
+    public string? ToString() =>
+        new StringBuilder()
+            .AppendLine($"TraceId   : {TraceId}")
+            .AppendLine($"Type      : {Type}")
+            .AppendLine($"Title     : {Title}")
+            .AppendLine($"Status    : {Status}")
+            .AppendLine($"Detail    : {Detail}")
+            .AppendLine($"Instance  : {Instance}")
+            .AppendLine($"Extensions: {ExtensionsToDebugString()}")
+            .ToString();
 }

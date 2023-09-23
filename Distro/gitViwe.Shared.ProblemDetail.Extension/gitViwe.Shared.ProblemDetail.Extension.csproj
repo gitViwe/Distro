@@ -1,22 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
+    <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 	<GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <Version>1.5.1</Version>
+    <Version>2.0.0</Version>
     <Authors>Viwe Nkepu</Authors>
     <Description>Helpful extension methods for HttpResponseMessage.</Description>
     <PackageProjectUrl>https://github.com/gitViwe/Distro</PackageProjectUrl>
   </PropertyGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
-  </ItemGroup>
-	
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net7.0' ">
-  </ItemGroup>
-	
   <ItemGroup>
     <ProjectReference Include="..\gitViwe.Shared.ProblemDetail\gitViwe.Shared.ProblemDetail.csproj" />
   </ItemGroup>

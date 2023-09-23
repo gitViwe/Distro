@@ -33,37 +33,20 @@ public static class Conversion
     }
 
     /// <summary>
-    /// Creates a random string
-    /// </summary>
-    /// <param name="length">The number of characters the string will have</param>
-    /// <returns>A random string of the specified length</returns>
-    [Obsolete($"This method is deprecated. Please use {nameof(Generator)}.{nameof(Generator.RandomString)}()", true)]
-    public static string RandomString(int length)
-    {
-        var random = new Random();
-        var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        return new string(Enumerable.Repeat(chars, length)
-            .Select(x => x[random.Next(x.Length)]).ToArray());
-    }
-
-    /// <summary>
     /// Gets the <see cref="DateTime"/> value from the time stamp
     /// </summary>
     /// <param name="unixTimeStamp">The Unix time stamp to convert</param>
-    /// <returns>A <see cref="DateTime"/> value</returns>
+    /// <returns>A <see cref="DateTime"/> value in <see cref="DateTimeKind.Utc"/> format</returns>
     public static DateTime UnixTimeStampToDateTime(long unixTimeStamp)
     {
-        var dateTimeVal = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
-        dateTimeVal = dateTimeVal.AddSeconds(unixTimeStamp).ToUniversalTime();
-
-        return dateTimeVal;
+        return DateTime.UnixEpoch.AddSeconds(unixTimeStamp).ToUniversalTime();
     }
 
     /// <summary>
-    /// Gets the unixTimeStamp as <see cref="Int64"/> value
+    /// Gets the UnixTimeStamp as <see cref="Int64"/> value
     /// </summary>
     /// <param name="dateTime">The date value in <seealso cref="DateTimeKind.Utc"/> format</param>
-    /// <returns>A <see cref="Int64"/> value representing the unixTimeStamp</returns>
+    /// <returns>A <see cref="Int64"/> value representing the UnixTimeStamp</returns>
     public static long DateTimeToUnixTimeStamp(DateTime dateTime)
     {
         return (long)dateTime.Subtract(DateTime.UnixEpoch).TotalSeconds;
