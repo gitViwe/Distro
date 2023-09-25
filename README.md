@@ -40,6 +40,7 @@ static class Conversion {
     static DateTime UnixTimeStampToDateTime(long unixTimeStamp);
     static long DateTimeToUnixTimeStamp(DateTime dateTime);
     static byte[] ParseBase64WithoutPadding(string payload);
+    static string ToObfuscatedString<TValue>(TValue request, params string[] propertyNames);
 }
 
 static class Formatter {

@@ -1,4 +1,6 @@
-﻿namespace gitViwe.Shared;
+﻿using System.Text.RegularExpressions;
+
+namespace gitViwe.Shared;
 
 /// <summary>
 /// Provides common data conversion methods
@@ -62,5 +64,28 @@ public static class Conversion
         payload = payload.Trim().Replace('-', '+').Replace('_', '/');
         var base64 = payload.PadRight(payload.Length + (4 - payload.Length % 4) % 4, '=');
         return Convert.FromBase64String(base64);
+    }
+
+    /// <summary>
+    /// Converts the provided value into a JSON <see cref="string"/> where the property values defined in <paramref name="propertyNames"/> are hidden.
+    /// </summary>
+    /// <typeparam name="TValue">The type of the value to serialize.</typeparam>
+    /// <param name="request">The value to convert into a JSON <see cref="string"/>.</param>
+    /// <param name="propertyNames">The property names from <typeparamref name="TValue"/> to obfuscate.</param>
+    /// <returns>A JSON <see cref="string"/> representation of the value.</returns>
+    public static string ToObfuscatedString<TValue>(TValue request, params string[] propertyNames)
+    {
+        string text = System.Text.Json.JsonSerializer.Serialize(request);
+
+        if (propertyNames is not null && propertyNames.Any())
+        {
+            // Join the property names with "|" to create the regex pattern
+            string pattern = $"(\"({string.Join("|", propertyNames)})\":\\s*)\"[^\\\"]*\"";
+            string replacement = "$1\"*****\"";
+
+            return Regex.Replace(text, pattern, replacement); 
+        }
+
+        return text;
     }
 }
