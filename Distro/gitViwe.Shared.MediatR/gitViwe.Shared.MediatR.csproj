@@ -7,21 +7,22 @@
 	<GenerateDocumentationFile>True</GenerateDocumentationFile>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
 	<Description>A .NET library for some additional MediatR implementation</Description>
-    <Version>2.0.3</Version>
+    <Version>2.0.4</Version>
     <Authors>Viwe Nkepu</Authors>
     <PackageProjectUrl>https://github.com/gitViwe/Distro</PackageProjectUrl>
   </PropertyGroup>
 	
   <ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="8.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="11.8.1" />
     <PackageReference Include="MediatR" Version="12.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="8.0.0" />
   </ItemGroup>
 
   <ItemGroup>
