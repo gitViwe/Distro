@@ -1,11 +1,11 @@
 # Distro
-This repository will house a collection of shared libraries that will be distributed in NuGet that should help quickly launch projects I would like to play around with.
+This repository will house a collection of shared libraries that will be distributed through NuGet that should help quickly launch projects I would like to play around with.
 
 
 ## gitViwe.Shared
 
 ```
-dotnet add package gitViwe.Shared --version 2.0.0
+dotnet add package gitViwe.Shared --version 2.0.3
 ```
 
 ### Abstraction:
@@ -14,9 +14,28 @@ Defines the schema for the custom ProblemDetails class
 ```csharp
 interface IDefaultProblemDetails { }
 interface IPaginatedRequest { }
+interface IRequiresHost {}
 interface IValidationProblemDetails { }
 ```
 
+### Attribute:
+
+Some custom attributes
+```csharp
+class ObfuscateAttribute { }
+```
+
+### Constant:
+
+Some helper classes
+```csharp
+static class OpenTelemetrySource { }
+static class OpenTelemetryTagKey {
+    static class MediatR { }
+    static class HTTP { }
+    static class JWT { }
+}
+```
 
 ### Exception:
 
@@ -50,6 +69,17 @@ static class Formatter {
 static class Generator {
     static string RandomString(CharacterCombination combination, int length)
 }
+
+static class OpenTelemetryActivity {
+    static class MediatR {
+        static void StartActivity(string activityName, string eventName, Dictionary<string, object?> tags);
+    }
+    static class InternalProcess {
+        static void StartActivity(string activityName, string eventName);
+        static void StartActivity(string activityName, string eventName, System.Exception exception);
+        static void StartActivity(string activityName, string eventName, Dictionary<string, object?> tags, ActivityStatusCode statusCode = ActivityStatusCode.Unset);
+    }
+}
 ```
 
 ### Wrapper:
@@ -80,7 +110,7 @@ PaginatedResponse<TData> {
 
 ### Nuget package:
 ```
-dotnet add package gitViwe.Shared.Authentication --version 2.0.0
+dotnet add package gitViwe.Shared.Authentication --version 2.0.3
 ```
 
 ### JSON Web Token:
@@ -90,8 +120,8 @@ builder.Services.AddGitViweSecurityTokenService(options =>
 {
     var key = Encoding.ASCII.GetBytes("vxL2V6EEj8HjgU6NxMhcNWAf0Ejxmcuj");
 
-    options.Audience = "https://localhost:7177";
-    options.Issuer = "https://localhost:7161";
+    options.Audience = "https://localhost";
+    options.Issuer = "https://localhost";
     options.RefreshValidationParameters = // create new instance with your settings;
     options.SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature);
     options.TokenExpiry = TimeSpan.FromMinutes(int.Parse(5));
@@ -132,7 +162,7 @@ ITimeBasedOTPService {
 
 ### Nuget package:
 ```
-dotnet add package gitViwe.Shared.Cache --version 2.0.0
+dotnet add package gitViwe.Shared.Cache --version 2.0.3
 ```
 
 ### Redis distributed cache:
@@ -160,11 +190,75 @@ public IActionResult Result([FromServices] IRedisDistributedCache redis, [FromBo
 }
 ```
 
+## gitViwe.Shared.Extension
+
+### Nuget package:
+```
+dotnet add package gitViwe.Shared.Extension --version 2.0.3
+```
+
+Some helpful extension methods
+```csharp
+class ClaimsPrincipalExtension {
+    static bool HasExpiredClaims(this ClaimsPrincipal claimsPrincipal, int thresholdInMinutes = 5);
+}
+class ResponseExtension {
+    static async Task<TData> ToResponseAsync<TData>(
+        this HttpResponseMessage response,
+        JsonSerializerOptions? options = null,
+        CancellationToken token = default);
+    static async Task<PaginatedResponse<TData>> ToPaginatedResponseAsync<TData>(
+        this HttpResponseMessage response,
+        JsonSerializerOptions? options = null,
+        CancellationToken token = default);
+}
+```
+
+## gitViwe.Shared.FluentValidation
+
+### Nuget package:
+```
+dotnet add package gitViwe.Shared.FluentValidation --version 2.0.3
+```
+
+### Extensions:
+
+Some custom attributes
+```csharp
+class FluentValidatorExtension {
+    static IRuleBuilderOptions<T, string> MustBeValidUri<T>(this IRuleBuilder<T, string> ruleBuilder);
+    static IRuleBuilderOptions<T, string> NotContain<T>(this IRuleBuilder<T, string> ruleBuilder, string searchString);
+}
+```
+
+## gitViwe.Shared.MediatR
+
+### Nuget package:
+```
+dotnet add package gitViwe.Shared.MediatR --version 2.0.3
+```
+
+### Behaviour:
+
+Some custom attributes
+```csharp
+class OpenTelemetryBehaviour<TRequest, TResponse> { }
+class ValidationBehaviour<TRequest, TResponse> { }
+```
+
+#### Optional configuration for the `OpenTelemetryBehaviourOption` to be used by `OpenTelemetryBehaviour`
+```csharp
+builder.Services.ConfigureGitViweOpenTelemetryBehaviourOption(options =>
+{
+    options.ObfuscatedPropertyNames = new string[] { "Email", "Password", "PasswordConfirmation", "Token" };
+});
+```
+
 ## gitViwe.Shared.MongoDB
 
 ### Nuget package:
 ```
-dotnet add package gitViwe.Shared.MongoDB --version 2.0.0
+dotnet add package gitViwe.Shared.MongoDB --version 2.0.3
 ```
 
 ### Mongo document database:
@@ -195,7 +289,7 @@ IMongoDBRepository<TMongoDocument> {
 
 ### Nuget package:
 ```
-dotnet add package gitViwe.Shared.ProblemDetail --version 2.0.0
+dotnet add package gitViwe.Shared.ProblemDetail --version 2.0.3
 ```
 
 ### Usage:

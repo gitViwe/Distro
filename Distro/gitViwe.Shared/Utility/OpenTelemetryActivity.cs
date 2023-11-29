@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
+using gitViwe.Shared.Constant.OpenTelemetry;
 
-namespace gitViwe.Shared.Constant.OpenTelemetry;
+namespace gitViwe.Shared.Utility;
 
 /// <summary>
 /// Exposes some <see cref="ActivitySource"/> methods for the various <seealso cref="OpenTelemetrySource"/>

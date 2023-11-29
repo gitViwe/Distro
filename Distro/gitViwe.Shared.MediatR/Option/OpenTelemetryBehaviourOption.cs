@@ -8,5 +8,5 @@ public class OpenTelemetryBehaviourOption
     /// <summary>
     /// The property names to be obfuscated
     /// </summary>
-    public string[]? ObfuscatedPropertyNames { get; set; }
+    public IEnumerable<string>? ObfuscatedPropertyNames { get; set; }
 }

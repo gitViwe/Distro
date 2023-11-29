@@ -48,7 +48,6 @@ public interface ISecurityTokenService
     /// <param name="isRefreshToken">If set to true, the token expiry will not be validated</param>
     /// <exception cref="SecurityTokenValidationException" />
     /// <exception cref="ArgumentNullException" />
-    /// <exception cref="ArgumentException" />
     /// <returns>The <see cref="ClaimsPrincipal"/> from the JWT.</returns>
     ClaimsPrincipal ValidateToken(string token, bool isRefreshToken = false);
 }

@@ -53,7 +53,7 @@ internal class SecurityTokenService : ISecurityTokenService
             // verify that the token is encrypted with the security algorithm
             var result = securityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase);
 
-            if (result is false) throw new ArgumentException("Invalid JSON web token.");
+            if (result is false) throw new SecurityTokenValidationException("Invalid JSON web token.");
         }
 
         return jwtClaims;

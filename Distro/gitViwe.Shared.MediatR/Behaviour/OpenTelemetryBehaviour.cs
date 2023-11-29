@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+﻿using gitViwe.Shared.Utility;
+using Microsoft.Extensions.Options;
 
 namespace gitViwe.Shared.MediatR.Behaviour;
 
