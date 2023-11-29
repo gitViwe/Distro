@@ -24,7 +24,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gitViwe.Shared.Authenticati
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gitViwe.Shared.MongoDB", "gitViwe.Shared.MongoDB\gitViwe.Shared.MongoDB.csproj", "{16B4E79D-B2A5-43D7-AAC8-453F1261E8B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gitViwe.Shared.Model", "gitViwe.Shared.Model\gitViwe.Shared.Model.csproj", "{31D20D82-0180-4631-9BDC-21130F091EF4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gitViwe.Shared.Model", "gitViwe.Shared.Model\gitViwe.Shared.Model.csproj", "{31D20D82-0180-4631-9BDC-21130F091EF4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gitViwe.Shared.FluentValidation", "gitViwe.Shared.FluentValidation\gitViwe.Shared.FluentValidation.csproj", "{CDE720AF-1CE3-49B8-A0FC-27561DF35743}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gitViwe.Shared.MediatR", "gitViwe.Shared.MediatR\gitViwe.Shared.MediatR.csproj", "{0A2B0F0C-9B76-4FBB-9D23-DE5DC7203229}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -68,6 +72,14 @@ Global
 		{31D20D82-0180-4631-9BDC-21130F091EF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{31D20D82-0180-4631-9BDC-21130F091EF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{31D20D82-0180-4631-9BDC-21130F091EF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDE720AF-1CE3-49B8-A0FC-27561DF35743}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDE720AF-1CE3-49B8-A0FC-27561DF35743}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDE720AF-1CE3-49B8-A0FC-27561DF35743}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDE720AF-1CE3-49B8-A0FC-27561DF35743}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A2B0F0C-9B76-4FBB-9D23-DE5DC7203229}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A2B0F0C-9B76-4FBB-9D23-DE5DC7203229}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A2B0F0C-9B76-4FBB-9D23-DE5DC7203229}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A2B0F0C-9B76-4FBB-9D23-DE5DC7203229}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

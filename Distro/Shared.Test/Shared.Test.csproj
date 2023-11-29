@@ -1,17 +1,18 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
 
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.2" />
+    <PackageReference Include="FluentValidation" Version="11.8.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
     <PackageReference Include="SoloX.CodeQuality.Test.Helpers" Version="2.0.16" />
-    <PackageReference Include="xunit" Version="2.5.1" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.1">
+    <PackageReference Include="xunit" Version="2.6.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.4">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
@@ -23,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\gitViwe.Shared.Extension\gitViwe.Shared.Extension.csproj" />
+    <ProjectReference Include="..\gitViwe.Shared.FluentValidation\gitViwe.Shared.FluentValidation.csproj" />
     <ProjectReference Include="..\gitViwe.Shared.ProblemDetail.Extension\gitViwe.Shared.ProblemDetail.Extension.csproj" />
     <ProjectReference Include="..\gitViwe.Shared\gitViwe.Shared.csproj" />
   </ItemGroup>

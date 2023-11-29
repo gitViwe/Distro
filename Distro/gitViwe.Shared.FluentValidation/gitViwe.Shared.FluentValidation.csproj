@@ -4,18 +4,22 @@
     <TargetFrameworks>net7.0; net8.0</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+	<GenerateDocumentationFile>True</GenerateDocumentationFile>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+	<Description>A .NET library for some additional Fluent Validation validators</Description>
     <Version>2.0.2</Version>
     <Authors>Viwe Nkepu</Authors>
     <PackageProjectUrl>https://github.com/gitViwe/Distro</PackageProjectUrl>
-    <Description>A .NET 7 library for helper classes, wrapper classes, exception classes, API contract interfaces and more...</Description>
   </PropertyGroup>
 	
   <ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="11.8.1" />
   </ItemGroup>
 
 </Project>

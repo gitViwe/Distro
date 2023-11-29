@@ -1,4 +1,6 @@
-﻿using System.Text.RegularExpressions;
+﻿using gitViwe.Shared.Attribute;
+using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace gitViwe.Shared;
 
@@ -67,14 +69,62 @@ public static class Conversion
     }
 
     /// <summary>
-    /// Converts the provided value into a JSON <see cref="string"/> where the property values defined in <paramref name="propertyNames"/> are hidden.
+    /// Converts the provided value into a JSON <see cref="string"/> where the property values defined in <paramref name="propertyNames"/> and have the <see cref="ObfuscateAttribute"/> are hidden.
     /// </summary>
     /// <typeparam name="TValue">The type of the value to serialize.</typeparam>
     /// <param name="request">The value to convert into a JSON <see cref="string"/>.</param>
     /// <param name="propertyNames">The property names from <typeparamref name="TValue"/> to obfuscate.</param>
     /// <returns>A JSON <see cref="string"/> representation of the value.</returns>
-    public static string ToObfuscatedString<TValue>(TValue request, params string[] propertyNames)
+    public static string ToObfuscatedString<TValue>(TValue request, IEnumerable<string> propertyNames)
     {
+        IEnumerable<string> ResolvePropertyNames()
+        {
+            var additionalPropertyNames = typeof(TValue).GetProperties()
+                                    .Where(x => x.GetCustomAttribute<ObfuscateAttribute>() is not null)
+                                    .Select(x => x.Name)
+                                    .ToHashSet();
+
+            if (propertyNames is null)
+            {
+                return additionalPropertyNames ?? Enumerable.Empty<string>();
+            }
+
+            // merge propertyNames into additionalPropertyNames
+            foreach (string name in propertyNames)
+            {
+                additionalPropertyNames.Add(name);
+            }
+
+            return propertyNames.ToArray();
+        }
+
+        string text = System.Text.Json.JsonSerializer.Serialize(request);
+        IEnumerable<string> resolvedNames = ResolvePropertyNames();
+
+        if (resolvedNames.Any())
+        {
+            // Join the property names with "|" to create the regex pattern
+            string pattern = $"(\"({string.Join("|", resolvedNames)})\":\\s*)\"[^\\\"]*\"";
+            string replacement = "$1\"*****\"";
+
+            return Regex.Replace(text, pattern, replacement); 
+        }
+
+        return text;
+    }
+
+    /// <summary>
+    /// Converts the provided value into a JSON <see cref="string"/> where the property values that have the <see cref="ObfuscateAttribute"/> are hidden.
+    /// </summary>
+    /// <typeparam name="TValue">The type of the value to serialize.</typeparam>
+    /// <param name="request">The value to convert into a JSON <see cref="string"/>.</param>
+    /// <returns>A JSON <see cref="string"/> representation of the value.</returns>
+    public static string ToObfuscatedString<TValue>(TValue request)
+    {
+        var propertyNames = typeof(TValue).GetProperties()
+                                .Where(x => x.GetCustomAttribute<ObfuscateAttribute>() is not null)
+                                .Select(x => x.Name);
+
         string text = System.Text.Json.JsonSerializer.Serialize(request);
 
         if (propertyNames is not null && propertyNames.Any())
@@ -83,7 +133,7 @@ public static class Conversion
             string pattern = $"(\"({string.Join("|", propertyNames)})\":\\s*)\"[^\\\"]*\"";
             string replacement = "$1\"*****\"";
 
-            return Regex.Replace(text, pattern, replacement); 
+            return Regex.Replace(text, pattern, replacement);
         }
 
         return text;
