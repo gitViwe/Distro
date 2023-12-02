@@ -5,7 +5,7 @@ This repository will house a collection of shared libraries that will be distrib
 ## gitViwe.Shared
 
 ```
-dotnet add package gitViwe.Shared --version 2.0.3
+dotnet add package gitViwe.Shared 
 ```
 
 ### Abstraction:
@@ -110,7 +110,7 @@ PaginatedResponse<TData> {
 
 ### Nuget package:
 ```
-dotnet add package gitViwe.Shared.Authentication --version 2.0.3
+dotnet add package gitViwe.Shared.Authentication 
 ```
 
 ### JSON Web Token:
@@ -162,7 +162,7 @@ ITimeBasedOTPService {
 
 ### Nuget package:
 ```
-dotnet add package gitViwe.Shared.Cache --version 2.0.3
+dotnet add package gitViwe.Shared.Cache 
 ```
 
 ### Redis distributed cache:
@@ -194,7 +194,7 @@ public IActionResult Result([FromServices] IRedisDistributedCache redis, [FromBo
 
 ### Nuget package:
 ```
-dotnet add package gitViwe.Shared.Extension --version 2.0.3
+dotnet add package gitViwe.Shared.Extension 
 ```
 
 Some helpful extension methods
@@ -218,7 +218,7 @@ class ResponseExtension {
 
 ### Nuget package:
 ```
-dotnet add package gitViwe.Shared.FluentValidation --version 2.0.3
+dotnet add package gitViwe.Shared.FluentValidation 
 ```
 
 ### Extensions:
@@ -235,7 +235,7 @@ class FluentValidatorExtension {
 
 ### Nuget package:
 ```
-dotnet add package gitViwe.Shared.MediatR --version 2.0.3
+dotnet add package gitViwe.Shared.MediatR 
 ```
 
 ### Behaviour:
@@ -258,7 +258,7 @@ builder.Services.ConfigureGitViweOpenTelemetryBehaviourOption(options =>
 
 ### Nuget package:
 ```
-dotnet add package gitViwe.Shared.MongoDB --version 2.0.3
+dotnet add package gitViwe.Shared.MongoDB 
 ```
 
 ### Mongo document database:
@@ -289,7 +289,7 @@ IMongoDBRepository<TMongoDocument> {
 
 ### Nuget package:
 ```
-dotnet add package gitViwe.Shared.ProblemDetail --version 2.0.3
+dotnet add package gitViwe.Shared.ProblemDetail 
 ```
 
 ### Usage:
