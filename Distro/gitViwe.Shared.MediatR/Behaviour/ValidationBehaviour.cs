@@ -5,7 +5,7 @@
 /// </summary>
 /// <typeparam name="TRequest">The MediatR request type</typeparam>
 /// <typeparam name="TResponse">The MediatR response type</typeparam>
-[Obsolete("ValidationBehaviour is deprecated, please use ValidationRequestPreProcessor instead.")]
+[Obsolete("ValidationBehaviour is deprecated, please use ValidationPreProcessor instead.")]
 public class ValidationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : IRequest<TResponse>
 {

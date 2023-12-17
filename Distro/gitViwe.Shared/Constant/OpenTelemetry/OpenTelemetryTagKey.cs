@@ -23,16 +23,6 @@ public static class OpenTelemetryTagKey
         public const string REQUEST_VALUE = _prefix + "mediatr.request.value";
 
         /// <summary>
-        /// Defines the custom telemetry tag key for the type
-        /// </summary>
-        public const string NOTIFICATION_TYPE = _prefix + "mediatr.notification.type";
-
-        /// <summary>
-        /// Defines the custom telemetry tag key for the value
-        /// </summary>
-        public const string NOTIFICATION_VALUE = _prefix + "mediatr.notification.value";
-
-        /// <summary>
         /// Defines the custom telemetry tag key for the status code
         /// </summary>
         public const string RESPONSE_STATUS_CODE = _prefix + "mediatr.response.status_code";

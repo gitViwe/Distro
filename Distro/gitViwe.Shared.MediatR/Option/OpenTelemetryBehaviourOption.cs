@@ -2,8 +2,7 @@
 
 /// <summary>
 /// Configuration options for the following behaviours:
-/// <br /> <see cref="OpenTelemetryNotificationPreProcessor{TRequest}"/>
-/// <br /> <see cref="OpenTelemetryRequestPreProcessor{TRequest, TResponse}"/>
+/// <br /> <see cref="OpenTelemetryPreProcessor{TRequest}"/>
 /// </summary>
 public class OpenTelemetryBehaviourOption
 {

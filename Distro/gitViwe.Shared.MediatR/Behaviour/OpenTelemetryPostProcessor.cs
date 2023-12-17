@@ -5,8 +5,8 @@
 /// </summary>
 /// <typeparam name="TRequest">The MediatR request type</typeparam>
 /// <typeparam name="TResponse">The MediatR response type</typeparam>
-public class OpenTelemetryRequestPostProcessor<TRequest, TResponse> : IRequestPostProcessor<TRequest, TResponse>
-    where TRequest : IRequest<TResponse>
+public class OpenTelemetryPostProcessor<TRequest, TResponse> : IRequestPostProcessor<TRequest, TResponse>
+    where TRequest : notnull
     where TResponse : IResponse
 {
     /// <summary>
@@ -24,7 +24,7 @@ public class OpenTelemetryRequestPostProcessor<TRequest, TResponse> : IRequestPo
             { OpenTelemetryTagKey.MediatR.RESPONSE_MESSAGE, response.Message },
         };
 
-        OpenTelemetryActivity.MediatR.StartActivity("OpenTelemetry Request PostProcessor", "Completing MediatR Request.", responseTagDictionary);
+        OpenTelemetryActivity.MediatR.StartActivity("OpenTelemetry MediatR PostProcessor", "Completing MediatR Request.", responseTagDictionary);
 
         return Task.CompletedTask;
     }

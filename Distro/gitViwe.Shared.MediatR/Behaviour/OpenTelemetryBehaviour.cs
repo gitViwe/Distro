@@ -5,7 +5,7 @@
 /// </summary>
 /// <typeparam name="TRequest">The MediatR request type</typeparam>
 /// <typeparam name="TResponse">The MediatR response type</typeparam>
-[Obsolete("OpenTelemetryBehaviour is deprecated, please use OpenTelemetryRequestPreProcessor instead.")]
+[Obsolete("OpenTelemetryBehaviour is deprecated, please use OpenTelemetryPreProcessor and OpenTelemetryPostProcessor instead.")]
 public class OpenTelemetryBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : IRequest<TResponse>
     where TResponse : IResponse
