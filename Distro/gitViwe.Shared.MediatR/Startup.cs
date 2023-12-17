@@ -8,7 +8,9 @@ namespace gitViwe.Shared.MediatR;
 public static class Startup
 {
     /// <summary>
-    /// Configures values for <see cref="OpenTelemetryBehaviourOption"/> that will be used in the <see cref="OpenTelemetryBehaviour{TRequest, TResponse}"/> pipeline
+    /// Configures values for <see cref="OpenTelemetryBehaviourOption"/> that will be used in the following behaviours:
+    /// <br /> <see cref="OpenTelemetryNotificationPreProcessor{TRequest}"/>
+    /// <br /> <see cref="OpenTelemetryRequestPreProcessor{TRequest, TResponse}"/>
     /// </summary>
     /// <param name="services">Specifies the contract for a collection of service descriptors.</param>
     /// <param name="options">The configuration options for the MediatR behaviour</param>

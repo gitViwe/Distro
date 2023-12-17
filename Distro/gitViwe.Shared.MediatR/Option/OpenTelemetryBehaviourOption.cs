@@ -1,7 +1,9 @@
 ﻿namespace gitViwe.Shared.MediatR.Option;
 
 /// <summary>
-/// Configuration options for <see cref="OpenTelemetryBehaviour{TRequest, TResponse}"/>
+/// Configuration options for the following behaviours:
+/// <br /> <see cref="OpenTelemetryNotificationPreProcessor{TRequest}"/>
+/// <br /> <see cref="OpenTelemetryRequestPreProcessor{TRequest, TResponse}"/>
 /// </summary>
 public class OpenTelemetryBehaviourOption
 {

@@ -21,7 +21,6 @@ public static class Startup
 
         return services.Configure(options)
             .AddTransient<IRedisDistributedCache, RedisDistributedCache>()
-            .AddSingleton<RedisDistributedCacheOption>()
             .AddStackExchangeRedisCache(options =>
             {
                 options.Configuration = optionValue.Configuration;

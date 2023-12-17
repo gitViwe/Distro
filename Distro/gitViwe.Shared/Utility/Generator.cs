@@ -5,12 +5,15 @@
 /// </summary>
 public static class Generator
 {
+    private static readonly Random _random = new();
+
     /// <summary>
     /// Creates a random string
     /// </summary>
     /// <param name="combination">The alpha-numeric/none alpha-numeric combination to use</param>
     /// <param name="length">The number of characters the string will have</param>
     /// <returns>A random string of the specified length</returns>
+    /// <exception cref="ArgumentOutOfRangeException" />
     public static string RandomString(CharacterCombination combination = CharacterCombination.NumberAndUpper, int length = 5)
     {
         string characters = combination switch
@@ -23,14 +26,14 @@ public static class Generator
             CharacterCombination.NumberAndLower => StringCharacter.NUMBERANDLOWER,
             CharacterCombination.NumberAndUpper => StringCharacter.NUMBERANDUPPER,
             CharacterCombination.SymbolAndNumber => StringCharacter.SYMBOLANDNUMBER,
+            CharacterCombination.NumberAndAlphabet => StringCharacter.NUMBERANDALPHABET,
             CharacterCombination.SymbolAndNumberAndLower => StringCharacter.SYMBOLANDNUMBERANDLOWER,
             CharacterCombination.SymbolAndNumberAndUpper => StringCharacter.SYMBOLANDNUMBERANDUPPER,
-            CharacterCombination.NumberAndAlphabet => StringCharacter.NUMBERANDALPHABET,
             CharacterCombination.SymbolAndNumberAndAlphabet => StringCharacter.SYMBOLANDNUMBERANDALPHABET,
             _ => throw new ArgumentOutOfRangeException(nameof(combination), $"Not expected combination value: {combination}")
         };
-        var random = new Random();
-        return new string(Enumerable.Repeat(characters, length).Select(x => x[random.Next(x.Length)]).ToArray());
+
+        return new string(Enumerable.Repeat(characters, length).Select(x => x[_random.Next(x.Length)]).ToArray());
     }
 
     /// <summary>

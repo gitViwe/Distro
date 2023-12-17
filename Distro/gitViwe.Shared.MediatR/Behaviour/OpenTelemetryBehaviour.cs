@@ -1,13 +1,11 @@
-﻿using gitViwe.Shared.Utility;
-using Microsoft.Extensions.Options;
-
-namespace gitViwe.Shared.MediatR.Behaviour;
+﻿namespace gitViwe.Shared.MediatR.Behaviour;
 
 /// <summary>
 /// Creates a trace pipeline for recording MediatR request and response details
 /// </summary>
 /// <typeparam name="TRequest">The MediatR request type</typeparam>
 /// <typeparam name="TResponse">The MediatR response type</typeparam>
+[Obsolete("OpenTelemetryBehaviour is deprecated, please use OpenTelemetryRequestPreProcessor instead.")]
 public class OpenTelemetryBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : IRequest<TResponse>
     where TResponse : IResponse
@@ -32,10 +30,17 @@ public class OpenTelemetryBehaviour<TRequest, TResponse> : IPipelineBehavior<TRe
     /// <returns>The next MediatR function in the pipeline</returns>
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
     {
+        string ToObfuscatedString()
+        {
+            return _options.ObfuscatedPropertyNames is not null
+                ? Conversion.ToObfuscatedString(request, _options.ObfuscatedPropertyNames)
+                : Conversion.ToObfuscatedString(request);
+        }
+
         Dictionary<string, object?> requestTagDictionary = new()
         {
             { OpenTelemetryTagKey.MediatR.REQUEST_TYPE, request.GetType().Name },
-            { OpenTelemetryTagKey.MediatR.REQUEST_VALUE, _options.ObfuscatedPropertyNames is null ? Conversion.ToObfuscatedString(request) : Conversion.ToObfuscatedString(request, _options.ObfuscatedPropertyNames) },
+            { OpenTelemetryTagKey.MediatR.REQUEST_VALUE, ToObfuscatedString() },
         };
 
         OpenTelemetryActivity.MediatR.StartActivity("OpenTelemetryBehaviour", "Starting MediatR Request.", requestTagDictionary);

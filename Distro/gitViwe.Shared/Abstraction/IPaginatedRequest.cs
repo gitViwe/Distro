@@ -16,8 +16,8 @@ public interface IPaginatedRequest
     int PageSize { get; }
 
     /// <summary>
-    /// Create a query string with values from <see cref="CurrentPage"/> and <see cref="PageSize"/>
+    /// Create a query string with names of and values from <see cref="CurrentPage"/> and <see cref="PageSize"/>
     /// </summary>
     /// <returns></returns>
-    string ToQueryParameterString() => $"?CurrentPage={CurrentPage}&PageSize={PageSize}";
+    string ToQueryParameterString() => $"?{nameof(CurrentPage)}={CurrentPage}&{nameof(PageSize)}={PageSize}";
 }

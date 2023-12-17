@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 	<GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <Version>2.0.4</Version>
+    <Version>2.0.5</Version>
     <Authors>Viwe Nkepu</Authors>
     <Description>Helpful services for interfacing with MongoDB.</Description>
     <PackageProjectUrl>https://github.com/gitViwe/Distro</PackageProjectUrl>
@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MongoDB.Driver" Version="2.22.0" />
+    <PackageReference Include="MongoDB.Driver" Version="2.23.1" />
   </ItemGroup>
 
 </Project>
