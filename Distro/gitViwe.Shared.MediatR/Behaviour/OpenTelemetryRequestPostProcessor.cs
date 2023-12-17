@@ -5,7 +5,7 @@
 /// </summary>
 /// <typeparam name="TRequest">The MediatR request type</typeparam>
 /// <typeparam name="TResponse">The MediatR response type</typeparam>
-internal class OpenTelemetryRequestPostProcessor<TRequest, TResponse> : IRequestPostProcessor<TRequest, TResponse>
+public class OpenTelemetryRequestPostProcessor<TRequest, TResponse> : IRequestPostProcessor<TRequest, TResponse>
     where TRequest : IRequest<TResponse>
     where TResponse : IResponse
 {
