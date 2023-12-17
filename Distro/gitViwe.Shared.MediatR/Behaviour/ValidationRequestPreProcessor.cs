@@ -5,11 +5,15 @@
 /// </summary>
 /// <typeparam name="TRequest">The MediatR request type</typeparam>
 /// <typeparam name="TResponse">The MediatR response type</typeparam>
-internal class ValidationRequestPreProcessor<TRequest, TResponse> : IRequestPreProcessor<TRequest>
+public class ValidationRequestPreProcessor<TRequest, TResponse> : IRequestPreProcessor<TRequest>
     where TRequest : IRequest<TResponse>
 {
     private readonly IEnumerable<IValidator<TRequest>> _validators;
 
+    /// <summary>
+    /// Creates a new instance of <see cref="ValidationRequestPreProcessor{TRequest, TResponse}"/>
+    /// </summary>
+    /// <param name="validators">A collection of the registered validators</param>
     public ValidationRequestPreProcessor(IEnumerable<IValidator<TRequest>> validators)
     {
         _validators = validators;

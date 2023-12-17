@@ -4,11 +4,15 @@
 /// Creates a validation pipeline for validating MediatR requests that have registered Fluent validation validators
 /// </summary>
 /// <typeparam name="TRequest">The MediatR notification type</typeparam>
-internal class ValidationNotificationPreProcessor<TRequest> : IRequestPreProcessor<TRequest>
+public class ValidationNotificationPreProcessor<TRequest> : IRequestPreProcessor<TRequest>
     where TRequest : INotification
 {
     private readonly IEnumerable<IValidator<TRequest>> _validators;
 
+    /// <summary>
+    /// Creates a new instance of <see cref="ValidationNotificationPreProcessor{TRequest}"/>
+    /// </summary>
+    /// <param name="validators">A collection of the registered validators</param>
     public ValidationNotificationPreProcessor(IEnumerable<IValidator<TRequest>> validators)
     {
         _validators = validators;
