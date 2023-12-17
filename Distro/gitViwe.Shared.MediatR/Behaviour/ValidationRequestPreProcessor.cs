@@ -4,14 +4,13 @@
 /// Creates a validation pipeline for validating MediatR requests that have registered Fluent validation validators
 /// </summary>
 /// <typeparam name="TRequest">The MediatR request type</typeparam>
-/// <typeparam name="TResponse">The MediatR response type</typeparam>
-public class ValidationRequestPreProcessor<TRequest, TResponse> : IRequestPreProcessor<TRequest>
-    where TRequest : IRequest<TResponse>
+public class ValidationRequestPreProcessor<TRequest> : IRequestPreProcessor<TRequest>
+    where TRequest : IRequest
 {
     private readonly IEnumerable<IValidator<TRequest>> _validators;
 
     /// <summary>
-    /// Creates a new instance of <see cref="ValidationRequestPreProcessor{TRequest, TResponse}"/>
+    /// Creates a new instance of <see cref="ValidationRequestPreProcessor{TRequest}"/>
     /// </summary>
     /// <param name="validators">A collection of the registered validators</param>
     public ValidationRequestPreProcessor(IEnumerable<IValidator<TRequest>> validators)

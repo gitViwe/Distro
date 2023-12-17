@@ -4,14 +4,13 @@
 /// Creates a trace pipeline for recording MediatR request details
 /// </summary>
 /// <typeparam name="TRequest">The MediatR request type</typeparam>
-/// <typeparam name="TResponse">The MediatR response type</typeparam>
-public class OpenTelemetryRequestPreProcessor<TRequest, TResponse> : IRequestPreProcessor<TRequest>
-    where TRequest : IRequest<TResponse>
+public class OpenTelemetryRequestPreProcessor<TRequest> : IRequestPreProcessor<TRequest>
+    where TRequest : IRequest
 {
     private readonly OpenTelemetryBehaviourOption _options;
 
     /// <summary>
-    /// Creates a new instance of <see cref="OpenTelemetryRequestPreProcessor{TRequest, TResponse}"/>
+    /// Creates a new instance of <see cref="OpenTelemetryRequestPreProcessor{TRequest}"/>
     /// </summary>
     /// <param name="options">The option values</param>
     public OpenTelemetryRequestPreProcessor(IOptions<OpenTelemetryBehaviourOption> options)
