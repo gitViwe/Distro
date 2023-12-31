@@ -7,7 +7,7 @@
 	<GenerateDocumentationFile>True</GenerateDocumentationFile>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
 	<Description>A .NET library for some additional Fluent Validation validators</Description>
-    <Version>2.0.6</Version>
+    <Version>2.0.7</Version>
     <Authors>Viwe Nkepu</Authors>
     <PackageProjectUrl>https://github.com/gitViwe/Distro</PackageProjectUrl>
   </PropertyGroup>
@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="FluentValidation" Version="11.8.1" />
+    <PackageReference Include="FluentValidation" Version="11.9.0" />
   </ItemGroup>
 
 </Project>

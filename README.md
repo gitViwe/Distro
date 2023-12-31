@@ -10,11 +10,12 @@ dotnet add package gitViwe.Shared
 
 ### Abstraction:
 
-Defines the schema for the custom ProblemDetails class
+Defines abstractions for the custom classes
 ```csharp
 interface IDefaultProblemDetails { }
 interface IPaginatedRequest { }
-interface IRequiresHost {}
+interface IRequiresHost { }
+interface ISqidsIdEncoder<T> { }
 interface IValidationProblemDetails { }
 ```
 
@@ -22,6 +23,7 @@ interface IValidationProblemDetails { }
 
 Some custom attributes
 ```csharp
+class DecodedSqidsIdAttribute { }
 class ObfuscateAttribute { }
 ```
 
@@ -41,6 +43,7 @@ static class OpenTelemetryTagKey {
 
 Some custom exceptions
 ```csharp
+class BaseException { }
 class ForbiddenException { }
 class NotFoundException { }
 class UnauthorizedException { }
@@ -72,6 +75,7 @@ static class Generator {
 
 static class OpenTelemetryActivity {
     static class MediatR {
+        static void StartActivity(string activityName, string eventName);
         static void StartActivity(string activityName, string eventName, Dictionary<string, object?> tags);
     }
     static class InternalProcess {
@@ -242,8 +246,14 @@ dotnet add package gitViwe.Shared.MediatR
 
 Some custom attributes
 ```csharp
-class OpenTelemetryBehaviour<TRequest, TResponse> { }
+class ValidationPreProcessor<TRequest> { }
+class OpenTelemetryPreProcessor<TRequest> { }
+class SqidsIdEncoderPreProcessor<TRequest> { }
+
+class OpenTelemetryPostProcessor<TRequest, TResponse> { }
+
 class ValidationBehaviour<TRequest, TResponse> { }
+class OpenTelemetryBehaviour<TRequest, TResponse> { }
 ```
 
 #### Optional configuration for the `OpenTelemetryBehaviourOption` to be used by `OpenTelemetryBehaviour`
@@ -253,6 +263,16 @@ builder.Services.ConfigureGitViweOpenTelemetryBehaviourOption(options =>
     options.ObfuscatedPropertyNames = new string[] { "Email", "Password", "PasswordConfirmation", "Token" };
 });
 ```
+
+#### Rquired configuration for the `ISqidsIdEncoder<T>` to be used by `SqidsIdEncoderPreProcessor`
+```csharp
+builder.Services.AddGitViweSqidsIdEncoder();
+
+// OR
+
+builder.Services.AddGitViweSqidsIdEncoder<TImplementation>();
+```
+
 
 ## gitViwe.Shared.MongoDB
 

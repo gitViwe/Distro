@@ -20,6 +20,17 @@ public static class OpenTelemetryActivity
         /// </summary>
         /// <param name="activityName">The operation name of the Activity</param>
         /// <param name="eventName">The event name</param>
+        public static void StartActivity(string activityName, string eventName)
+        {
+            using var activity = _activitySource.StartActivity(activityName);
+            activity?.AddEvent(new ActivityEvent(eventName));
+        }
+
+        /// <summary>
+        /// Starts a new <see cref="Activity"/> if there is any listener to the Activity source <seealso cref="OpenTelemetrySource.MEDIATR"/>
+        /// </summary>
+        /// <param name="activityName">The operation name of the Activity</param>
+        /// <param name="eventName">The event name</param>
         /// <param name="tags">The event tags</param>
         public static void StartActivity(string activityName, string eventName, Dictionary<string, object?> tags)
         {
