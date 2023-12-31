@@ -33,7 +33,7 @@ public class SqidsIdEncoderPreProcessor<TRequest> : IRequestPreProcessor<TReques
     /// <exception cref="NotImplementedException"></exception>
     public Task Process(TRequest request, CancellationToken cancellationToken)
     {
-        OpenTelemetryActivity.MediatR.StartActivity("SqidsIdEncoder MediatR PreProcessor", "Starting MediatR Request.");
+        OpenTelemetryActivity.MediatR.StartActivity("SqidsIdEncoder MediatR PreProcessor", "Starting Sqids Id Decode.");
 
         var allProperties = typeof(TRequest).GetProperties();
         if (allProperties is null) { return Task.CompletedTask; }
@@ -60,7 +60,7 @@ public class SqidsIdEncoderPreProcessor<TRequest> : IRequestPreProcessor<TReques
                 if (_encoder.TryDecode(alphaNumeric, out int decoded))
                 {
                     target.SetValue(request, decoded);
-                    _logger.LogInformation("Decoded Sqids id. {encoded} {decoded} {target.property}", alphaNumeric, decoded, target.Name);
+                    _logger.LogInformation("Decoded Sqids id and set property value. {encoded} {decoded} {propertyName}", alphaNumeric, decoded, target.Name);
                 }
             }
         }

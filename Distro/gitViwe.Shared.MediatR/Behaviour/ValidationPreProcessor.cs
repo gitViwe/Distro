@@ -30,11 +30,13 @@ public class ValidationPreProcessor<TRequest> : IRequestPreProcessor<TRequest>
     /// <exception cref="ValidationException"></exception>
     public async Task Process(TRequest request, CancellationToken cancellationToken)
     {
-        OpenTelemetryActivity.MediatR.StartActivity("Validation MediatR PreProcessor", "Starting MediatR Request.");
+        OpenTelemetryActivity.MediatR.StartActivity("Validation MediatR PreProcessor", "Starting Request Validation.");
 
         if (_validators is not null && _validators.Any())
         {
-            _logger.LogInformation("Starting request validation. {request} using {validators}", request.GetType().Name, _validators.Select(x => x.GetType().Name));
+            _logger.LogInformation("Starting request validation. {request} using {validators}",
+                request.GetType().Name,
+                string.Join('|', _validators.Select(x => x.GetType().Name)));
 
             var context = new ValidationContext<TRequest>(request);
 
