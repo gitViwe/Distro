@@ -7,7 +7,7 @@
 public class DecodedSqidsIdAttribute : System.Attribute
 {
     /// <summary>
-    /// The encoded Sqids Id to decode.
+    /// The property name that holds the encoded Sqids Id.
     /// </summary>
-    public required string EncodedSqidsId { get; init; }
+    public required string SourceProperty { get; init; }
 }

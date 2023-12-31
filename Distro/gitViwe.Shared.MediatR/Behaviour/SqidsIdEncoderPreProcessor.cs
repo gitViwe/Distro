@@ -44,13 +44,18 @@ public class SqidsIdEncoderPreProcessor<TRequest> : IRequestPreProcessor<TReques
         foreach (var target in targetProperties)
         {
             var attribute = target.GetCustomAttribute<DecodedSqidsIdAttribute>();
+            var source = allProperties.FirstOrDefault(prop => prop.Name.Equals(attribute!.SourceProperty));
 
-            if (false == string.IsNullOrWhiteSpace(attribute!.EncodedSqidsId)
+            if (source is not null
+                && source.PropertyType == typeof(string)
                 && target.PropertyType == typeof(int)
                 && target.CanWrite)
             {
+                var encoded = source.GetValue(request) as string;
+                if (string.IsNullOrWhiteSpace(encoded)) { continue; }
+
                 string pattern = "[^a-zA-Z0-9]";
-                string alphaNumeric = Regex.Replace(attribute!.EncodedSqidsId, pattern, string.Empty);
+                string alphaNumeric = Regex.Replace(encoded, pattern, string.Empty);
 
                 if (_encoder.TryDecode(alphaNumeric, out int decoded))
                 {
