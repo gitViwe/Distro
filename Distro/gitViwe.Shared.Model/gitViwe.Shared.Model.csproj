@@ -4,7 +4,7 @@
     <TargetFrameworks>net7.0; net8.0</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-	<Version>2.0.7</Version>
+	<Version>2.0.8</Version>
     <Authors>Viwe Nkepu</Authors>
     <Description>Some class models</Description>
     <PackageProjectUrl>https://github.com/gitViwe/Distro</PackageProjectUrl>
