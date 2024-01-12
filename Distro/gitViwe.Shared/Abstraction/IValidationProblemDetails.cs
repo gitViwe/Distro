@@ -27,7 +27,7 @@ public interface IValidationProblemDetails : IDefaultProblemDetails
     /// A string that represents the current <seealso cref="IValidationProblemDetails"/>.
     /// </summary>
     /// <returns>A string that represents the <seealso cref="IValidationProblemDetails"/>.</returns>
-    public new string? ToString() =>
+    public new string? ToDebugString() =>
         new StringBuilder()
             .AppendLine($"TraceId   : {TraceId}")
             .AppendLine($"Type      : {Type}")
@@ -35,7 +35,7 @@ public interface IValidationProblemDetails : IDefaultProblemDetails
             .AppendLine($"Status    : {Status}")
             .AppendLine($"Detail    : {Detail}")
             .AppendLine($"Instance  : {Instance}")
-            .AppendLine($"Errors    : {ErrorsToDebugString()}")
             .AppendLine($"Extensions: {ExtensionsToDebugString()}")
+            .AppendLine($"Errors    : {ErrorsToDebugString()}")
             .ToString();
 }

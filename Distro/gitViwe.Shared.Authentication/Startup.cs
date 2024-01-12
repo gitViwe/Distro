@@ -1,6 +1,7 @@
 ﻿using gitViwe.Shared.Authentication.Option;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Options;
 
 namespace gitViwe.Shared.Authentication;
 
@@ -18,6 +19,7 @@ public static class Startup
     public static IServiceCollection AddGitViweSecurityTokenService(this IServiceCollection services, Action<SecurityTokenOption> options)
     {
         return services.Configure(options)
+            .AddSingleton<IValidateOptions<SecurityTokenOption>, SecurityTokenOptionValidator>()
             .AddScoped<ISecurityTokenService, SecurityTokenService>();
     }
 

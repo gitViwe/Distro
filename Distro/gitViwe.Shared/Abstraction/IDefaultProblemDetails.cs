@@ -59,7 +59,7 @@ public interface IDefaultProblemDetails
     /// A string that represents the current <seealso cref="IDefaultProblemDetails"/>.
     /// </summary>
     /// <returns>A string that represents the <seealso cref="IDefaultProblemDetails"/>.</returns>
-    public string? ToString() =>
+    public string? ToDebugString() =>
         new StringBuilder()
             .AppendLine($"TraceId   : {TraceId}")
             .AppendLine($"Type      : {Type}")
