@@ -7,6 +7,13 @@ internal class TimeBasedOTPService : ITimeBasedOTPService
 {
     public QRCodeData GenerateQrCodeData(string username, string issuer, out string secretKey)
     {
+        string link = GetTOTPLink(username, issuer, out secretKey);
+
+        return GenerateQrCodeData(link);
+    }
+
+    public string GetTOTPLink(string username, string issuer, out string secretKey)
+    {
         ArgumentNullException.ThrowIfNull(nameof(username));
         ArgumentNullException.ThrowIfNull(nameof(issuer));
 
@@ -14,11 +21,14 @@ internal class TimeBasedOTPService : ITimeBasedOTPService
         var key = KeyGeneration.GenerateRandomKey(32);
         secretKey = Base32Encoding.ToString(key);
 
-        return new QRCodeGenerator().CreateQrCode(
-            $"otpauth://totp/{username}" +
-            $"?secret={secretKey}" +
-            $"&issuer={issuer}",
-            QRCodeGenerator.ECCLevel.Q);
+        return $"otpauth://totp/{username}?secret={secretKey}&issuer={issuer}";
+    }
+
+    public QRCodeData GenerateQrCodeData(string link)
+    {
+        ArgumentNullException.ThrowIfNull(nameof(link));
+
+        return new QRCodeGenerator().CreateQrCode(link, QRCodeGenerator.ECCLevel.Q);
     }
 
     public byte[] GetGraphicAsByteArray(QRCodeData data, int pixelsPerModule = 20)
