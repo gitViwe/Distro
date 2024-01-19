@@ -1,11 +1,4 @@
-﻿using gitViwe.Shared.Imgbb.Contract;
-using gitViwe.Shared.Imgbb.Option;
-using Microsoft.Extensions.Options;
-using Microsoft.AspNetCore.Http;
-using System.Text;
-using System.Net.Http.Json;
-
-namespace gitViwe.Shared.Imgbb;
+﻿namespace gitViwe.Shared.Imgbb;
 
 internal class ImgBBClient : IImgBBClient
 {

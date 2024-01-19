@@ -1,6 +1,4 @@
-﻿using gitViwe.Shared.Imgbb.Option;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace gitViwe.Shared.Imgbb;
 
@@ -25,5 +23,16 @@ public static class Startup
             });
 
         return services;
+    }
+
+    /// <summary>
+    /// Registers the <see cref="IImgBBClient"/> with the mock <seealso cref="LocalMockClient"/>.
+    /// </summary>
+    /// <param name="services">Specifies the contract for a collection of service descriptors.</param>
+    /// <param name="options">The configuration options for the ImgBBClient</param>
+    /// <returns>The <see cref="IServiceCollection"/> so that additional calls can be chained.</returns>
+    public static IServiceCollection AddGitViweImgBBClientMock(this IServiceCollection services)
+    {
+        return services.AddSingleton<IImgBBClient, LocalMockClient>();
     }
 }

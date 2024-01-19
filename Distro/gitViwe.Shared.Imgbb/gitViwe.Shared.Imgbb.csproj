@@ -7,7 +7,7 @@
 	<GenerateDocumentationFile>True</GenerateDocumentationFile>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
 	<Description>A .NET library to Access the Imgbb API</Description>
-    <Version>2.0.0</Version>
+    <Version>2.1.0</Version>
     <Authors>Viwe Nkepu</Authors>
     <PackageProjectUrl>https://github.com/gitViwe/Distro</PackageProjectUrl>
   </PropertyGroup>
