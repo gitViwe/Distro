@@ -35,6 +35,7 @@ internal class LocalMockClient : IImgBBClient
             Data = new ImgBBData()
             {
                 DisplayUrl = base64,
+                Expiration = expirationInSeconds.HasValue ? expirationInSeconds.Value : 0,
                 Image = new()
                 {
                     Filename = fileName,
@@ -62,6 +63,7 @@ internal class LocalMockClient : IImgBBClient
             Data = new ImgBBData()
             {
                 DisplayUrl = base64,
+                Expiration = expirationInSeconds.HasValue ? expirationInSeconds.Value : 0,
                 Image = new()
                 {
                     Filename = file.Name,
