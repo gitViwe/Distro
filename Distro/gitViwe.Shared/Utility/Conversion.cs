@@ -95,7 +95,7 @@ public static class Conversion
                 additionalPropertyNames.Add(name);
             }
 
-            return propertyNames.ToArray();
+            return additionalPropertyNames;
         }
 
         string text = System.Text.Json.JsonSerializer.Serialize(request);
