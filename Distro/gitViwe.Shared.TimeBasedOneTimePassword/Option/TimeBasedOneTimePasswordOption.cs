@@ -24,13 +24,15 @@ public class TimeBasedOneTimePasswordOption
     /// <summary>
     /// The period parameter defines a validity period in seconds for the TOTP code. Valid numbers are [15, 30, 60]
     /// </summary>
-    public ushort Period { get; set; }
+    public ushort Period { get; set; } = 30;
 }
 
 internal class TimeBasedOneTimePasswordOptionValidator : IValidateOptions<TimeBasedOneTimePasswordOption>
 {
     public ValidateOptionsResult Validate(string? name, TimeBasedOneTimePasswordOption options)
     {
+        name = typeof(TimeBasedOneTimePasswordOption).Name;
+
         if (string.IsNullOrWhiteSpace(options.Issuer))
         {
             return ValidateOptionsResult.Fail($"{name}.{nameof(options.Issuer)} must be provided.");
@@ -41,12 +43,12 @@ internal class TimeBasedOneTimePasswordOptionValidator : IValidateOptions<TimeBa
             return ValidateOptionsResult.Fail($"{name}.{nameof(options.Algorithm)} is not valid.");
         }
 
-        if (options.Digits is not 6 or 7 or 8)
+        if (false == (options.Digits == 6 || options.Digits == 7 || options.Digits == 8))
         {
             return ValidateOptionsResult.Fail($"{name}.{nameof(options.Digits)} must be 6, 7 or 8.");
         }
 
-        if (options.Period is not 15 or 30 or 60)
+        if (false == (options.Period == 15 || options.Period == 30 || options.Period == 60))
         {
             return ValidateOptionsResult.Fail($"{name}.{nameof(options.Digits)} must be 15, 30 or 60.");
         }
