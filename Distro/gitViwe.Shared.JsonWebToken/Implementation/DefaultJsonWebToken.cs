@@ -36,9 +36,9 @@ internal class DefaultJsonWebToken(IOptions<JsonWebTokenOption> options, ILogger
         if (result.SecurityToken is Microsoft.IdentityModel.JsonWebTokens.JsonWebToken securityToken)
         {
             // verify that the token is encrypted with the security algorithm
-            if (false == securityToken.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
+            if (false == securityToken.Alg.Equals(_options.SigningCredentials!.Algorithm, StringComparison.InvariantCultureIgnoreCase))
             {
-                _logger.FailedToValidateJsonWebTokenAlgorithm(result.SecurityToken, securityToken);
+                _logger.InvalidJsonWebTokenAlgorithm(result.SecurityToken, securityToken);
                 return null;
             }
         }

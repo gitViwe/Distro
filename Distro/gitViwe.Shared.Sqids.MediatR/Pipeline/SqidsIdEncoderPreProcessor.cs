@@ -1,39 +1,31 @@
-﻿namespace gitViwe.Shared.MediatR.Behaviour;
+﻿namespace gitViwe.Shared.Sqids.MediatR;
 
 /// <summary>
-/// Creates a pipeline for decoding a Sqids Id MediatR request details
+/// Creates a pipeline for decoding a Sqids Id for MediatR requests that implement <see cref="ISqidsIdEncoderPreProcessMarker"/>
 /// </summary>
 /// <typeparam name="TRequest">The MediatR type</typeparam>
 /// <remarks>
-/// Ensure the call to <seealso cref="Startup.AddGitViweSqidsIdEncoder(IServiceCollection)"/> is made.
+/// Ensure the call to <seealso cref="Startup.AddGitViweSqidsIdEncoder(IServiceCollection, Action{Option.SqidsIdEncoderOption})"/> is made.
 /// </remarks>
-public class SqidsIdEncoderPreProcessor<TRequest> : IRequestPreProcessor<TRequest>
-    where TRequest : notnull
+/// <remarks>
+/// Creates a new instance of <see cref="SqidsIdEncoderPreProcessor{TRequest}"/>
+/// </remarks>
+public class SqidsIdEncoderPreProcessor<TRequest>(
+    ISqidsIdEncoder<int> encoder,
+    ILogger<SqidsIdEncoderPreProcessor<TRequest>> logger) : IRequestPreProcessor<TRequest>
+    where TRequest : notnull, ISqidsIdEncoderPreProcessMarker
 {
-    private readonly ISqidsIdEncoder<int> _encoder;
-    private readonly ILogger<SqidsIdEncoderPreProcessor<TRequest>> _logger;
-
-    /// <summary>
-    /// Creates a new instance of <see cref="SqidsIdEncoderPreProcessor{TRequest}"/>
-    /// </summary>
-    public SqidsIdEncoderPreProcessor(
-        ISqidsIdEncoder<int> encoder,
-        ILogger<SqidsIdEncoderPreProcessor<TRequest>> logger)
-    {
-        _encoder = encoder;
-        _logger = logger;
-    }
+    private readonly ISqidsIdEncoder<int> _encoder = encoder;
+    private readonly ILogger<SqidsIdEncoderPreProcessor<TRequest>> _logger = logger;
 
     /// <summary>
     /// Decodes the encoded Sqids id into the properties decorated with <see cref="DecodedSqidsIdAttribute"/>
     /// </summary>
     /// <param name="request">The MediatR request</param>
     /// <param name="cancellationToken">The Cancellation token to notify that operations should be cancelled</param>
-    /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
     public Task Process(TRequest request, CancellationToken cancellationToken)
     {
-        OpenTelemetryActivity.MediatR.StartActivity("SqidsIdEncoder MediatR PreProcessor", "Starting Sqids Id Decode.");
+        OpenTelemetryActivity.MediatR.StartActivity("Sqids Id Encoder PreProcessor", "Starting Sqids Id Decode.");
 
         var allProperties = typeof(TRequest).GetProperties();
         if (allProperties is null) { return Task.CompletedTask; }
@@ -60,7 +52,7 @@ public class SqidsIdEncoderPreProcessor<TRequest> : IRequestPreProcessor<TReques
                 if (_encoder.TryDecode(alphaNumeric, out int decoded))
                 {
                     target.SetValue(request, decoded);
-                    _logger.LogInformation("Decoded Sqids id and set property value. {encoded} {decoded} {propertyName}", alphaNumeric, decoded, target.Name);
+                    _logger.SqidsIdDecoded(alphaNumeric, decoded, target.Name);
                 }
             }
         }

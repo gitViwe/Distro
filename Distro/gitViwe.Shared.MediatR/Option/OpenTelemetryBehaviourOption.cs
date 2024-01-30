@@ -1,4 +1,4 @@
-﻿namespace gitViwe.Shared.MediatR.Option;
+﻿namespace gitViwe.Shared.MediatR;
 
 /// <summary>
 /// Configuration options for the following behaviours:
@@ -9,5 +9,5 @@ public class OpenTelemetryBehaviourOption
     /// <summary>
     /// The property names to be obfuscated
     /// </summary>
-    public IEnumerable<string>? ObfuscatedPropertyNames { get; set; }
+    public IEnumerable<string> ObfuscatedPropertyNames { get; set; } = Enumerable.Empty<string>();
 }

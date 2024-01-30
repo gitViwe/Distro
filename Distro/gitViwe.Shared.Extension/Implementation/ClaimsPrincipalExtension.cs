@@ -1,7 +1,4 @@
-﻿using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-
-namespace gitViwe.Shared.Extension;
+﻿namespace gitViwe.Shared.Extension;
 
 /// <summary>
 /// Extension methods for getting <seealso cref="JwtRegisteredClaimNames"/> values from <see cref="ClaimsPrincipal"/>

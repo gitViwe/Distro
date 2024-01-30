@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Options;
-
-namespace gitViwe.Shared.Imgbb.Option;
+﻿namespace gitViwe.Shared.Imgbb.Option;
 
 /// <summary>
 /// Configuration options for the Imgbb client

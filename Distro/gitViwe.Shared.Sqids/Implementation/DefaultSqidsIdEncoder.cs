@@ -1,14 +1,17 @@
-﻿using Sqids;
-using System.Numerics;
+﻿namespace gitViwe.Shared.Sqids;
 
-namespace gitViwe.Shared.MediatR.Implementation;
-
-internal class SqidsIdEncoder<T> : ISqidsIdEncoder<T> where T : unmanaged, IBinaryInteger<T>, IMinMaxValue<T>
+internal class DefaultSqidsIdEncoder<T> : ISqidsIdEncoder<T> where T : unmanaged, IBinaryInteger<T>, IMinMaxValue<T>
 {
-    private readonly SqidsEncoder<T> _sqids = new(new SqidsOptions
+    private readonly SqidsEncoder<T> _sqids;
+
+    public DefaultSqidsIdEncoder(IOptions<SqidsIdEncoderOption> options)
     {
-        MinLength = 6,
-    });
+        _sqids = new(new SqidsOptions
+        {
+            MinLength = options.Value.MinLength,
+            Alphabet = options.Value.Alphabet,
+        });
+    }
 
     public IReadOnlyList<T> Decode(ReadOnlySpan<char> id)
     {

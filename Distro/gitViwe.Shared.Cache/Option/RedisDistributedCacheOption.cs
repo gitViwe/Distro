@@ -1,7 +1,4 @@
-﻿using Microsoft.Extensions.Caching.StackExchangeRedis;
-using Microsoft.Extensions.Options;
-
-namespace gitViwe.Shared.Cache.Option;
+﻿namespace gitViwe.Shared.Cache.Option;
 
 /// <summary>
 /// Configuration options for Redis

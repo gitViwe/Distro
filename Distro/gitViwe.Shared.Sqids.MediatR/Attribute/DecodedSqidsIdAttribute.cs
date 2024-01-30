@@ -1,4 +1,4 @@
-﻿namespace gitViwe.Shared.Attribute;
+﻿namespace gitViwe.Shared.Sqids.MediatR;
 
 /// <summary>
 /// Marks a property that will hold the result of the decoded Sqids Id.

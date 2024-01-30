@@ -1,21 +1,9 @@
-﻿using gitViwe.Shared.Cache.Option;
-using Microsoft.Extensions.Caching.Distributed;
-using Microsoft.Extensions.Options;
-using System.Text;
-using System.Text.Json;
+﻿namespace gitViwe.Shared.Cache;
 
-namespace gitViwe.Shared.Cache;
-
-internal class RedisDistributedCache : IRedisDistributedCache
+internal class DefaultRedisDistributedCache(IDistributedCache distributedCache, IOptionsMonitor<RedisDistributedCacheOption> options) : IRedisDistributedCache
 {
-    private readonly IDistributedCache _distributedCache;
-    private readonly RedisDistributedCacheOption _cacheOption;
-
-    public RedisDistributedCache(IDistributedCache distributedCache, IOptionsMonitor<RedisDistributedCacheOption> options)
-    {
-        _distributedCache = distributedCache;
-        _cacheOption = options.CurrentValue;
-    }
+    private readonly IDistributedCache _distributedCache = distributedCache;
+    private readonly RedisDistributedCacheOption _cacheOption = options.CurrentValue;
 
     private DistributedCacheEntryOptions CreateCacheEntryOptions(TimeSpan? absoluteExpirationRelativeToNow = null, TimeSpan? slidingExpiration = null)
     {

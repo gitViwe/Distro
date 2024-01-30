@@ -1,6 +1,4 @@
-﻿using System.Numerics;
-
-namespace gitViwe.Shared.Abstraction;
+﻿namespace gitViwe.Shared.Sqids;
 
 /// <summary>
 /// An abstraction on top of Sqids, a small library that generates YouTube-like IDs from numbers.

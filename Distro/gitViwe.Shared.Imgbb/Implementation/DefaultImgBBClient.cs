@@ -1,12 +1,12 @@
 ﻿namespace gitViwe.Shared.Imgbb;
 
-internal class ImgBBClient : IImgBBClient
+internal class DefaultImgBBClient : IImgBBClient
 {
     private readonly HttpClient _httpClient;
     private readonly ImgBBClientOption _options;
     private readonly string _uploadEndpoint;
 
-    public ImgBBClient(HttpClient httpClient, IOptionsMonitor<ImgBBClientOption> options)
+    public DefaultImgBBClient(HttpClient httpClient, IOptionsMonitor<ImgBBClientOption> options)
     {
         _httpClient = httpClient;
         _options = options.CurrentValue;

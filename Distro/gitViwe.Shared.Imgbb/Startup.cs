@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-
-namespace gitViwe.Shared.Imgbb;
+﻿namespace gitViwe.Shared.Imgbb;
 
 /// <summary>
 /// Implementation of the services registered in the DI container.
@@ -15,12 +13,13 @@ public static class Startup
     /// <returns>The <see cref="IServiceCollection"/> so that additional calls can be chained.</returns>
     public static IServiceCollection AddGitViweImgBBClient(this IServiceCollection services, Action<ImgBBClientOption> options)
     {
+        ImgBBClientOption def = new();
+        options(def);
+
         services.Configure(options)
-            .AddSingleton<IValidateOptions<ImgBBClientOption>, ImgBBClientOptionValidator>()
-            .AddHttpClient<IImgBBClient, ImgBBClient>(client =>
-            {
-                client.BaseAddress = new Uri("https://api.imgbb.com");
-            });
+            .AddScoped<IImgBBClient, DefaultImgBBClient>()
+            .AddOptionsWithValidateOnStart<ImgBBClientOption, ImgBBClientOptionValidator>("ImgBBClientOption")
+            .ValidateOnStart();
 
         return services;
     }
@@ -29,7 +28,6 @@ public static class Startup
     /// Registers the <see cref="IImgBBClient"/> with the mock <seealso cref="LocalMockClient"/>.
     /// </summary>
     /// <param name="services">Specifies the contract for a collection of service descriptors.</param>
-    /// <param name="options">The configuration options for the ImgBBClient</param>
     /// <returns>The <see cref="IServiceCollection"/> so that additional calls can be chained.</returns>
     public static IServiceCollection AddGitViweImgBBClientMock(this IServiceCollection services)
     {

@@ -8,14 +8,17 @@
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
     <Version>3.0.0</Version>
     <Authors>Viwe Nkepu</Authors>
-    <Description>Helpful services for interfacing with MongoDB.</Description>
+	<Description>MediatR implementation using Fluent Validation validators</Description>
     <PackageProjectUrl>https://github.com/gitViwe/Distro</PackageProjectUrl>
   </PropertyGroup>
-	
+
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.0" />
-    <PackageReference Include="MongoDB.Driver" Version="2.23.1" />
+    <PackageReference Include="MediatR" Version="12.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\gitViwe.Shared.FluentValidation\gitViwe.Shared.FluentValidation.csproj" />
+    <ProjectReference Include="..\gitViwe.Shared\gitViwe.Shared.csproj" />
   </ItemGroup>
 
 </Project>

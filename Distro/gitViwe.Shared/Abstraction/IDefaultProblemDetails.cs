@@ -8,6 +8,8 @@ namespace gitViwe.Shared;
 /// </summary>
 public interface IDefaultProblemDetails
 {
+    private static readonly JsonSerializerOptions _serializerOptions = new() { WriteIndented = true };
+
     /// <summary>
     /// A unique identifier to represent this request in trace logs.
     /// </summary>
@@ -51,8 +53,8 @@ public interface IDefaultProblemDetails
     public string? ExtensionsToDebugString()
     {
         return Extensions is null
-        ? string.Empty
-            : '{' + string.Join(',', Extensions.Select(kv => kv.Key + '=' + JsonSerializer.Serialize(kv.Value, new JsonSerializerOptions { WriteIndented = true }) + '}'));
+            ? string.Empty
+            : '{' + string.Join(',', Extensions.Select(kv => kv.Key + '=' + JsonSerializer.Serialize(kv.Value, _serializerOptions) + '}'));
     }
 
     /// <summary>

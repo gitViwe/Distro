@@ -1,4 +1,4 @@
-﻿namespace gitViwe.Shared.MediatR.Behaviour;
+﻿namespace gitViwe.Shared.MediatR;
 
 /// <summary>
 /// Creates a trace pipeline for recording MediatR response details

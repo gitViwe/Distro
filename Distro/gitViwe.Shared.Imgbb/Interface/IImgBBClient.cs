@@ -1,7 +1,4 @@
-﻿using gitViwe.Shared.Imgbb.Contract;
-using Microsoft.AspNetCore.Http;
-
-namespace gitViwe.Shared.Imgbb;
+﻿namespace gitViwe.Shared.Imgbb;
 
 /// <summary>
 /// An abstraction of an image hosting service using Imgbb

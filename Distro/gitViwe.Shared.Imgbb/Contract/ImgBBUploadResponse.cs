@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace gitViwe.Shared.Imgbb.Contract;
+﻿namespace gitViwe.Shared.Imgbb.Contract;
 
 /// <summary>
 /// The response object from peforming an upload

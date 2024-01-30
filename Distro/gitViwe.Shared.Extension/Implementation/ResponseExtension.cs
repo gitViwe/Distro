@@ -1,8 +1,4 @@
-﻿using System.Net.Http.Json;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-
-namespace gitViwe.Shared.Extension;
+﻿namespace gitViwe.Shared.Extension;
 
 /// <summary>
 /// Provides wrapper extensions for the the <see cref="HttpResponseMessage"/>

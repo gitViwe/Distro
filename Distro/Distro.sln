@@ -32,7 +32,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gitViwe.Shared.Imgbb", "git
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gitViwe.Shared.TimeBasedOneTimePassword", "gitViwe.Shared.TimeBasedOneTimePassword\gitViwe.Shared.TimeBasedOneTimePassword.csproj", "{DBDEE049-C2DC-4E0F-BD5C-C577A55CFB85}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gitViwe.Shared.JsonWebToken", "gitViwe.Shared.JsonWebToken\gitViwe.Shared.JsonWebToken.csproj", "{D845381C-C89B-436A-AD80-5955D2672EB3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gitViwe.Shared.JsonWebToken", "gitViwe.Shared.JsonWebToken\gitViwe.Shared.JsonWebToken.csproj", "{D845381C-C89B-436A-AD80-5955D2672EB3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gitViwe.Shared.Sqids", "gitViwe.Shared.Sqids\gitViwe.Shared.Sqids.csproj", "{6AA1299C-E23E-47BD-9E81-9E70BBA1A6C0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gitViwe.Shared.Sqids.MediatR", "gitViwe.Shared.Sqids.MediatR\gitViwe.Shared.Sqids.MediatR.csproj", "{1452F966-A59E-44AA-ADD8-F7F5087EA5D8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gitViwe.Shared.FluentValidation.MediatR", "gitViwe.Shared.FluentValidation.MediatR\gitViwe.Shared.FluentValidation.MediatR.csproj", "{062EE8CB-5509-4866-BC85-9D3086DD5691}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gitViwe.Shared.OpenTelemetry", "gitViwe.Shared.OpenTelemetry\gitViwe.Shared.OpenTelemetry.csproj", "{162C61E7-2F3A-4F1C-97A9-EEE4120CF762}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -92,6 +100,22 @@ Global
 		{D845381C-C89B-436A-AD80-5955D2672EB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D845381C-C89B-436A-AD80-5955D2672EB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D845381C-C89B-436A-AD80-5955D2672EB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AA1299C-E23E-47BD-9E81-9E70BBA1A6C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AA1299C-E23E-47BD-9E81-9E70BBA1A6C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AA1299C-E23E-47BD-9E81-9E70BBA1A6C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AA1299C-E23E-47BD-9E81-9E70BBA1A6C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1452F966-A59E-44AA-ADD8-F7F5087EA5D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1452F966-A59E-44AA-ADD8-F7F5087EA5D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1452F966-A59E-44AA-ADD8-F7F5087EA5D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1452F966-A59E-44AA-ADD8-F7F5087EA5D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{062EE8CB-5509-4866-BC85-9D3086DD5691}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{062EE8CB-5509-4866-BC85-9D3086DD5691}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{062EE8CB-5509-4866-BC85-9D3086DD5691}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{062EE8CB-5509-4866-BC85-9D3086DD5691}.Release|Any CPU.Build.0 = Release|Any CPU
+		{162C61E7-2F3A-4F1C-97A9-EEE4120CF762}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{162C61E7-2F3A-4F1C-97A9-EEE4120CF762}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{162C61E7-2F3A-4F1C-97A9-EEE4120CF762}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{162C61E7-2F3A-4F1C-97A9-EEE4120CF762}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

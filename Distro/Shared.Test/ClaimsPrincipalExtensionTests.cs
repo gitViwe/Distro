@@ -1,8 +1,8 @@
 ﻿using gitViwe.Shared;
 using gitViwe.Shared.Extension;
+using Microsoft.IdentityModel.JsonWebTokens;
 using System;
 using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Xunit;
 
