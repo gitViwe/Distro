@@ -1,7 +1,6 @@
-﻿using gitViwe.ProblemDetail.Base;
-using gitViwe.Shared;
+﻿using gitViwe.Shared;
 using gitViwe.Shared.Extension;
-using Microsoft.AspNetCore.Mvc;
+using gitViwe.Shared.ProblemDetail.Base;
 using Shared.Test.Model;
 using Shared.Test.TestDataGenerator;
 using SoloX.CodeQuality.Test.Helpers.Http;
@@ -15,15 +14,10 @@ using Xunit.Abstractions;
 
 namespace Shared.Test;
 
-public class ResponseExtensionTests
+public class ResponseExtensionTests(ITestOutputHelper output)
 {
-    private readonly ITestOutputHelper _output;
+    private readonly ITestOutputHelper _output = output;
     private readonly HttpClientMockBuilder _clientMockBuilder = new();
-
-    public ResponseExtensionTests(ITestOutputHelper output)
-    {
-        _output = output;
-    }
 
     [Theory]
     [ClassData(typeof(ResponseExtensionTestProblemDetailData))]
@@ -48,7 +42,7 @@ public class ResponseExtensionTests
 
     [Theory]
     [ClassData(typeof(ResponseExtensionTestValidationProblemDetailData))]
-    public async Task Response_Validation(Uri requestUri, HttpStatusCode statusCode, ValidationProblemDetails content, HttpMethod method, object requestBody)
+    public async Task Response_Validation(Uri requestUri, HttpStatusCode statusCode, DefaultValidationProblemDetails content, HttpMethod method, object requestBody)
     {
         var httpClient = _clientMockBuilder
             .WithBaseAddress(new Uri(requestUri.AbsoluteUri.Replace(requestUri.AbsolutePath, string.Empty)))

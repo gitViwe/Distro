@@ -1,8 +1,4 @@
-﻿using gitViwe.Shared.MongoDB.Base;
-using System.Linq.Expressions;
-using MongoDB.Bson;
-
-namespace gitViwe.Shared.MongoDB;
+﻿namespace gitViwe.Shared.MongoDB;
 
 /// <summary>
 /// A mongoDb database repository to interface with the document database

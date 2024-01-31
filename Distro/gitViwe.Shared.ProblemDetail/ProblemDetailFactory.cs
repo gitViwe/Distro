@@ -1,160 +1,86 @@
-﻿using gitViwe.ProblemDetail.Base;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using System.Diagnostics;
-
-namespace gitViwe.ProblemDetail;
+﻿namespace gitViwe.Shared.ProblemDetail;
 
 /// <summary>
-/// A custom factory to produce <see cref="ProblemDetails"/> and <see cref="ValidationProblemDetails"/>.
+/// A custom factory to produce <see cref="DefaultProblemDetails"/> and <see cref="DefaultValidationProblemDetails"/>.
 /// </summary>
 public static class ProblemDetailFactory
 {
-    private const string CONTENT_TYPE = "application/problem+json";
-
     /// <summary>
     /// Creates a <see cref="DefaultProblemDetails"/> instance that configures defaults for <br></br>
-    /// <see cref="ProblemDetails.Status"/><br></br>
-    /// <see cref="ProblemDetails.Type"/><br></br>
-    /// <see cref="ProblemDetails.Title"/><br></br>
-    /// <see cref="HttpResponse.ContentType"/><br></br>
-    /// <see cref="HttpResponse.StatusCode"/>
+    /// <see cref="DefaultProblemDetails.Status"/><br></br>
+    /// <see cref="DefaultProblemDetails.Type"/><br></br>
+    /// <see cref="DefaultProblemDetails.Title"/><br></br>
     /// </summary>
-    /// <param name="context">The <see cref="HttpContext" />.</param>
-    /// <param name="statusCode">The value for <see cref="ProblemDetails.Status"/>.</param>
-    /// <param name="detail">The value for <see cref="ProblemDetails.Detail" />.</param>
-    /// <returns>A custom <see cref="DefaultProblemDetails"/> class</returns>
-    public static DefaultProblemDetails CreateProblemDetails(HttpContext context, int statusCode, string? detail = null)
+    /// <param name="statusCode">The value for <see cref="DefaultProblemDetails.Status"/>.</param>
+    /// <param name="instance">The value for <see cref="DefaultProblemDetails.Instance" />.</param>
+    /// <param name="detail">The value for <see cref="DefaultProblemDetails.Detail" />.</param>
+    /// <returns>A custom <see cref="IDefaultProblemDetails"/> class</returns>
+    public static IDefaultProblemDetails CreateProblemDetails(int statusCode, string instance, string? detail = null)
     {
-        var problemDetails = CreateProblemDetails(context, statusCode, title: null, type: null, detail, instance: context.Request.Path);
-        return new DefaultProblemDetails(Activity.Current?.Id ?? context.TraceIdentifier, problemDetails);
+        var problemDetails = Create(statusCode, instance, detail);
+        return new DefaultProblemDetails(Activity.Current?.Id, problemDetails);
     }
 
     /// <summary>
     /// Creates a <see cref="DefaultProblemDetails"/> instance that configures defaults for <br></br>
-    /// <see cref="ProblemDetails.Status"/><br></br>
-    /// <see cref="ProblemDetails.Type"/><br></br>
-    /// <see cref="ProblemDetails.Title"/><br></br>
-    /// <see cref="HttpResponse.ContentType"/><br></br>
-    /// <see cref="HttpResponse.StatusCode"/>
+    /// <see cref="DefaultProblemDetails.Status"/><br></br>
+    /// <see cref="DefaultProblemDetails.Type"/><br></br>
+    /// <see cref="DefaultProblemDetails.Title"/><br></br>
     /// </summary>
-    /// <param name="context">The <see cref="HttpContext" />.</param>
-    /// <param name="statusCode">The value for <see cref="ProblemDetails.Status"/>.</param>
+    /// <param name="statusCode">The value for <see cref="DefaultProblemDetails.Status"/>.</param>
+    /// <param name="instance">The value for <see cref="DefaultProblemDetails.Instance" />.</param>
     /// <param name="extensions">The object extension associated with this instance of <see cref="DefaultProblemDetails"/></param>
-    /// <param name="detail">The value for <see cref="ProblemDetails.Detail" />.</param>
-    /// <returns>A custom <see cref="DefaultProblemDetails"/> class</returns>
-    public static DefaultProblemDetails CreateProblemDetails(HttpContext context, int statusCode, IDictionary<string, object?> extensions, string? detail = null)
+    /// <param name="detail">The value for <see cref="DefaultProblemDetails.Detail" />.</param>
+    /// <returns>A custom <see cref="IDefaultProblemDetails"/> class</returns>
+    public static IDefaultProblemDetails CreateProblemDetails(int statusCode, string instance, IDictionary<string, object?> extensions, string? detail = null)
     {
-        var problemDetails = CreateProblemDetails(context, statusCode, title: null, type: null, detail, instance: context.Request.Path);
-        return new DefaultProblemDetails(Activity.Current?.Id ?? context.TraceIdentifier, problemDetails, extensions);
+        var problemDetails = Create(statusCode, instance, detail);
+        return new DefaultProblemDetails(Activity.Current?.Id, problemDetails, extensions);
     }
 
     /// <summary>
-    /// Creates a <see cref="ValidationProblemDetails"/> instance that configures defaults for <br></br>
-    /// <see cref="ProblemDetails.Status"/><br></br>
-    /// <see cref="ProblemDetails.Type"/><br></br>
-    /// <see cref="ProblemDetails.Title"/><br></br>
-    /// <see cref="HttpResponse.ContentType"/><br></br>
-    /// <see cref="HttpResponse.StatusCode"/>
+    /// Creates a <see cref="DefaultValidationProblemDetails"/> instance that configures defaults for <br></br>
+    /// <see cref="DefaultProblemDetails.Status"/><br></br>
+    /// <see cref="DefaultProblemDetails.Type"/><br></br>
+    /// <see cref="DefaultProblemDetails.Title"/><br></br>
     /// </summary>
-    /// <param name="context">The <see cref="HttpContext" />.</param>
-    /// <param name="statusCode">The value for <see cref="ProblemDetails.Status"/>.</param>
-    /// <param name="errors">The errors associated with this instance of <see cref="ValidationProblemDetails"/></param>
-    /// <param name="detail">The value for <see cref="ProblemDetails.Detail" />.</param>
-    /// <returns>A custom <see cref="ValidationProblemDetails"/> class</returns>
-    public static ValidationProblemDetails CreateValidationProblemDetails(HttpContext context, int statusCode, IDictionary<string, string[]> errors, string? detail = null)
+    /// <param name="statusCode">The value for <see cref="DefaultProblemDetails.Status"/>.</param>
+    /// <param name="instance">The value for <see cref="DefaultProblemDetails.Instance" />.</param>
+    /// <param name="errors">The errors associated with this instance of <see cref="DefaultValidationProblemDetails"/></param>
+    /// <param name="detail">The value for <see cref="DefaultProblemDetails.Detail" />.</param>
+    /// <returns>A custom <see cref="IValidationProblemDetails"/> class</returns>
+    public static IValidationProblemDetails CreateValidationProblemDetails(int statusCode, string instance, IDictionary<string, string[]> errors, string? detail = null)
     {
-        return CreateValidationProblemDetails(context, errors, statusCode, title: null, type: null, detail, instance: context.Request.Path);
+        return Create(statusCode, errors, detail, instance);
     }
 
-    /// <summary>
-    /// Creates a <see cref="ValidationProblemDetails"/> instance that configures defaults for <br></br>
-    /// <see cref="ProblemDetails.Status"/><br></br>
-    /// <see cref="ProblemDetails.Type"/><br></br>
-    /// <see cref="ProblemDetails.Title"/><br></br>
-    /// <see cref="HttpResponse.ContentType"/><br></br>
-    /// <see cref="HttpResponse.StatusCode"/>
-    /// </summary>
-    /// <param name="context">The <see cref="HttpContext" />.</param>
-    /// <param name="statusCode">The value for <see cref="ProblemDetails.Status"/>.</param>
-    /// <param name="modelStateDictionary">The errors associated with this instance of <see cref="ValidationProblemDetails"/></param>
-    /// <param name="detail">The value for <see cref="ProblemDetails.Detail" />.</param>
-    /// <returns>A custom <see cref="ValidationProblemDetails"/> class</returns>
-    public static ValidationProblemDetails CreateValidationProblemDetails(HttpContext context, int statusCode, ModelStateDictionary modelStateDictionary, string? detail = null)
-    {
-        return CreateValidationProblemDetails(context, modelStateDictionary, statusCode, title: null, type: null, detail, instance: context.Request.Path);
-    }
-
-    private static ProblemDetails CreateProblemDetails(
-        HttpContext context,
-        int? statusCode = null,
-        string? title = null,
-        string? type = null,
+    private static DefaultProblemDetails Create(
+        int statusCode,
         string? detail = null,
         string? instance = null)
     {
-        int status = statusCode ?? context.Response.StatusCode;
-        context.Response.ContentType = CONTENT_TYPE;
-        context.Response.StatusCode = status;
-
-        var result = StatusCodeProblemDetails.Create(status);
-        SetProblemDefaults(result, status, title, type, detail, instance: instance ?? context.Request.Path);
+        var result = StatusCodeProblemDetails.Create(statusCode);
+        SetProblemDefaults(result, detail, instance);
         return result;
     }
 
-    private static ValidationProblemDetails CreateValidationProblemDetails(
-        HttpContext context,
-        ModelStateDictionary modelStateDictionary,
-        int? statusCode = null,
-        string? title = null,
-        string? type = null,
-        string? detail = null,
-        string? instance = null)
-    {
-        int status = statusCode ?? context.Response.StatusCode;
-        context.Response.ContentType = CONTENT_TYPE;
-        context.Response.StatusCode = status;
-
-        var result = new ValidationProblemDetails(modelStateDictionary);
-        SetProblemDefaults(result, status, title, type, detail, instance);
-        return result;
-    }
-
-    private static ValidationProblemDetails CreateValidationProblemDetails(
-        HttpContext context,
+    private static DefaultValidationProblemDetails Create(
+        int statusCode,
         IDictionary<string, string[]> errors,
-        int? statusCode = null,
-        string? title = null,
-        string? type = null,
         string? detail = null,
         string? instance = null)
     {
-        int status = statusCode ?? context.Response.StatusCode;
-        context.Response.ContentType = CONTENT_TYPE;
-        context.Response.StatusCode = status;
-
-        var result = new ValidationProblemDetails(errors);
-        SetProblemDefaults(result, status, title, type, detail, instance);
+        var problem = StatusCodeProblemDetails.Create(statusCode);
+        var result = new DefaultValidationProblemDetails(Activity.Current?.Id, problem, errors);
+        SetProblemDefaults(result, detail, instance);
         return result;
     }
 
     private static void SetProblemDefaults(
-            ProblemDetails result,
-            int statusCode,
-            string? title = null,
-            string? type = null,
+            DefaultProblemDetails result,
             string? detail = null,
             string? instance = null)
     {
-        result.Status = statusCode;
-        result.Type = type ?? result.Type ?? StatusCodeProblemDetails.GetDefaultType(statusCode);
-
-        if (!string.IsNullOrWhiteSpace(title))
-        {
-            result.Title = title;
-        }
-
         if (!string.IsNullOrWhiteSpace(detail))
         {
             result.Detail = detail;

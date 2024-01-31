@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using System.Text.Json;
 
-namespace gitViwe.Shared;
+namespace gitViwe.Shared.ProblemDetail;
 
 /// <summary>
 /// Defines the schema for the custom ProblemDetails class

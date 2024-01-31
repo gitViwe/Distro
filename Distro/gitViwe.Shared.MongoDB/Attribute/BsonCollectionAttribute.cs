@@ -1,4 +1,4 @@
-﻿namespace gitViwe.Shared.MongoDB.Base;
+﻿namespace gitViwe.Shared.MongoDB;
 
 /// <summary>
 /// Attribute is used on classes and cannot be inherited

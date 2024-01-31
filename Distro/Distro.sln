@@ -26,8 +26,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gitViwe.Shared.Model", "git
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gitViwe.Shared.FluentValidation", "gitViwe.Shared.FluentValidation\gitViwe.Shared.FluentValidation.csproj", "{CDE720AF-1CE3-49B8-A0FC-27561DF35743}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gitViwe.Shared.MediatR", "gitViwe.Shared.MediatR\gitViwe.Shared.MediatR.csproj", "{0A2B0F0C-9B76-4FBB-9D23-DE5DC7203229}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gitViwe.Shared.Imgbb", "gitViwe.Shared.Imgbb\gitViwe.Shared.Imgbb.csproj", "{BD95E80F-3D66-48D8-928D-03EB40EA429E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gitViwe.Shared.TimeBasedOneTimePassword", "gitViwe.Shared.TimeBasedOneTimePassword\gitViwe.Shared.TimeBasedOneTimePassword.csproj", "{DBDEE049-C2DC-4E0F-BD5C-C577A55CFB85}"
@@ -38,9 +36,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gitViwe.Shared.Sqids", "git
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gitViwe.Shared.Sqids.MediatR", "gitViwe.Shared.Sqids.MediatR\gitViwe.Shared.Sqids.MediatR.csproj", "{1452F966-A59E-44AA-ADD8-F7F5087EA5D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gitViwe.Shared.FluentValidation.MediatR", "gitViwe.Shared.FluentValidation.MediatR\gitViwe.Shared.FluentValidation.MediatR.csproj", "{062EE8CB-5509-4866-BC85-9D3086DD5691}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gitViwe.Shared.FluentValidation.MediatR", "gitViwe.Shared.FluentValidation.MediatR\gitViwe.Shared.FluentValidation.MediatR.csproj", "{062EE8CB-5509-4866-BC85-9D3086DD5691}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gitViwe.Shared.OpenTelemetry", "gitViwe.Shared.OpenTelemetry\gitViwe.Shared.OpenTelemetry.csproj", "{162C61E7-2F3A-4F1C-97A9-EEE4120CF762}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gitViwe.Shared.OpenTelemetry", "gitViwe.Shared.OpenTelemetry\gitViwe.Shared.OpenTelemetry.csproj", "{162C61E7-2F3A-4F1C-97A9-EEE4120CF762}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gitViwe.Shared.OpenTelemetry.MediatR", "gitViwe.Shared.OpenTelemetry.MediatR\gitViwe.Shared.OpenTelemetry.MediatR.csproj", "{E3BAD048-85C8-47EC-913C-F902B374CDBB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -84,10 +84,6 @@ Global
 		{CDE720AF-1CE3-49B8-A0FC-27561DF35743}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CDE720AF-1CE3-49B8-A0FC-27561DF35743}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CDE720AF-1CE3-49B8-A0FC-27561DF35743}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0A2B0F0C-9B76-4FBB-9D23-DE5DC7203229}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0A2B0F0C-9B76-4FBB-9D23-DE5DC7203229}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0A2B0F0C-9B76-4FBB-9D23-DE5DC7203229}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0A2B0F0C-9B76-4FBB-9D23-DE5DC7203229}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BD95E80F-3D66-48D8-928D-03EB40EA429E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BD95E80F-3D66-48D8-928D-03EB40EA429E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD95E80F-3D66-48D8-928D-03EB40EA429E}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -116,6 +112,10 @@ Global
 		{162C61E7-2F3A-4F1C-97A9-EEE4120CF762}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{162C61E7-2F3A-4F1C-97A9-EEE4120CF762}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{162C61E7-2F3A-4F1C-97A9-EEE4120CF762}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3BAD048-85C8-47EC-913C-F902B374CDBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3BAD048-85C8-47EC-913C-F902B374CDBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3BAD048-85C8-47EC-913C-F902B374CDBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3BAD048-85C8-47EC-913C-F902B374CDBB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

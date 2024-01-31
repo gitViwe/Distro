@@ -1,4 +1,4 @@
-﻿namespace gitViwe.Shared.MediatR;
+﻿namespace gitViwe.Shared.OpenTelemetry.MediatR;
 
 /// <summary>
 /// Creates a trace pipeline for recording MediatR request details

@@ -1,11 +1,4 @@
-﻿using gitViwe.Shared.MongoDB.Base;
-using gitViwe.Shared.MongoDB.Option;
-using Microsoft.Extensions.Options;
-using MongoDB.Bson;
-using MongoDB.Driver;
-using System.Linq.Expressions;
-
-namespace gitViwe.Shared.MongoDB;
+﻿namespace gitViwe.Shared.MongoDB;
 
 internal class MongoDBRepository<TMongoDocument> : IMongoDBRepository<TMongoDocument> where TMongoDocument : MongoDocument
 {
