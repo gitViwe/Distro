@@ -1,7 +1,4 @@
-﻿using Microsoft.Extensions.Options;
-using MongoDB.Driver;
-
-namespace gitViwe.Shared.MongoDB.Option;
+﻿namespace gitViwe.Shared.MongoDB;
 
 /// <summary>
 /// Configuration options for creating a MongoDB repository.

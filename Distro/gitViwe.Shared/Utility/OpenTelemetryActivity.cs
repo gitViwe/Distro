@@ -32,9 +32,11 @@ public static class OpenTelemetryActivity
         /// <param name="activityName">The operation name of the Activity</param>
         /// <param name="eventName">The event name</param>
         /// <param name="tags">The event tags</param>
-        public static void StartActivity(string activityName, string eventName, Dictionary<string, object?> tags)
+        /// <param name="statusCode">The status of the current activity</param>
+        public static void StartActivity(string activityName, string eventName, Dictionary<string, object?> tags, ActivityStatusCode statusCode = ActivityStatusCode.Unset)
         {
             using var activity = _activitySource.StartActivity(activityName);
+            activity?.SetStatus(statusCode);
             activity?.AddEvent(new ActivityEvent(eventName, tags: new ActivityTagsCollection(tags)));
         }
     }

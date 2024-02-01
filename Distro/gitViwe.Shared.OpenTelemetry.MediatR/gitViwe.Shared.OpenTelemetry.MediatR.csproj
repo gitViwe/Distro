@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	<GenerateDocumentationFile>True</GenerateDocumentationFile>
+	<DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+    <Version>3.0.0</Version>
+    <Authors>Viwe Nkepu</Authors>
+    <Description>MediatR implementation of OpenTelemetry methods.</Description>
+    <PackageProjectUrl>https://github.com/gitViwe/Distro</PackageProjectUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\gitViwe.Shared.OpenTelemetry\gitViwe.Shared.OpenTelemetry.csproj" />
+  </ItemGroup>
+
+</Project>

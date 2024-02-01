@@ -1,14 +1,11 @@
-﻿using gitViwe.Shared.Cache.Option;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
-
-namespace gitViwe.Shared.Cache;
+﻿namespace gitViwe.Shared.Cache;
 
 /// <summary>
 /// Implementation of the services registered in the DI container.
 /// </summary>
 public static class Startup
 {
+
     /// <summary>
     /// Registers the <see cref="IRedisDistributedCache"/> using values from <seealso cref="RedisDistributedCacheOption"/>.
     /// </summary>
@@ -17,16 +14,15 @@ public static class Startup
     /// <returns>The <see cref="IServiceCollection"/> so that additional calls can be chained.</returns>
     public static IServiceCollection AddGitViweRedisCache(this IServiceCollection services, Action<RedisDistributedCacheOption> options)
     {
-        var optionValue = new RedisDistributedCacheOption();
-        options(optionValue);
-
-        return services.Configure(options)
-            .AddSingleton<IValidateOptions<RedisDistributedCacheOption>, RedisDistributedCacheOptionValidator>()
-            .AddTransient<IRedisDistributedCache, RedisDistributedCache>()
+        services.Configure(options)
             .AddStackExchangeRedisCache(options =>
             {
-                options.Configuration = optionValue.Configuration;
-                options.InstanceName = optionValue.InstanceName;
-            });
+                options.Configuration = options.Configuration;
+                options.InstanceName = options.InstanceName;
+            })
+            .AddScoped<IRedisDistributedCache, DefaultRedisDistributedCache>()
+            .AddOptionsWithValidateOnStart<RedisDistributedCacheOption, RedisDistributedCacheOptionValidator>("RedisDistributedCacheOption");
+
+        return services;
     }
 }

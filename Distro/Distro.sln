@@ -20,17 +20,27 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gitViwe.Shared.ProblemDetai
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gitViwe.Shared.ProblemDetail.Extension", "gitViwe.Shared.ProblemDetail.Extension\gitViwe.Shared.ProblemDetail.Extension.csproj", "{7808C523-8422-49D0-8DD1-EED9D68B969A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gitViwe.Shared.Authentication", "gitViwe.Shared.Authentication\gitViwe.Shared.Authentication.csproj", "{439337B0-F5E5-4802-A97C-CDB7A20FBF90}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gitViwe.Shared.MongoDB", "gitViwe.Shared.MongoDB\gitViwe.Shared.MongoDB.csproj", "{16B4E79D-B2A5-43D7-AAC8-453F1261E8B5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gitViwe.Shared.Model", "gitViwe.Shared.Model\gitViwe.Shared.Model.csproj", "{31D20D82-0180-4631-9BDC-21130F091EF4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gitViwe.Shared.FluentValidation", "gitViwe.Shared.FluentValidation\gitViwe.Shared.FluentValidation.csproj", "{CDE720AF-1CE3-49B8-A0FC-27561DF35743}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gitViwe.Shared.MediatR", "gitViwe.Shared.MediatR\gitViwe.Shared.MediatR.csproj", "{0A2B0F0C-9B76-4FBB-9D23-DE5DC7203229}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gitViwe.Shared.Imgbb", "gitViwe.Shared.Imgbb\gitViwe.Shared.Imgbb.csproj", "{BD95E80F-3D66-48D8-928D-03EB40EA429E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gitViwe.Shared.Imgbb", "gitViwe.Shared.Imgbb\gitViwe.Shared.Imgbb.csproj", "{BD95E80F-3D66-48D8-928D-03EB40EA429E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gitViwe.Shared.TimeBasedOneTimePassword", "gitViwe.Shared.TimeBasedOneTimePassword\gitViwe.Shared.TimeBasedOneTimePassword.csproj", "{DBDEE049-C2DC-4E0F-BD5C-C577A55CFB85}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gitViwe.Shared.JsonWebToken", "gitViwe.Shared.JsonWebToken\gitViwe.Shared.JsonWebToken.csproj", "{D845381C-C89B-436A-AD80-5955D2672EB3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gitViwe.Shared.Sqids", "gitViwe.Shared.Sqids\gitViwe.Shared.Sqids.csproj", "{6AA1299C-E23E-47BD-9E81-9E70BBA1A6C0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gitViwe.Shared.Sqids.MediatR", "gitViwe.Shared.Sqids.MediatR\gitViwe.Shared.Sqids.MediatR.csproj", "{1452F966-A59E-44AA-ADD8-F7F5087EA5D8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gitViwe.Shared.FluentValidation.MediatR", "gitViwe.Shared.FluentValidation.MediatR\gitViwe.Shared.FluentValidation.MediatR.csproj", "{062EE8CB-5509-4866-BC85-9D3086DD5691}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gitViwe.Shared.OpenTelemetry", "gitViwe.Shared.OpenTelemetry\gitViwe.Shared.OpenTelemetry.csproj", "{162C61E7-2F3A-4F1C-97A9-EEE4120CF762}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gitViwe.Shared.OpenTelemetry.MediatR", "gitViwe.Shared.OpenTelemetry.MediatR\gitViwe.Shared.OpenTelemetry.MediatR.csproj", "{E3BAD048-85C8-47EC-913C-F902B374CDBB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -62,10 +72,6 @@ Global
 		{7808C523-8422-49D0-8DD1-EED9D68B969A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7808C523-8422-49D0-8DD1-EED9D68B969A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7808C523-8422-49D0-8DD1-EED9D68B969A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{439337B0-F5E5-4802-A97C-CDB7A20FBF90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{439337B0-F5E5-4802-A97C-CDB7A20FBF90}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{439337B0-F5E5-4802-A97C-CDB7A20FBF90}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{439337B0-F5E5-4802-A97C-CDB7A20FBF90}.Release|Any CPU.Build.0 = Release|Any CPU
 		{16B4E79D-B2A5-43D7-AAC8-453F1261E8B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{16B4E79D-B2A5-43D7-AAC8-453F1261E8B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16B4E79D-B2A5-43D7-AAC8-453F1261E8B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -78,14 +84,38 @@ Global
 		{CDE720AF-1CE3-49B8-A0FC-27561DF35743}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CDE720AF-1CE3-49B8-A0FC-27561DF35743}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CDE720AF-1CE3-49B8-A0FC-27561DF35743}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0A2B0F0C-9B76-4FBB-9D23-DE5DC7203229}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0A2B0F0C-9B76-4FBB-9D23-DE5DC7203229}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0A2B0F0C-9B76-4FBB-9D23-DE5DC7203229}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0A2B0F0C-9B76-4FBB-9D23-DE5DC7203229}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BD95E80F-3D66-48D8-928D-03EB40EA429E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BD95E80F-3D66-48D8-928D-03EB40EA429E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD95E80F-3D66-48D8-928D-03EB40EA429E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD95E80F-3D66-48D8-928D-03EB40EA429E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBDEE049-C2DC-4E0F-BD5C-C577A55CFB85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBDEE049-C2DC-4E0F-BD5C-C577A55CFB85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBDEE049-C2DC-4E0F-BD5C-C577A55CFB85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBDEE049-C2DC-4E0F-BD5C-C577A55CFB85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D845381C-C89B-436A-AD80-5955D2672EB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D845381C-C89B-436A-AD80-5955D2672EB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D845381C-C89B-436A-AD80-5955D2672EB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D845381C-C89B-436A-AD80-5955D2672EB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AA1299C-E23E-47BD-9E81-9E70BBA1A6C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AA1299C-E23E-47BD-9E81-9E70BBA1A6C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AA1299C-E23E-47BD-9E81-9E70BBA1A6C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AA1299C-E23E-47BD-9E81-9E70BBA1A6C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1452F966-A59E-44AA-ADD8-F7F5087EA5D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1452F966-A59E-44AA-ADD8-F7F5087EA5D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1452F966-A59E-44AA-ADD8-F7F5087EA5D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1452F966-A59E-44AA-ADD8-F7F5087EA5D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{062EE8CB-5509-4866-BC85-9D3086DD5691}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{062EE8CB-5509-4866-BC85-9D3086DD5691}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{062EE8CB-5509-4866-BC85-9D3086DD5691}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{062EE8CB-5509-4866-BC85-9D3086DD5691}.Release|Any CPU.Build.0 = Release|Any CPU
+		{162C61E7-2F3A-4F1C-97A9-EEE4120CF762}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{162C61E7-2F3A-4F1C-97A9-EEE4120CF762}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{162C61E7-2F3A-4F1C-97A9-EEE4120CF762}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{162C61E7-2F3A-4F1C-97A9-EEE4120CF762}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3BAD048-85C8-47EC-913C-F902B374CDBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3BAD048-85C8-47EC-913C-F902B374CDBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3BAD048-85C8-47EC-913C-F902B374CDBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3BAD048-85C8-47EC-913C-F902B374CDBB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

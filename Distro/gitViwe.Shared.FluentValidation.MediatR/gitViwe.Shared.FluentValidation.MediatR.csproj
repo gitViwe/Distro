@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	<GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+    <Version>3.0.0</Version>
+    <Authors>Viwe Nkepu</Authors>
+	<Description>MediatR implementation using Fluent Validation validators</Description>
+    <PackageProjectUrl>https://github.com/gitViwe/Distro</PackageProjectUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\gitViwe.Shared.FluentValidation\gitViwe.Shared.FluentValidation.csproj" />
+    <ProjectReference Include="..\gitViwe.Shared\gitViwe.Shared.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -19,4 +19,9 @@ public static class OpenTelemetrySource
     /// Defines the telemetry source name for any internal process
     /// </summary>
     public const string INTERNAL_PROCESS = "Internal.Process";
+
+    /// <summary>
+    /// Defines the telemetry source name for any external process
+    /// </summary>
+    public const string EXTERNAL_PROCESS = "External.Process";
 }

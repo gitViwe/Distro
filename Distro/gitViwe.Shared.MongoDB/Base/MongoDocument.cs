@@ -1,7 +1,4 @@
-﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
-
-namespace gitViwe.Shared.MongoDB.Base;
+﻿namespace gitViwe.Shared.MongoDB.Base;
 
 /// <summary>
 /// Represents the base implementation of MongoDb documents
