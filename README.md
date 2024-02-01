@@ -12,18 +12,14 @@ dotnet add package gitViwe.Shared
 
 Defines abstractions for the custom classes
 ```csharp
-interface IDefaultProblemDetails { }
 interface IPaginatedRequest { }
 interface IRequiresHost { }
-interface ISqidsIdEncoder<T> { }
-interface IValidationProblemDetails { }
 ```
 
 ### Attribute:
 
 Some custom attributes
 ```csharp
-class DecodedSqidsIdAttribute { }
 class ObfuscateAttribute { }
 ```
 
@@ -62,7 +58,7 @@ static class Conversion {
     static DateTime UnixTimeStampToDateTime(long unixTimeStamp);
     static long DateTimeToUnixTimeStamp(DateTime dateTime);
     static byte[] ParseBase64WithoutPadding(string payload);
-    static string ToObfuscatedString<TValue>(TValue request, params string[] propertyNames);
+    static string ToObfuscatedString<TValue>(TValue request, IEnumerable<string> propertyNames);
 }
 
 static class Formatter {
@@ -76,7 +72,7 @@ static class Generator {
 static class OpenTelemetryActivity {
     static class MediatR {
         static void StartActivity(string activityName, string eventName);
-        static void StartActivity(string activityName, string eventName, Dictionary<string, object?> tags);
+        static void StartActivity(string activityName, string eventName, Dictionary<string, object?> tags, ActivityStatusCode statusCode = ActivityStatusCode.Unset);
     }
     static class InternalProcess {
         static void StartActivity(string activityName, string eventName);
@@ -110,58 +106,6 @@ PaginatedResponse<TData> {
 }
 ```
 
-## gitViwe.Shared.Authentication
-
-### Nuget package:
-```
-dotnet add package gitViwe.Shared.Authentication 
-```
-
-### JSON Web Token:
-#### Register the `ISecurityTokenService` service using by specifying the settings values
-```csharp
-builder.Services.AddGitViweSecurityTokenService(options =>
-{
-    var key = Encoding.ASCII.GetBytes("vxL2V6EEj8HjgU6NxMhcNWAf0Ejxmcuj");
-
-    options.Audience = "https://localhost";
-    options.Issuer = "https://localhost";
-    options.RefreshValidationParameters = // create new instance with your settings;
-    options.SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature);
-    options.TokenExpiry = TimeSpan.FromMinutes(int.Parse(5));
-    options.ValidationParameters = // create new instance with your settings;
-});
-```
-
-### Usage:
-
-```csharp
-ISecurityTokenService {
-    SecurityTokenDescriptor CreateSecurityTokenDescriptor(IEnumerable<Claim> claims, string? audience = null);
-    SecurityToken CreateToken(SecurityTokenDescriptor tokenDescriptor);
-    SecurityToken CreateToken(IEnumerable<Claim> claims, string? audience = null);
-    string WriteToken(SecurityToken token);
-    ClaimsPrincipal ValidateToken(string token, bool isRefreshToken = false);
-}
-```
-
-### Time-based one-time password (TOTP):
-#### Register the `ITimeBasedOTPService` service
-```csharp
-builder.Services.AddGitViweTimeBasedOTPService();
-```
-
-### Usage:
-
-```csharp
-ITimeBasedOTPService {
-    QRCodeData GenerateQrCodeData(string username, string issuer, out string secretKey);
-    byte[] GetGraphicAsByteArray(QRCodeData data, int pixelsPerModule = 20);
-    bool VerifyTOTP(string secretKey, string token);
-}
-```
-
-
 ## gitViwe.Shared.Cache
 
 ### Nuget package:
@@ -184,13 +128,17 @@ builder.Services.AddGitViweRedisCache(options =>
 ### Usage:
 
 ```csharp
-public IActionResult Result([FromServices] IRedisDistributedCache redis, [FromBody] UrlShortenRequest request)
-{
-    await redis.SetAsync(key: "mykey", value: request.Uri, absoluteExpirationRelativeToNow: TimeSpan.FromMinutes(request.MinutesUntilExpiry));
-
-    string value = await redis.GetAsync(key: "mykey") ?? string.Empty;
-
-    return value;
+interface IRedisDistributedCache {
+    TResult? Get<TResult>(string key);
+    string? Get(string key);
+    Task<TResult?> GetAsync<TResult>(string key, CancellationToken token = default);
+    Task<string?> GetAsync(string key, CancellationToken token = default);
+    void Set<TValue>(string key, TValue value, TimeSpan? absoluteExpirationRelativeToNow = null, TimeSpan? slidingExpiration = null);
+    Task SetAsync<TValue>(string key, TValue value, TimeSpan? absoluteExpirationRelativeToNow = null, TimeSpan? slidingExpiration = null, CancellationToken token = default);
+    void Refresh(string key);
+    Task RefreshAsync(string key, CancellationToken token = default);
+    void Remove(string key);
+    Task RemoveAsync(string key, CancellationToken token = default);
 }
 ```
 
@@ -227,13 +175,37 @@ dotnet add package gitViwe.Shared.FluentValidation
 
 ### Extensions:
 
-Some custom attributes
+Some custom FluentValidation methods
 ```csharp
 class FluentValidatorExtension {
     static IRuleBuilderOptions<T, string> MustBeValidUri<T>(this IRuleBuilder<T, string> ruleBuilder);
     static IRuleBuilderOptions<T, string> NotContain<T>(this IRuleBuilder<T, string> ruleBuilder, string searchString);
 }
 ```
+
+## gitViwe.Shared.FluentValidation.MediatR
+
+### Nuget package:
+```
+dotnet add package gitViwe.Shared.FluentValidation.MediatR
+```
+
+### Pipeline:
+
+Some custom FluentValidation pipeline methods
+```csharp
+class FluentValidationPreProcessor<TRequest> { }
+```
+
+### Usage:
+Register the pipeline through MediatR
+```csharp
+services.AddMediatR(config =>
+        {
+            config.AddOpenRequestPreProcessor(typeof(FluentValidationPreProcessor<>));
+        });
+```
+
 
 ## gitViwe.Shared.Imgbb
 
@@ -261,44 +233,36 @@ IImgBBClient {
 }
 ```
 
-## gitViwe.Shared.MediatR
+## gitViwe.Shared.JsonWebToken
 
 ### Nuget package:
 ```
-dotnet add package gitViwe.Shared.MediatR 
+dotnet add package gitViwe.Shared.JsonWebToken 
 ```
 
-### Behaviour:
-
-Some custom attributes
+### JSON Web Token:
+#### Register the `IJsonWebToken` service using by specifying the settings values
 ```csharp
-class ValidationPreProcessor<TRequest> { }
-class OpenTelemetryPreProcessor<TRequest> { }
-class SqidsIdEncoderPreProcessor<TRequest> { }
-
-class OpenTelemetryPostProcessor<TRequest, TResponse> { }
-
-class ValidationBehaviour<TRequest, TResponse> { }
-class OpenTelemetryBehaviour<TRequest, TResponse> { }
-```
-
-#### Optional configuration for the `OpenTelemetryBehaviourOption` to be used by `OpenTelemetryBehaviour`
-```csharp
-builder.Services.ConfigureGitViweOpenTelemetryBehaviourOption(options =>
+builder.Services.AddGitViweJsonWebToken(options =>
 {
-    options.ObfuscatedPropertyNames = new string[] { "Email", "Password", "PasswordConfirmation", "Token" };
+    var key = Encoding.ASCII.GetBytes("vxL2V6EEj8HjgU6NxMhcNWAf0Ejxmcuj");
+
+    options.Issuer = "https://localhost";
+    options.RefreshValidationParameters = // create new instance with your settings;
+    options.SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature);
+    options.TokenExpiry = TimeSpan.FromMinutes(int.Parse(5));
+    options.ValidationParameters = // create new instance with your settings;
 });
 ```
 
-#### Rquired configuration for the `ISqidsIdEncoder<T>` to be used by `SqidsIdEncoderPreProcessor`
+### Usage:
+
 ```csharp
-builder.Services.AddGitViweSqidsIdEncoder();
-
-// OR
-
-builder.Services.AddGitViweSqidsIdEncoder<TImplementation>();
+IJsonWebToken {
+    string CreateJsonWebToken(IEnumerable<Claim> claims, string audience);
+    Task<ClaimsPrincipal?> ValidateToken(string token, bool isRefreshToken = false);
+}
 ```
-
 
 ## gitViwe.Shared.MongoDB
 
@@ -331,6 +295,45 @@ IMongoDBRepository<TMongoDocument> {
 }
 ```
 
+## gitViwe.Shared.OpenTelemetry
+
+### Nuget package:
+```
+dotnet add package gitViwe.Shared.OpenTelemetry 
+```
+
+Some custom utility methods
+```csharp
+class OpenTelemetryPropagator {
+    class ExternalProcess {
+        void InjectTraceContextToHeaders(string activityName, string eventName, IDictionary<string, object> headers);
+        void ExtractTraceContextFromHeaders(string activityName, string eventName, IEnumerable<KeyValuePair<string, object>> headers);
+    }
+ }
+```
+
+## gitViwe.Shared.OpenTelemetry.MediatR
+
+### Nuget package:
+```
+dotnet add package gitViwe.Shared.OpenTelemetry.MediatR
+```
+### Pipeline
+Some custom pipeline classes
+```csharp
+class OpenTelemetryPreProcessor<TRequest> { }
+class OpenTelemetryPostProcessor<TRequest, TResponse> { }
+```
+
+### Register options:
+#### Register the `OpenTelemetryBehaviourOption` used by `OpenTelemetryPreProcessor<TRequest>`
+```csharp
+builder.Services.ConfigureGitViweOpenTelemetryBehaviourOption(options =>
+{
+    options.ObfuscatedPropertyNames = [ "Password", "PasswordConfirmation", "Token" ];
+});
+```
+
 ## Problem Details
 
 ### Nuget package:
@@ -341,18 +344,130 @@ dotnet add package gitViwe.Shared.ProblemDetail
 ### Usage:
 
 ```csharp
-var extensionValue = new
-{
-    Balance = 30.0m,
-    Accounts = { "/account/12345", "/account/67890" }
-};
+static class ProblemDetailFactory {
+    static IDefaultProblemDetails CreateProblemDetails(int statusCode, string instance, string? detail = null);
+    static IDefaultProblemDetails CreateProblemDetails(int statusCode, string instance, IDictionary<string, object?> extensions, string? detail = null);
+    static IValidationProblemDetails CreateValidationProblemDetails(int statusCode, string instance, IDictionary<string, string[]> errors, string? detail = null);
+}
+```
 
-var problem = ProblemDetailFactory.CreateProblemDetails(
-                context: HttpContext,
-                statusCode: StatusCodes.Status412PreconditionFailed,
-                extensions: new Dictionary<string, object?>()
-                {
-                    { "outOfCredit", extensionValue }
-                },
-                detail: "Your current balance is 30, but that costs 50.");
+## gitViwe.Shared.ProblemDetail.Extension
+
+### Nuget package:
+```
+dotnet add package gitViwe.Shared.ProblemDetail.Extension 
+```
+
+Some helpful extension methods
+```csharp
+class ResponseExtension {
+    static async Task<IDefaultProblemDetails> ToProblemResponseAsync(
+        this HttpResponseMessage response,
+        JsonSerializerOptions? options = null,
+        CancellationToken token = default);
+    static async Task<IValidationProblemDetails> ToValidationProblemResponseAsync(
+        this HttpResponseMessage response,
+        JsonSerializerOptions? options = null,
+        CancellationToken token = default);
+}
+```
+
+## gitViwe.Shared.Sqids
+
+### Nuget package:
+```
+dotnet add package gitViwe.Shared.Sqids 
+```
+
+#### Register the `ISqidsIdEncoder<T>`
+```csharp
+builder.Services.AddGitViweSqidsIdEncoder(options => {
+    options.Alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    options.MinLength = 6;
+});
+
+// OR
+
+builder.Services.AddGitViweSqidsIdEncoder<TImplementation>(options => {
+    options.Alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    options.MinLength = 6;
+});
+```
+### Usage:
+
+```csharp
+static class ISqidsIdEncoder<T> {
+    string Encode(T number);
+    string Encode(params T[] numbers);
+    string Encode(IEnumerable<T> numbers);
+    IReadOnlyList<T> Decode(ReadOnlySpan<char> id);
+    bool TryDecode(ReadOnlySpan<char> id, out IReadOnlyList<T> decoded);
+    bool TryDecode(ReadOnlySpan<char> id, out T decoded);
+}
+```
+
+
+## gitViwe.Shared.Sqids.MediatR
+
+### Nuget package:
+```
+dotnet add package gitViwe.Shared.Sqids.MediatR
+```
+
+### Attribute:
+
+Some custom attributes
+```csharp
+class DecodedSqidsIdAttribute { }
+```
+
+### Pipeline
+Some custom pipeline classes
+```csharp
+class SqidsIdEncoderPreProcessor<TRequest> { }
+```
+
+### Usage:
+Register the pipeline through MediatR and decorate your command / query class.
+```csharp
+services.AddGitViweSqidsIdEncoder()
+        .AddMediatR(config =>
+        {
+            config.AddOpenRequestPreProcessor(typeof(SqidsIdEncoderPreProcessor<>));
+        });
+```
+```csharp
+class MediatrCommand : IRequest<MediatrResponse>, ISqidsIdEncoderPreProcessMarker
+{
+    public required string UserId { get; init; }
+
+    [DecodedSqidsId(SourceProperty = nameof(UserId))]
+    public int DecodedUserId { get; set; }
+}
+```
+
+## gitViwe.Shared.TimeBasedOneTimePassword
+
+### Nuget package:
+```
+dotnet add package gitViwe.Shared.TimeBasedOneTimePassword
+```
+
+#### Register the `ITimeBasedOneTimePassword`
+
+```csharp
+builder.Services.AddGitViweTimeBasedOneTimePassword(options => {
+    options.Issuer = "My awesome app";
+    options.Algorithm = TimeBasedOneTimePasswordAlgorithm.SHA1;
+    options.Digits = 6;
+    options.Period = 30;
+});
+```
+### Usage:
+
+```csharp
+static class ITimeBasedOneTimePassword {
+    bool VerifyToken(string secretKey, string token);
+    TimeBasedOneTimePasswordLinkResponse? GenerateLink(string username);
+}
 ```
