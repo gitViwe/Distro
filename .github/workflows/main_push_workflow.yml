@@ -21,17 +21,15 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       # Configure NET 6
       - name: Set up .NET Core
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@v4
         with:
           # Specify the NuGet source to restore packages from
           source-url: https://api.nuget.org/v3/index.json
-          dotnet-version: |
-            6.x.x
-            7.x.x
+          dotnet-version: 8.x.x
         env:
           # Use repository secret key to authenticate personal NuGet
           NUGET_AUTH_TOKEN: ${{secrets.NUGET_TOKEN}}
