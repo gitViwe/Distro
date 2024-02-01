@@ -37,9 +37,9 @@ public static class Startup
     /// Registers implementation for <see cref="ISqidsIdEncoder{T}"/> as <typeparamref name="TImplementation"/> else defaults to <seealso cref="DefaultSqidsIdEncoder{T}"/>
     /// </summary>
     /// <typeparam name="TImplementation">The implementation to register.</typeparam>
+    /// <typeparam name="TSqidsIdType">The sqids id data type.</typeparam>
     /// <param name="services">Specifies the contract for a collection of service descriptors.</param>
     /// <returns>An <see cref="IServiceCollection"/> to chain additional calls.</returns>
-    /// <exception cref="InvalidOperationException"
     public static IServiceCollection AddGitViweSqidsIdEncoder<TImplementation, TSqidsIdType>(this IServiceCollection services)
         where TImplementation : ISqidsIdEncoder<TSqidsIdType>
         where TSqidsIdType : unmanaged, IBinaryInteger<TSqidsIdType>, IMinMaxValue<TSqidsIdType>
