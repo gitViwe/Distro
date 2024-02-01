@@ -13,13 +13,9 @@ public static class Startup
     /// <returns>The <see cref="IServiceCollection"/> so that additional calls can be chained.</returns>
     public static IServiceCollection AddGitViweImgBBClient(this IServiceCollection services, Action<ImgBBClientOption> options)
     {
-        ImgBBClientOption def = new();
-        options(def);
-
         services.Configure(options)
             .AddScoped<IImgBBClient, DefaultImgBBClient>()
-            .AddOptionsWithValidateOnStart<ImgBBClientOption, ImgBBClientOptionValidator>("ImgBBClientOption")
-            .ValidateOnStart();
+            .AddOptionsWithValidateOnStart<ImgBBClientOption, ImgBBClientOptionValidator>("ImgBBClientOption");
 
         return services;
     }

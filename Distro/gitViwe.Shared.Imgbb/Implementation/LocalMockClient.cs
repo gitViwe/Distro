@@ -35,7 +35,7 @@ internal class LocalMockClient : IImgBBClient
             Data = new ImgBBData()
             {
                 DisplayUrl = base64,
-                Expiration = expirationInSeconds ?? 2000,
+                Expiration = expirationInSeconds ?? 15552000,
                 Image = new()
                 {
                     Filename = fileName,
@@ -63,7 +63,7 @@ internal class LocalMockClient : IImgBBClient
             Data = new ImgBBData()
             {
                 DisplayUrl = base64,
-                Expiration = expirationInSeconds ?? 2000,
+                Expiration = expirationInSeconds ?? 15552000,
                 Image = new()
                 {
                     Filename = file.Name,

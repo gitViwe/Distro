@@ -1,5 +1,8 @@
-﻿namespace gitViwe.Shared.Sqids.Option;
+﻿namespace gitViwe.Shared.Sqids;
 
+/// <summary>
+/// Optional values used to create a <see cref="SqidsEncoder{T}"/>
+/// </summary>
 public class SqidsIdEncoderOption
 {
     /// <summary>

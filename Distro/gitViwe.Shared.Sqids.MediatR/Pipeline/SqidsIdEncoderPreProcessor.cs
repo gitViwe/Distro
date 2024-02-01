@@ -5,7 +5,7 @@
 /// </summary>
 /// <typeparam name="TRequest">The MediatR type</typeparam>
 /// <remarks>
-/// Ensure the call to <seealso cref="Startup.AddGitViweSqidsIdEncoder(IServiceCollection, Action{Option.SqidsIdEncoderOption})"/> is made.
+/// Ensure the call to <seealso cref="Startup.AddGitViweSqidsIdEncoder(IServiceCollection)"/> is made.
 /// </remarks>
 /// <remarks>
 /// Creates a new instance of <see cref="SqidsIdEncoderPreProcessor{TRequest}"/>

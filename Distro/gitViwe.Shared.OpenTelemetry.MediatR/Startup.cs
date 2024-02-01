@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-
-namespace gitViwe.Shared.OpenTelemetry.MediatR;
+﻿namespace gitViwe.Shared.OpenTelemetry.MediatR;
 
 /// <summary>
 /// Implementation of the services registered in the DI container.

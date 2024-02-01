@@ -9,17 +9,26 @@ public static class Startup
     /// Registers the default implementation for <see cref="ISqidsIdEncoder{T}"/> as <seealso cref="DefaultSqidsIdEncoder{T}"/>
     /// </summary>
     /// <param name="services">Specifies the contract for a collection of service descriptors.</param>
+    /// <returns>An <see cref="IServiceCollection"/> to chain additional calls.</returns>
+    public static IServiceCollection AddGitViweSqidsIdEncoder(this IServiceCollection services)
+    {
+        services.AddSingleton(typeof(ISqidsIdEncoder<>), typeof(DefaultSqidsIdEncoder<>))
+            .AddOptionsWithValidateOnStart<SqidsIdEncoderOption, SqidsIdEncoderOptionValidator>("SqidsIdEncoderOption");
+
+        return services;
+    }
+
+    /// <summary>
+    /// Registers the default implementation for <see cref="ISqidsIdEncoder{T}"/> as <seealso cref="DefaultSqidsIdEncoder{T}"/>
+    /// </summary>
+    /// <param name="services">Specifies the contract for a collection of service descriptors.</param>
     /// <param name="options">The option values to use in <see cref="ISqidsIdEncoder{T}"/>.</param>
     /// <returns>An <see cref="IServiceCollection"/> to chain additional calls.</returns>
     public static IServiceCollection AddGitViweSqidsIdEncoder(this IServiceCollection services, Action<SqidsIdEncoderOption> options)
     {
-        SqidsIdEncoderOption def = new();
-        options(def);
-
         services.Configure(options)
             .AddSingleton(typeof(ISqidsIdEncoder<>), typeof(DefaultSqidsIdEncoder<>))
-            .AddOptionsWithValidateOnStart<SqidsIdEncoderOption, SqidsIdEncoderOptionValidator>("SqidsIdEncoderOption")
-            .ValidateOnStart();
+            .AddOptionsWithValidateOnStart<SqidsIdEncoderOption, SqidsIdEncoderOptionValidator>("SqidsIdEncoderOption");
 
         return services;
     }
@@ -29,19 +38,12 @@ public static class Startup
     /// </summary>
     /// <typeparam name="TImplementation">The implementation to register.</typeparam>
     /// <param name="services">Specifies the contract for a collection of service descriptors.</param>
-    /// <param name="options">The option values to use in <see cref="ISqidsIdEncoder{T}"/>.</param>
     /// <returns>An <see cref="IServiceCollection"/> to chain additional calls.</returns>
-    public static IServiceCollection AddGitViweSqidsIdEncoder<TImplementation>(this IServiceCollection services, Action<SqidsIdEncoderOption> options)
+    /// <exception cref="InvalidOperationException"
+    public static IServiceCollection AddGitViweSqidsIdEncoder<TImplementation, TSqidsIdType>(this IServiceCollection services)
+        where TImplementation : ISqidsIdEncoder<TSqidsIdType>
+        where TSqidsIdType : unmanaged, IBinaryInteger<TSqidsIdType>, IMinMaxValue<TSqidsIdType>
     {
-        Type implementation = typeof(TImplementation);
-        bool implementsInterface = typeof(ISqidsIdEncoder<>).MakeGenericType(implementation).IsAssignableFrom(implementation);
-
-        if (implementsInterface)
-        {
-            services.AddSingleton(typeof(ISqidsIdEncoder<>), implementation.GetType());
-            return services;
-        }
-
-        return services.AddGitViweSqidsIdEncoder(options);
+        return services.AddSingleton(typeof(ISqidsIdEncoder<>), typeof(TImplementation));
     }
 }

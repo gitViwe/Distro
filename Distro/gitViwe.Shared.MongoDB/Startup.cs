@@ -1,8 +1,4 @@
-﻿using gitViwe.Shared.MongoDB.Option;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-
-namespace gitViwe.Shared.MongoDB;
+﻿namespace gitViwe.Shared.MongoDB;
 
 /// <summary>
 /// Implementation of the services registered in the DI container.
@@ -18,7 +14,9 @@ public static class Startup
     public static IServiceCollection AddGitViweMongoDBRepository(this IServiceCollection services, Action<MongoDBRepositoryOption> options)
     {
         services.Configure(options)
-            .TryAddScoped(typeof(IMongoDBRepository<>), typeof(MongoDBRepository<>));
+            .AddScoped(typeof(IMongoDBRepository<>), typeof(MongoDBRepository<>))
+            .AddOptionsWithValidateOnStart<MongoDBRepositoryOption, MongoDBRepositoryOptionValidator>("MongoDBRepositoryOption");
+
         return services;
     }
 }

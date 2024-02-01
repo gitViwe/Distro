@@ -5,6 +5,7 @@
 /// </summary>
 public static class Startup
 {
+
     /// <summary>
     /// Registers the <see cref="IRedisDistributedCache"/> using values from <seealso cref="RedisDistributedCacheOption"/>.
     /// </summary>
@@ -13,9 +14,6 @@ public static class Startup
     /// <returns>The <see cref="IServiceCollection"/> so that additional calls can be chained.</returns>
     public static IServiceCollection AddGitViweRedisCache(this IServiceCollection services, Action<RedisDistributedCacheOption> options)
     {
-        RedisDistributedCacheOption def = new();
-        options(def);
-
         services.Configure(options)
             .AddStackExchangeRedisCache(options =>
             {
@@ -23,8 +21,7 @@ public static class Startup
                 options.InstanceName = options.InstanceName;
             })
             .AddScoped<IRedisDistributedCache, DefaultRedisDistributedCache>()
-            .AddOptionsWithValidateOnStart<RedisDistributedCacheOption, RedisDistributedCacheOptionValidator>("RedisDistributedCacheOption")
-            .ValidateOnStart();
+            .AddOptionsWithValidateOnStart<RedisDistributedCacheOption, RedisDistributedCacheOptionValidator>("RedisDistributedCacheOption");
 
         return services;
     }
