@@ -6,14 +6,15 @@
     <Nullable>enable</Nullable>
 	<GenerateDocumentationFile>True</GenerateDocumentationFile>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
-    <Version>3.0.1</Version>
+    <Version>3.0.0</Version>
+    <Description>Simplify creating the problem details classes.</Description>
     <Authors>Viwe Nkepu</Authors>
-    <Description>Helpful extension methods for HttpResponseMessage.</Description>
     <PackageProjectUrl>https://github.com/gitViwe/Distro</PackageProjectUrl>
   </PropertyGroup>
-	
+
   <ItemGroup>
     <ProjectReference Include="..\gitViwe.Shared.ProblemDetail\gitViwe.Shared.ProblemDetail.csproj" />
+	  <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
 </Project>
