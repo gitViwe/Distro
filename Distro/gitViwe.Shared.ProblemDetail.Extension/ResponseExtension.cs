@@ -1,10 +1,9 @@
-﻿using gitViwe.Shared.ProblemDetail;
-using gitViwe.Shared.ProblemDetail.Base;
+﻿using gitViwe.Shared.ProblemDetail.Base;
 using System.Net.Http.Json;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace gitViwe.Shared.Extension;
+namespace gitViwe.Shared.ProblemDetail.Extension;
 
 /// <summary>
 /// Provides wrapper extensions for the the <see cref="HttpResponseMessage"/>
