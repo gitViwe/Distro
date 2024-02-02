@@ -4,7 +4,7 @@ internal class DefaultTimeBasedOneTimePassword(IOptions<TimeBasedOneTimePassword
 {
     private readonly TimeBasedOneTimePasswordOption _option = options.Value;
 
-    public TimeBasedOneTimePasswordLinkResponse? GenerateLink(string username)
+    public TimeBasedOneTimePasswordLinkResponse GenerateLink(string username)
     {
         // Generate a random secret key for the user.
         var key = KeyGeneration.GenerateRandomKey(32);
