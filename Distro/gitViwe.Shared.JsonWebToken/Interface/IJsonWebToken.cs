@@ -19,5 +19,5 @@ public interface IJsonWebToken
     /// <param name="token">The JSON web token to validate.</param>
     /// <param name="isRefreshToken">If set to true, the token expiry will not be validated.</param>
     /// <returns>The <see cref="Task{TResult}"/> containing the <see cref="ClaimsPrincipal"/>.</returns>
-    Task<ClaimsPrincipal?> ValidateToken(string token, bool isRefreshToken = false);
+    Task<ClaimsPrincipal?> ValidateTokenAsync(string token, bool isRefreshToken = false);
 }

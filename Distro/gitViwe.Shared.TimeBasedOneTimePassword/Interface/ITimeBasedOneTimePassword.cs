@@ -10,7 +10,7 @@ public interface ITimeBasedOneTimePassword
     /// </summary>
     /// <param name="username">The user's display name.</param>
     /// <returns>A <see cref="TimeBasedOneTimePasswordLinkResponse"/> representing the result. Else, null if it fails.</returns>
-    TimeBasedOneTimePasswordLinkResponse? GenerateLink(string username);
+    TimeBasedOneTimePasswordLinkResponse GenerateLink(string username);
 
     /// <summary>
     /// Verify the time-based one-time password (TOTP).

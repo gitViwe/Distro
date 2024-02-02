@@ -19,7 +19,7 @@ internal class DefaultJsonWebToken(IOptions<JsonWebTokenOption> options, ILogger
         return new JsonWebTokenHandler().CreateToken(descriptor);
     }
 
-    public async Task<ClaimsPrincipal?> ValidateToken(string token, bool isRefreshToken = false)
+    public async Task<ClaimsPrincipal?> ValidateTokenAsync(string token, bool isRefreshToken = false)
     {
         JsonWebTokenHandler handler = new();
 
