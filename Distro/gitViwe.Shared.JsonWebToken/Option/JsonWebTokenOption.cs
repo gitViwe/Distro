@@ -13,29 +13,29 @@ public class JsonWebTokenOption
     /// <summary>
     /// Gets or sets the issuer of the <seealso cref="SecurityTokenDescriptor"/>.
     /// </summary>
-    public string Issuer { get; set; } = string.Empty;
+    public required string Issuer { get; set; }
 
     /// <summary>
     /// Gets or sets the SigningCredentials used to create a security token.
     /// </summary>
-    public SigningCredentials? SigningCredentials { get; set; }
+    public required SigningCredentials SigningCredentials { get; set; }
 
     /// <summary>
     /// Contains a set of parameters that are used by a <see cref="SecurityTokenHandler"/> when validating a <see cref="SecurityToken"/>
     /// </summary>
-    public TokenValidationParameters? ValidationParameters { get; set; }
+    public required TokenValidationParameters ValidationParameters { get; set; }
 
     /// <summary>
     /// Contains a set of parameters that are used by a <see cref="SecurityTokenHandler"/> when validating a <see cref="SecurityToken"/>
     /// </summary>
-    public TokenValidationParameters? RefreshValidationParameters { get; set; }
+    public required TokenValidationParameters RefreshValidationParameters { get; set; }
 }
 
 internal class JsonWebTokenOptionValidator : IValidateOptions<JsonWebTokenOption>
 {
     public ValidateOptionsResult Validate(string? name, JsonWebTokenOption options)
     {
-        if (options.TokenExpiry.CompareTo(TimeSpan.Zero) < 1)
+        if (options.TokenExpiry.CompareTo(TimeSpan.Zero) <= 0)
         {
             return ValidateOptionsResult.Fail($"{name}.{nameof(options.TokenExpiry)} must be a time span in the future.");
         }

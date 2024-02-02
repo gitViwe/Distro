@@ -13,9 +13,6 @@ public static class Startup
     /// <returns>The <see cref="IServiceCollection"/> so that additional calls can be chained.</returns>
     public static IServiceCollection AddGitViweTimeBasedOneTimePassword(this IServiceCollection services, Action<TimeBasedOneTimePasswordOption> options)
     {
-        TimeBasedOneTimePasswordOption def = new();
-        options(def);
-
         services.Configure(options)
             .AddScoped<ITimeBasedOneTimePassword, DefaultTimeBasedOneTimePassword>()
             .AddOptionsWithValidateOnStart<TimeBasedOneTimePasswordOption, TimeBasedOneTimePasswordOptionValidator>("TimeBasedOneTimePasswordOption")

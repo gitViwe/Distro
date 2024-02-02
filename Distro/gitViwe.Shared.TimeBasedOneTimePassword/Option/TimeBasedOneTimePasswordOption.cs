@@ -9,22 +9,22 @@ public class TimeBasedOneTimePasswordOption
     /// The issuer parameter is an optional string value indicating the provider or service the credential is associated with.
     /// It is URL-encoded according to <see href="https://datatracker.ietf.org/doc/html/rfc3986"/>
     /// </summary>
-    public string Issuer { get; set; } = string.Empty;
+    public required string Issuer { get; set; }
 
     /// <summary>
-    /// The hash algorithm used by the credential. The default is <see cref="TimeBasedOneTimePasswordAlgorithm.SHA1"/>.
+    /// The hash algorithm used by the credential.
     /// </summary>
-    public TimeBasedOneTimePasswordAlgorithm Algorithm { get; set; } = TimeBasedOneTimePasswordAlgorithm.SHA1;
+    public required TimeBasedOneTimePasswordAlgorithm Algorithm { get; set; }
 
     /// <summary>
     /// The number of digits in a one-time password (OTP). Valid numbers are [6, 7, 8]
     /// </summary>
-    public ushort Digits { get; set; } = 6;
+    public required ushort Digits { get; set; }
 
     /// <summary>
     /// The period parameter defines a validity period in seconds for the TOTP code. Valid numbers are [15, 30, 60]
     /// </summary>
-    public ushort Period { get; set; } = 30;
+    public required ushort Period { get; set; }
 }
 
 internal class TimeBasedOneTimePasswordOptionValidator : IValidateOptions<TimeBasedOneTimePasswordOption>
