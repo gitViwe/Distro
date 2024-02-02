@@ -1,6 +1,7 @@
 ﻿using gitViwe.Shared;
 using gitViwe.Shared.Extension;
 using gitViwe.Shared.ProblemDetail.Base;
+using gitViwe.Shared.ProblemDetail.Extension;
 using Shared.Test.Model;
 using Shared.Test.TestDataGenerator;
 using SoloX.CodeQuality.Test.Helpers.Http;
