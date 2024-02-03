@@ -35,6 +35,11 @@ internal class JsonWebTokenOptionValidator : IValidateOptions<JsonWebTokenOption
 {
     public ValidateOptionsResult Validate(string? name, JsonWebTokenOption options)
     {
+        if (string.IsNullOrWhiteSpace(name))
+        {
+            name = "JsonWebTokenOption";
+        }
+
         if (options.TokenExpiry.CompareTo(TimeSpan.Zero) <= 0)
         {
             return ValidateOptionsResult.Fail($"{name}.{nameof(options.TokenExpiry)} must be a time span in the future.");

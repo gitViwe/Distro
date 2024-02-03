@@ -4,7 +4,7 @@
 /// Attribute is used on classes and cannot be inherited
 /// </summary>
 [AttributeUsage(AttributeTargets.Class, Inherited = false)]
-public class BsonCollectionAttribute : Attribute
+public class BsonCollectionAttribute : System.Attribute
 {
     /// <summary>
     /// This attribute allows us to set the collection name for documents

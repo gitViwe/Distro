@@ -1,4 +1,5 @@
-﻿global using gitViwe.Shared.MongoDB.Base;
+﻿global using gitViwe.Shared.Extension;
+global using gitViwe.Shared.MongoDB.Base;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Options;
 global using MongoDB.Bson;

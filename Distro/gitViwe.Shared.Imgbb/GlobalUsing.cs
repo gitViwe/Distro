@@ -1,4 +1,5 @@
-﻿global using gitViwe.Shared.Imgbb.Contract;
+﻿global using gitViwe.Shared.Extension;
+global using gitViwe.Shared.Imgbb.Contract;
 global using gitViwe.Shared.Imgbb.Option;
 global using Microsoft.AspNetCore.Http;
 global using Microsoft.Extensions.DependencyInjection;

@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
 	<GenerateDocumentationFile>True</GenerateDocumentationFile>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
-    <Version>3.0.1</Version>
+    <Version>3.0.2</Version>
     <Authors>Viwe Nkepu</Authors>
 	<Description>MediatR implementation using Fluent Validation validators</Description>
     <PackageProjectUrl>https://github.com/gitViwe/Distro</PackageProjectUrl>

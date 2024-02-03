@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
 	<GenerateDocumentationFile>True</GenerateDocumentationFile>
 	<DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
-    <Version>3.0.3</Version>
+    <Version>3.0.4</Version>
     <Authors>Viwe Nkepu</Authors>
     <Description>An abstraction that generates JSON Web Tokens for representing claims securely between two parties.</Description>
     <PackageProjectUrl>https://github.com/gitViwe/Distro</PackageProjectUrl>
@@ -18,6 +18,10 @@
     <PackageReference Include="Microsoft.Extensions.Telemetry.Abstractions" Version="8.1.0" />
     <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="7.3.0" />
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="7.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\gitViwe.Shared.Extension\gitViwe.Shared.Extension.csproj" />
   </ItemGroup>
 
 </Project>

@@ -21,10 +21,7 @@ public static class Startup
                 options.InstanceName = options.InstanceName;
             })
             .AddScoped<IRedisDistributedCache, DefaultRedisDistributedCache>()
-            .AddSingleton<IValidateOptions<RedisDistributedCacheOption>, RedisDistributedCacheOptionValidator>()
-            .AddOptions<RedisDistributedCacheOption>("RedisDistributedCacheOption")
-            .Configure(options)
-            .ValidateOnStart();
+            .AddOptionsWithValidateOnStart<RedisDistributedCacheOption, RedisDistributedCacheOptionValidator>("RedisDistributedCacheOption", options);
 
         return services;
     }

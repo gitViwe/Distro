@@ -13,9 +13,7 @@ public static class Startup
     public static IServiceCollection AddGitViweSqidsIdEncoder(this IServiceCollection services)
     {
         services.AddSingleton(typeof(ISqidsIdEncoder<>), typeof(DefaultSqidsIdEncoder<>))
-            .AddSingleton<IValidateOptions<SqidsIdEncoderOption>, SqidsIdEncoderOptionValidator>()
-            .AddOptions<SqidsIdEncoderOption>("SqidsIdEncoderOption")
-            .ValidateOnStart();
+            .AddOptionsWithValidateOnStart<SqidsIdEncoderOption, SqidsIdEncoderOptionValidator>("SqidsIdEncoderOption", o => { });
 
         return services;
     }
@@ -30,10 +28,7 @@ public static class Startup
     {
         services.Configure(options)
             .AddSingleton(typeof(ISqidsIdEncoder<>), typeof(DefaultSqidsIdEncoder<>))
-            .AddSingleton<IValidateOptions<SqidsIdEncoderOption>, SqidsIdEncoderOptionValidator>()
-            .AddOptions<SqidsIdEncoderOption>("SqidsIdEncoderOption")
-            .Configure(options)
-            .ValidateOnStart();
+            .AddOptionsWithValidateOnStart<SqidsIdEncoderOption, SqidsIdEncoderOptionValidator>("SqidsIdEncoderOption", options);
 
         return services;
     }

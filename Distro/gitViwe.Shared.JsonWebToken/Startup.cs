@@ -14,10 +14,7 @@ public static class Startup
     public static IServiceCollection AddGitViweJsonWebToken(this IServiceCollection services, Action<JsonWebTokenOption> options)
     {
         services.AddScoped<IJsonWebToken, DefaultJsonWebToken>()
-            .AddSingleton<IValidateOptions<JsonWebTokenOption>, JsonWebTokenOptionValidator>()
-            .AddOptions<JsonWebTokenOption>("JsonWebTokenOption")
-            .Configure(options)
-            .ValidateOnStart();
+            .AddOptionsWithValidateOnStart<JsonWebTokenOption, JsonWebTokenOptionValidator>("JsonWebTokenOption", options);
 
         return services;
     }

@@ -11,8 +11,9 @@ internal static partial class DefaultJsonWebTokenLoggerExtension
     [LoggerMessage(
         Level = LogLevel.Warning,
         Message = "Failed to validate the JSON Web Token: {SecurityToken}")]
-    public static partial void FailedToValidateJsonWebToken(this ILogger logger,
-        Exception exception,
+    public static partial void FailedToValidateJsonWebToken(
+        this ILogger logger,
+        System.Exception exception,
         [LogProperties] SecurityToken securityToken);
 
     /// <summary>
