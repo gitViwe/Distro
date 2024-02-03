@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
 	<GenerateDocumentationFile>True</GenerateDocumentationFile>
 	<DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
-    <Version>3.0.2</Version>
+    <Version>3.0.3</Version>
     <Authors>Viwe Nkepu</Authors>
     <Description>An abstraction that generates JSON Web Tokens for representing claims securely between two parties.</Description>
     <PackageProjectUrl>https://github.com/gitViwe/Distro</PackageProjectUrl>

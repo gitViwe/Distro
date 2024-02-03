@@ -13,9 +13,11 @@ public static class Startup
     /// <returns>The <see cref="IServiceCollection"/> so that additional calls can be chained.</returns>
     public static IServiceCollection AddGitViweJsonWebToken(this IServiceCollection services, Action<JsonWebTokenOption> options)
     {
-        services.Configure(options)
-            .AddScoped<IJsonWebToken, DefaultJsonWebToken>()
-            .AddOptionsWithValidateOnStart<JsonWebTokenOption, JsonWebTokenOptionValidator>("JsonWebTokenOption");
+        services.AddScoped<IJsonWebToken, DefaultJsonWebToken>()
+            .AddSingleton<IValidateOptions<JsonWebTokenOption>, JsonWebTokenOptionValidator>()
+            .AddOptions<JsonWebTokenOption>("JsonWebTokenOption")
+            .Configure(options)
+            .ValidateOnStart();
 
         return services;
     }

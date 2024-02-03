@@ -15,7 +15,9 @@ public static class Startup
     {
         services.Configure(options)
             .AddScoped<ITimeBasedOneTimePassword, DefaultTimeBasedOneTimePassword>()
-            .AddOptionsWithValidateOnStart<TimeBasedOneTimePasswordOption, TimeBasedOneTimePasswordOptionValidator>("TimeBasedOneTimePasswordOption")
+            .AddSingleton<IValidateOptions<TimeBasedOneTimePasswordOption>, TimeBasedOneTimePasswordOptionValidator>()
+            .AddOptions<TimeBasedOneTimePasswordOption>("TimeBasedOneTimePasswordOption")
+            .Configure(options)
             .ValidateOnStart();
 
         return services;

@@ -15,7 +15,10 @@ public static class Startup
     {
         services.Configure(options)
             .AddScoped<IImgBBClient, DefaultImgBBClient>()
-            .AddOptionsWithValidateOnStart<ImgBBClientOption, ImgBBClientOptionValidator>("ImgBBClientOption");
+            .AddSingleton<IValidateOptions<ImgBBClientOption>, ImgBBClientOptionValidator>()
+            .AddOptions<ImgBBClientOption>("ImgBBClientOption")
+            .Configure(options)
+            .ValidateOnStart();
 
         return services;
     }

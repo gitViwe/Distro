@@ -15,7 +15,10 @@ public static class Startup
     {
         services.Configure(options)
             .AddScoped(typeof(IMongoDBRepository<>), typeof(MongoDBRepository<>))
-            .AddOptionsWithValidateOnStart<MongoDBRepositoryOption, MongoDBRepositoryOptionValidator>("MongoDBRepositoryOption");
+            .AddSingleton<IValidateOptions<MongoDBRepositoryOption>, MongoDBRepositoryOptionValidator>()
+            .AddOptions<MongoDBRepositoryOption>("MongoDBRepositoryOption")
+            .Configure(options)
+            .ValidateOnStart();
 
         return services;
     }
