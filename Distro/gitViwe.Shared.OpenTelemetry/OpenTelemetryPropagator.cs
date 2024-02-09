@@ -22,7 +22,7 @@ public static class OpenTelemetryPropagator
         /// <param name="activityName">The operation name of the Activity</param>
         /// <param name="eventName">The event name</param>
         /// <param name="headers">The dictionary where the trace context will be injected.</param>
-        public static void InjectTraceContextToHeaders(string activityName, string eventName, IDictionary<string, object> headers)
+        public static void InjectTraceContextToHeaders(string activityName, string eventName, IDictionary<string, string> headers)
         {
             using var activity = _activitySource.StartActivity(activityName, ActivityKind.Producer);
             activity?.AddEvent(new ActivityEvent(eventName));
@@ -31,7 +31,7 @@ public static class OpenTelemetryPropagator
 
             _propagator.Inject(new PropagationContext(contextToInject, Baggage.Current), headers, InjectTraceContext);
 
-            static void InjectTraceContext(IDictionary<string, object> headers, string key, string value)
+            static void InjectTraceContext(IDictionary<string, string> headers, string key, string value)
             {
                 headers[key] = value;
             }
@@ -46,9 +46,9 @@ public static class OpenTelemetryPropagator
         /// <param name="activityName">The operation name of the Activity</param>
         /// <param name="eventName">The event name</param>
         /// <param name="headers">The dictionary where the trace context will be extracted.</param>
-        public static void ExtractTraceContextFromHeaders(string activityName, string eventName, IEnumerable<KeyValuePair<string, object>> headers)
+        public static void ExtractTraceContextFromHeaders(string activityName, string eventName, IEnumerable<KeyValuePair<string, string>> headers)
         {
-            static IEnumerable<string> ExtractTraceContext(IEnumerable<KeyValuePair<string, object>> headers, string key)
+            static IEnumerable<string> ExtractTraceContext(IEnumerable<KeyValuePair<string, string>> headers, string key)
             {
                 try
                 {
