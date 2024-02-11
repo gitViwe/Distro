@@ -14,13 +14,13 @@ internal class DefaultRedisDistributedCache(IDistributedCache distributedCache, 
         };
     }
 
-    public TResult? Get<TResult>(string key) where TResult : class, new()
+    public TResult? Get<TResult>(string key)
     {
         var byteValue = _distributedCache.Get(key);
 
         if (byteValue is null)
         {
-            return null;
+            return default;
         }
 
         var stringValue = Encoding.UTF8.GetString(byteValue);
@@ -41,13 +41,13 @@ internal class DefaultRedisDistributedCache(IDistributedCache distributedCache, 
         return Encoding.UTF8.GetString(byteValue);
     }
 
-    public async Task<TResult?> GetAsync<TResult>(string key, CancellationToken token = default) where TResult : class, new()
+    public async Task<TResult?> GetAsync<TResult>(string key, CancellationToken token = default)
     {
         var byteValue = await _distributedCache.GetAsync(key, token);
 
         if (byteValue is null)
         {
-            return null;
+            return default;
         }
 
         var stringValue = Encoding.UTF8.GetString(byteValue);

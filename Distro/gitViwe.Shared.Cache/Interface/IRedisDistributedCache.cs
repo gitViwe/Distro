@@ -11,7 +11,7 @@ public interface IRedisDistributedCache
     /// <typeparam name="TResult">The value type to return.</typeparam>
     /// <param name="key">A string identifying the requested value.</param>
     /// <returns>The located value or null.</returns>
-    TResult? Get<TResult>(string key) where TResult : class, new();
+    TResult? Get<TResult>(string key);
 
     /// <summary>
     /// Gets a value with the given key.
@@ -27,7 +27,7 @@ public interface IRedisDistributedCache
     /// <param name="key">A string identifying the requested value.</param>
     /// <param name="token">Optional. The <see cref="CancellationToken"/> used to propagate notifications that the operation should be cancelled.</param>
     /// <returns>The <see cref="Task"/> that represents the asynchronous operation, containing the located value or null.</returns>
-    Task<TResult?> GetAsync<TResult>(string key, CancellationToken token = default) where TResult : class, new();
+    Task<TResult?> GetAsync<TResult>(string key, CancellationToken token = default);
 
     /// <summary>
     /// Gets a value with the given key.
