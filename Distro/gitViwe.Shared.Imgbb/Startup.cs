@@ -14,8 +14,9 @@ public static class Startup
     public static IServiceCollection AddGitViweImgBBClient(this IServiceCollection services, Action<ImgBBClientOption> options)
     {
         services.Configure(options)
-            .AddScoped<IImgBBClient, DefaultImgBBClient>()
             .AddOptionsWithValidateOnStart<ImgBBClientOption, ImgBBClientOptionValidator>("ImgBBClientOption", options);
+
+        services.AddHttpClient<IImgBBClient, DefaultImgBBClient>(client => client.BaseAddress = new Uri("https://api.imgbb.com"));
 
         return services;
     }
