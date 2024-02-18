@@ -14,9 +14,9 @@ internal class NotContainValidator<T> : PropertyValidator<T, string>, INotContai
 
     public override bool IsValid(ValidationContext<T> context, string value)
     {
-        if (!string.IsNullOrWhiteSpace(value))
+        if (false == string.IsNullOrWhiteSpace(value))
         {
-            return !value.Contains(SearchString, StringComparison.InvariantCulture);
+            return false == value.Contains(SearchString, StringComparison.InvariantCulture);
         }
 
         return false;

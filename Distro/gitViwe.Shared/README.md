@@ -23,11 +23,13 @@ class ObfuscateAttribute { }
 
 Some helper classes
 ```csharp
+static class HubEnvironmentName { }
 static class OpenTelemetrySource { }
 static class OpenTelemetryTagKey {
     static class MediatR { }
     static class HTTP { }
     static class JWT { }
+    static class EndpointFilter { }
 }
 ```
 
@@ -67,14 +69,22 @@ static class Generator {
 
 static class OpenTelemetryActivity {
     static class MediatR {
-        static void StartActivity(string activityName, string eventName);
+        static void StartActivity(string activityName, string eventName, ActivityStatusCode statusCode = ActivityStatusCode.Unset);
         static void StartActivity(string activityName, string eventName, Dictionary<string, object?> tags, ActivityStatusCode statusCode = ActivityStatusCode.Unset);
     }
     static class InternalProcess {
-        static void StartActivity(string activityName, string eventName);
+        static void StartActivity(string activityName, string eventName, ActivityStatusCode statusCode = ActivityStatusCode.Unset);
         static void StartActivity(string activityName, string eventName, System.Exception exception);
         static void StartActivity(string activityName, string eventName, Dictionary<string, object?> tags, ActivityStatusCode statusCode = ActivityStatusCode.Unset);
     }
+}
+
+static class Instrumentation {
+    static IEnumerable<string> DefaultFilterRequestPath;
+    static void EnrichWithHttpRequestHeaders(Activity activity, IEnumerable<KeyValuePair<string, StringValues>> headers);
+    static void EnrichWithHttpRequestHeaders(Activity activity, IEnumerable<KeyValuePair<string, IEnumerable<string>>> headers);
+    static void EnrichWithHttpResponseHeaders(Activity activity, IEnumerable<KeyValuePair<string, StringValues>> headers);
+    static void EnrichWithHttpResponseHeaders(Activity activity, IEnumerable<KeyValuePair<string, IEnumerable<string>>> headers);
 }
 ```
 

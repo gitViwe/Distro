@@ -28,7 +28,7 @@ public class FluentValidationPreProcessor<TRequest>(IEnumerable<IValidator<TRequ
             { OpenTelemetryTagKey.MediatR.REQUEST_VALIDATOR, string.Join('|', _validators.Select(x => x.GetType().Name)) },
         };
 
-        OpenTelemetryActivity.MediatR.StartActivity("Validation MediatR PreProcessor", "Starting Request Validation.", requestTagDictionary);
+        OpenTelemetryActivity.MediatR.StartActivity("Fluent Validation PreProcessor", "Starting Request Validation.", requestTagDictionary);
 
         if (_validators is not null && _validators.Any())
         {

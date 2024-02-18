@@ -5,7 +5,7 @@
 /// </summary>
 public static class Formatter
 {
-    private static readonly string[] _suffixes = new string[] { "Bytes", "KB", "MB", "GB", "TB", "PB" };
+    private static readonly string[] _suffixes = ["Bytes", "KB", "MB", "GB", "TB", "PB"];
 
     /// <summary>
     /// Formats the bytes size to the nearest larger format<br></br>

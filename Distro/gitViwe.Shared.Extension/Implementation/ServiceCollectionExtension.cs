@@ -1,7 +1,7 @@
 ﻿namespace gitViwe.Shared.Extension;
 
 /// <summary>
-/// Provides wrapper extensions for the the <see cref="IServiceCollection"/>
+/// Provides extensions for the the <see cref="IServiceCollection"/>
 /// </summary>
 public static class ServiceCollectionExtension
 {
