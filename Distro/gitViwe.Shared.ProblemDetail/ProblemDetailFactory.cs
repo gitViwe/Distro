@@ -17,7 +17,7 @@ public static class ProblemDetailFactory
     /// <returns>A custom <see cref="IDefaultProblemDetails"/> class</returns>
     public static IDefaultProblemDetails CreateProblemDetails(int statusCode, string instance, string? detail = null)
     {
-        var problemDetails = Create(statusCode, instance, detail);
+        var problemDetails = Create(statusCode, detail, instance);
         return new DefaultProblemDetails(Activity.Current?.Id, problemDetails);
     }
 
@@ -34,7 +34,7 @@ public static class ProblemDetailFactory
     /// <returns>A custom <see cref="IDefaultProblemDetails"/> class</returns>
     public static IDefaultProblemDetails CreateProblemDetails(int statusCode, string instance, IDictionary<string, object?> extensions, string? detail = null)
     {
-        var problemDetails = Create(statusCode, instance, detail);
+        var problemDetails = Create(statusCode, detail, instance);
         return new DefaultProblemDetails(Activity.Current?.Id, problemDetails, extensions);
     }
 
