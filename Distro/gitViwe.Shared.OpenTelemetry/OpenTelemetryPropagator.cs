@@ -22,10 +22,9 @@ public static class OpenTelemetryPropagator
         /// <param name="activityName">The operation name of the Activity</param>
         /// <param name="eventName">The event name</param>
         /// <param name="headers">The dictionary where the trace context will be injected.</param>
-        /// <returns>The created activity object, if it had active listeners, or null if it has no event listeners.</returns>
-        public static Activity? InjectTraceContextToHeaders(string activityName, string eventName, IDictionary<string, string> headers)
+        public static void InjectTraceContextToHeaders(string activityName, string eventName, IDictionary<string, string> headers)
         {
-            var activity = _activitySource.StartActivity(activityName, ActivityKind.Producer);
+            using var activity = _activitySource.StartActivity(activityName, ActivityKind.Producer);
             activity?.AddEvent(new ActivityEvent(eventName));
 
             ActivityContext contextToInject = activity?.Context ?? Activity.Current?.Context ?? default;
@@ -36,8 +35,6 @@ public static class OpenTelemetryPropagator
             {
                 headers[key] = value;
             }
-
-            return activity;
         }
 
         /// <summary>
@@ -68,7 +65,7 @@ public static class OpenTelemetryPropagator
             // Need to filter the contents of baggage we want to inject
             // Baggage.Current = parentContext.Baggage;
 
-            var activity = _activitySource.StartActivity(activityName, ActivityKind.Producer);
+            var activity = _activitySource.StartActivity(activityName, parentContext: parentContext.ActivityContext, kind: ActivityKind.Producer);
             activity?.AddEvent(new ActivityEvent(eventName));
 
             return activity;
