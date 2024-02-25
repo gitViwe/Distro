@@ -22,9 +22,10 @@ public static class OpenTelemetryPropagator
         /// <param name="activityName">The operation name of the Activity</param>
         /// <param name="eventName">The event name</param>
         /// <param name="headers">The dictionary where the trace context will be injected.</param>
-        public static void InjectTraceContextToHeaders(string activityName, string eventName, IDictionary<string, string> headers)
+        /// <returns>The created activity object, if it had active listeners, or null if it has no event listeners.</returns>
+        public static Activity? InjectTraceContextToHeaders(string activityName, string eventName, IDictionary<string, string> headers)
         {
-            using var activity = _activitySource.StartActivity(activityName, ActivityKind.Producer);
+            var activity = _activitySource.StartActivity(activityName, ActivityKind.Producer);
             activity?.AddEvent(new ActivityEvent(eventName));
 
             ActivityContext contextToInject = activity?.Context ?? Activity.Current?.Context ?? default;
@@ -35,6 +36,8 @@ public static class OpenTelemetryPropagator
             {
                 headers[key] = value;
             }
+
+            return activity;
         }
 
         /// <summary>
@@ -46,7 +49,8 @@ public static class OpenTelemetryPropagator
         /// <param name="activityName">The operation name of the Activity</param>
         /// <param name="eventName">The event name</param>
         /// <param name="headers">The dictionary where the trace context will be extracted.</param>
-        public static void ExtractTraceContextFromHeaders(string activityName, string eventName, IEnumerable<KeyValuePair<string, string>> headers)
+        /// <returns>The created activity object, if it had active listeners, or null if it has no event listeners.</returns>
+        public static Activity? ExtractTraceContextFromHeaders(string activityName, string eventName, IEnumerable<KeyValuePair<string, string>> headers)
         {
             static IEnumerable<string> ExtractTraceContext(IEnumerable<KeyValuePair<string, string>> headers, string key)
             {
@@ -56,7 +60,7 @@ public static class OpenTelemetryPropagator
                 }
                 catch (System.Exception) { }
 
-                return Enumerable.Empty<string>();
+                return [];
             }
 
             var parentContext = _propagator.Extract(default, headers, ExtractTraceContext);
@@ -64,8 +68,10 @@ public static class OpenTelemetryPropagator
             // Need to filter the contents of baggage we want to inject
             // Baggage.Current = parentContext.Baggage;
 
-            using var activity = _activitySource.StartActivity(activityName, ActivityKind.Producer);
+            var activity = _activitySource.StartActivity(activityName, ActivityKind.Producer);
             activity?.AddEvent(new ActivityEvent(eventName));
+
+            return activity;
         }
     }
 }

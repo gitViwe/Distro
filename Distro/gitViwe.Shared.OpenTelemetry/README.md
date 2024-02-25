@@ -9,8 +9,8 @@ Some custom utility methods
 ```csharp
 class OpenTelemetryPropagator {
     class ExternalProcess {
-        void InjectTraceContextToHeaders(string activityName, string eventName, IDictionary<string, object> headers);
-        void ExtractTraceContextFromHeaders(string activityName, string eventName, IEnumerable<KeyValuePair<string, object>> headers);
+        Activity? InjectTraceContextToHeaders(string activityName, string eventName, IDictionary<string, object> headers);
+        Activity? ExtractTraceContextFromHeaders(string activityName, string eventName, IEnumerable<KeyValuePair<string, object>> headers);
     }
  }
 ```
