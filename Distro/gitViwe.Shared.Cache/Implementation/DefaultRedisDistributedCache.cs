@@ -97,11 +97,25 @@ internal class DefaultRedisDistributedCache(IDistributedCache distributedCache, 
         _distributedCache.Set(key, byteValue, CreateCacheEntryOptions(absoluteExpirationRelativeToNow, slidingExpiration));
     }
 
+    public void Set(string key, string value, TimeSpan? absoluteExpirationRelativeToNow = null, TimeSpan? slidingExpiration = null)
+    {
+        var byteValue = Encoding.UTF8.GetBytes(value);
+
+        _distributedCache.Set(key, byteValue, CreateCacheEntryOptions(absoluteExpirationRelativeToNow, slidingExpiration));
+    }
+
     public Task SetAsync<TValue>(string key, TValue value, TimeSpan? absoluteExpirationRelativeToNow = null, TimeSpan? slidingExpiration = null, CancellationToken token = default)
     {
         var stringValue = JsonSerializer.Serialize(value);
 
         var byteValue = Encoding.UTF8.GetBytes(stringValue);
+
+        return _distributedCache.SetAsync(key, byteValue, CreateCacheEntryOptions(absoluteExpirationRelativeToNow, slidingExpiration), token);
+    }
+
+    public Task SetAsync(string key, string value, TimeSpan? absoluteExpirationRelativeToNow = null, TimeSpan? slidingExpiration = null, CancellationToken token = default)
+    {
+        var byteValue = Encoding.UTF8.GetBytes(value);
 
         return _distributedCache.SetAsync(key, byteValue, CreateCacheEntryOptions(absoluteExpirationRelativeToNow, slidingExpiration), token);
     }

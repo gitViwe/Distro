@@ -25,7 +25,9 @@ interface IRedisDistributedCache {
     string? Get(string key);
     Task<TResult?> GetAsync<TResult>(string key, CancellationToken token = default);
     Task<string?> GetAsync(string key, CancellationToken token = default);
+    void Set(string key, string value, TimeSpan? absoluteExpirationRelativeToNow = null, TimeSpan? slidingExpiration = null);
     void Set<TValue>(string key, TValue value, TimeSpan? absoluteExpirationRelativeToNow = null, TimeSpan? slidingExpiration = null);
+    Task SetAsync(string key, string value, TimeSpan? absoluteExpirationRelativeToNow = null, TimeSpan? slidingExpiration = null, CancellationToken token = default);
     Task SetAsync<TValue>(string key, TValue value, TimeSpan? absoluteExpirationRelativeToNow = null, TimeSpan? slidingExpiration = null, CancellationToken token = default);
     void Refresh(string key);
     Task RefreshAsync(string key, CancellationToken token = default);

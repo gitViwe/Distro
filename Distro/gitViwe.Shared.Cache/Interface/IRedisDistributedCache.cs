@@ -51,6 +51,18 @@ public interface IRedisDistributedCache
     void Set<TValue>(string key, TValue value, TimeSpan? absoluteExpirationRelativeToNow = null, TimeSpan? slidingExpiration = null);
 
     /// <summary>
+    /// Sets a value with the given key.
+    /// </summary>
+    /// <param name="key">A string identifying the requested value.</param>
+    /// <param name="value">The value to set in the cache.</param>
+    /// <param name="absoluteExpirationRelativeToNow">Gets or sets an absolute expiration time, relative to now.</param>
+    /// <param name="slidingExpiration">
+    /// Gets or sets how long a cache entry can be inactive (e.g. not accessed) before it will be removed.
+    /// This will not extend the entry lifetime beyond the absolute expiration (if set).
+    /// </param>
+    void Set(string key, string value, TimeSpan? absoluteExpirationRelativeToNow = null, TimeSpan? slidingExpiration = null);
+
+    /// <summary>
     /// Sets the value with the given key.
     /// </summary>
     /// <typeparam name="TValue">The value type to store.</typeparam>
@@ -64,6 +76,20 @@ public interface IRedisDistributedCache
     /// <param name="token">Optional. The <see cref="CancellationToken"/> used to propagate notifications that the operation should be cancelled.</param>
     /// <returns>The <see cref="Task"/> that represents the asynchronous operation.</returns>
     Task SetAsync<TValue>(string key, TValue value, TimeSpan? absoluteExpirationRelativeToNow = null, TimeSpan? slidingExpiration = null, CancellationToken token = default);
+
+    /// <summary>
+    /// Sets the value with the given key.
+    /// </summary>
+    /// <param name="key">A string identifying the requested value.</param>
+    /// <param name="value">The value to set in the cache.</param>
+    /// <param name="absoluteExpirationRelativeToNow">Gets or sets an absolute expiration time, relative to now.</param>
+    /// <param name="slidingExpiration">
+    /// Gets or sets how long a cache entry can be inactive (e.g. not accessed) before it will be removed.
+    /// This will not extend the entry lifetime beyond the absolute expiration (if set).
+    /// </param>
+    /// <param name="token">Optional. The <see cref="CancellationToken"/> used to propagate notifications that the operation should be cancelled.</param>
+    /// <returns>The <see cref="Task"/> that represents the asynchronous operation.</returns>
+    Task SetAsync(string key, string value, TimeSpan? absoluteExpirationRelativeToNow = null, TimeSpan? slidingExpiration = null, CancellationToken token = default);
 
     /// <summary>
     /// Refreshes a value in the cache based on its key, resetting its sliding expiration timeout (if any).
