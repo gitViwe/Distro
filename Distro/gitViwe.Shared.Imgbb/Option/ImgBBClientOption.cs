@@ -27,7 +27,7 @@ internal class ImgBBClientOptionValidator : IValidateOptions<ImgBBClientOption>
 
         if (options.ExpirationInSeconds.HasValue && options.ExpirationInSeconds is < 60 or > 15552000)
         {
-            return ValidateOptionsResult.Fail($"{name}.{nameof(options.APIKey)} must be a value in the range of 60-15552000.");
+            return ValidateOptionsResult.Fail($"{name}.{nameof(options.ExpirationInSeconds)} must be a value in the range of 60-15552000.");
         }
 
         return ValidateOptionsResult.Success;

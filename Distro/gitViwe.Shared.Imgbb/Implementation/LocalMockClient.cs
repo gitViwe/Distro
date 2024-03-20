@@ -24,6 +24,11 @@ internal class LocalMockClient : IImgBBClient
         return $"data:{httpContent.Headers?.ContentType?.MediaType};base64," + base64String;
     }
 
+    public Task<bool> PingAsync(CancellationToken cancellation = default)
+    {
+        return Task.FromResult(true);
+    }
+
     public async Task<ImgBBUploadResponse> UploadImageAsync(HttpContent httpContent, string fileName, int? expirationInSeconds = null, CancellationToken cancellation = default)
     {
         string base64 = await GetBase64StringFromHttpContentAsync(httpContent);

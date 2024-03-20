@@ -6,6 +6,13 @@
 public interface IImgBBClient
 {
     /// <summary>
+    /// Performs a test upload to ensure Imgbb integration is working.
+    /// </summary>
+    /// <param name="cancellation">Propagates notification that operations should be cancelled</param>
+    /// <returns></returns>
+    Task<bool> PingAsync(CancellationToken cancellation = default);
+
+    /// <summary>
     /// Upload the image file.
     /// </summary>
     /// <param name="httpContent">The content body to upload</param>
