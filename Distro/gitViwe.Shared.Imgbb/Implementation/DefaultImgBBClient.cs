@@ -46,7 +46,7 @@ internal class DefaultImgBBClient : IImgBBClient
     {
         var endpoint = new StringBuilder()
             .Append(_uploadEndpoint)
-            .Append("&expiration=5");
+            .Append("&expiration=60");
 
         byte[] image = Convert.FromBase64String("iVBORw0KGgoAAAANSUhEUgAAABEAAAASCAIAAAAym6IDAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACVSURBVDhPY/hPOhjVQ2U9v/YffG/pAEQ/Vq2FCsEATj1A1W9lVIDonbI2VAgGcOr5UlQO0QNEUCEYwG2PoSXJeuAagOhb70SoKBgQpQeIfl+5BpXAowfodWQ9n5MzoRJ49HxtaEHWA0TfpsyASOHU8+/Hj08xSch64IGOUw8QALWhuRAijk8PEADdA9fwtbIWJPT/PwDmpjgaAgZw6QAAAABJRU5ErkJggg==");
 
