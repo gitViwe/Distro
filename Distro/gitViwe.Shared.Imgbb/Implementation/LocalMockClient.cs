@@ -24,9 +24,9 @@ internal class LocalMockClient : IImgBBClient
         return $"data:{httpContent.Headers?.ContentType?.MediaType};base64," + base64String;
     }
 
-    public Task<bool> PingAsync(CancellationToken cancellation = default)
+    public Task<IResponse> PingAsync(CancellationToken cancellation = default)
     {
-        return Task.FromResult(true);
+        return Task.FromResult(Response.Success("ImgBB server integration is online."));
     }
 
     public async Task<ImgBBUploadResponse> UploadImageAsync(HttpContent httpContent, string fileName, int? expirationInSeconds = null, CancellationToken cancellation = default)

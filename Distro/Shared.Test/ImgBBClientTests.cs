@@ -28,6 +28,6 @@ public class ImgBBClientTests
         var result = await client.PingAsync(CancellationToken.None);
 
         // Assert
-        Assert.True(result);
+        Assert.True(result.Succeeded);
     }
 }

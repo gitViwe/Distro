@@ -10,7 +10,7 @@ public interface IImgBBClient
     /// </summary>
     /// <param name="cancellation">Propagates notification that operations should be cancelled</param>
     /// <returns></returns>
-    Task<bool> PingAsync(CancellationToken cancellation = default);
+    Task<IResponse> PingAsync(CancellationToken cancellation = default);
 
     /// <summary>
     /// Upload the image file.

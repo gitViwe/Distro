@@ -19,6 +19,7 @@ builder.Services.AddGitViweImgBBClient(options =>
 
 ```csharp
 IImgBBClient {
+    Task<IResponse> PingAsync(CancellationToken cancellation = default);
     Task<ImgBBUploadResponse> UploadImageAsync(IFormFile file, int? expirationInSeconds = null, CancellationToken cancellation = default);
     Task<ImgBBUploadResponse> UploadImageAsync(HttpContent httpContent, string fileName, int? expirationInSeconds = null, CancellationToken cancellation = default);
 }

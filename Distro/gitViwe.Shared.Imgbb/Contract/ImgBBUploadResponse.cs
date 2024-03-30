@@ -1,7 +1,7 @@
 ﻿namespace gitViwe.Shared.Imgbb.Contract;
 
 /// <summary>
-/// The response object from peforming an upload
+/// The response object from performing an upload
 /// </summary>
 public class ImgBBUploadResponse
 {
@@ -178,4 +178,46 @@ public class ImgBBThumb
     /// </summary>
     [JsonPropertyName("url")]
     public string Url { get; set; } = string.Empty;
+}
+
+/// <summary>
+/// The error detail
+/// </summary>
+public class ImgBBClientPingError
+{
+    /// <summary>
+    /// Error message
+    /// </summary>
+    [JsonPropertyName("message")]
+    public string Message { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Error code
+    /// </summary>
+    [JsonPropertyName("code")]
+    public int Code { get; set; }
+}
+
+/// <summary>
+/// The ping response
+/// </summary>
+public class ImgBBClientPingErrorResponse
+{
+    /// <summary>
+    /// Error status code
+    /// </summary>
+    [JsonPropertyName("status_code")]
+    public int StatusCode { get; set; }
+
+    /// <summary>
+    /// Error detail
+    /// </summary>
+    [JsonPropertyName("error")]
+    public ImgBBClientPingError Error { get; set; } = new();
+
+    /// <summary>
+    /// The status code description
+    /// </summary>
+    [JsonPropertyName("status_txt")]
+    public string StatusText { get; set; } = string.Empty;
 }

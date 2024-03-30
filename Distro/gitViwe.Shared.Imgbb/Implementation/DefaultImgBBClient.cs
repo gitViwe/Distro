@@ -3,12 +3,14 @@
 internal class DefaultImgBBClient : IImgBBClient
 {
     private readonly HttpClient _httpClient;
+    private readonly ILogger<DefaultImgBBClient> _logger;
     private readonly ImgBBClientOption _options;
     private readonly string _uploadEndpoint;
 
-    public DefaultImgBBClient(HttpClient httpClient, IOptionsMonitor<ImgBBClientOption> options)
+    public DefaultImgBBClient(HttpClient httpClient, IOptionsMonitor<ImgBBClientOption> options, ILogger<DefaultImgBBClient> logger)
     {
         _httpClient = httpClient;
+        _logger = logger;
         _options = options.CurrentValue;
         _uploadEndpoint = $"1/upload?key={_options.APIKey}";
     }
@@ -35,14 +37,19 @@ internal class DefaultImgBBClient : IImgBBClient
 
         var result = await _httpClient.PostAsync(endpoint.ToString(), content, cancellation);
 
-        result.EnsureSuccessStatusCode();
+        if (result.IsSuccessStatusCode)
+        {
+            var response = await result.Content.ReadFromJsonAsync<ImgBBUploadResponse>(cancellationToken: cancellation);
 
-        var response = await result.Content.ReadFromJsonAsync<ImgBBUploadResponse>(cancellationToken: cancellation);
+            return response!;
+        }
 
-        return response!;
+        _logger.UploadImageFailed(await result.Content.ReadAsStringAsync(cancellation));
+
+        return new ImgBBUploadResponse { Success = false };
     }
 
-    public async Task<bool> PingAsync(CancellationToken cancellation = default)
+    public async Task<IResponse> PingAsync(CancellationToken cancellation = default)
     {
         var endpoint = new StringBuilder()
             .Append(_uploadEndpoint)
@@ -57,6 +64,13 @@ internal class DefaultImgBBClient : IImgBBClient
 
         var result = await _httpClient.PostAsync(endpoint.ToString(), content, cancellation);
 
-        return result.IsSuccessStatusCode;
+        if (result.IsSuccessStatusCode)
+        {
+            return Response.Success("ImgBB server integration is online.");
+        }
+
+        var response = await result.Content.ReadFromJsonAsync<ImgBBClientPingErrorResponse>(cancellationToken: cancellation);
+
+        return Response.Fail(response!.Error.Message);
     }
 }
