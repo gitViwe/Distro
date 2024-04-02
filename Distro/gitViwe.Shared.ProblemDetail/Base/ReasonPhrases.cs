@@ -84,7 +84,5 @@ public static class ReasonPhrases
     /// <param name="statusCode">The status code.</param>
     /// <returns>The reason phrase, or <see cref="string.Empty"/> if the status code is unknown.</returns>
     public static string GetReasonPhrase(int statusCode)
-    {
-        return _phrases.TryGetValue(statusCode, out var phrase) ? phrase : string.Empty;
-    }
+        => _phrases.TryGetValue(statusCode, out var phrase) ? phrase : string.Empty;
 }

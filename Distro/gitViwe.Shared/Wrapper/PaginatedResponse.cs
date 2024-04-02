@@ -88,7 +88,7 @@ public class PaginatedResponse<TData> where TData : class, new()
     /// <summary>
     /// The content returned from the request
     /// </summary>
-    public IEnumerable<TData> Data { get; set; } = Enumerable.Empty<TData>();
+    public IEnumerable<TData> Data { get; set; } = [];
 
     /// <summary>
     /// The current page number

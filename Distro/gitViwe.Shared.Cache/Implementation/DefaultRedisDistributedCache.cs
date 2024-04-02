@@ -1,8 +1,12 @@
 ﻿namespace gitViwe.Shared.Cache;
 
-internal class DefaultRedisDistributedCache(IDistributedCache distributedCache, IOptionsMonitor<RedisDistributedCacheOption> options) : IRedisDistributedCache
+internal class DefaultRedisDistributedCache(
+    IDistributedCache distributedCache,
+    IOptionsMonitor<RedisDistributedCacheOption> options,
+    ILogger<DefaultRedisDistributedCache> logger) : IRedisDistributedCache
 {
     private readonly IDistributedCache _distributedCache = distributedCache;
+    private readonly ILogger<DefaultRedisDistributedCache> _logger = logger;
     private readonly RedisDistributedCacheOption _cacheOption = options.CurrentValue;
 
     private DistributedCacheEntryOptions CreateCacheEntryOptions(TimeSpan? absoluteExpirationRelativeToNow = null, TimeSpan? slidingExpiration = null)
@@ -47,6 +51,7 @@ internal class DefaultRedisDistributedCache(IDistributedCache distributedCache, 
 
         if (byteValue is null)
         {
+            _logger.FailedToRetrieveCacheItem(key);
             return default;
         }
 
@@ -62,6 +67,7 @@ internal class DefaultRedisDistributedCache(IDistributedCache distributedCache, 
 
         if (byteValue is null)
         {
+            _logger.FailedToRetrieveCacheItem(key);
             return null;
         }
 

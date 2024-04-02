@@ -18,9 +18,7 @@ public static class Conversion
     /// </summary>
     /// <param name="value">The byte array to convert</param>
     public static string ByteArrayToString(byte[] value)
-    {
-        return BitConverter.ToString(value).Replace("-", "");
-    }
+        => BitConverter.ToString(value).Replace("-", "");
 
     /// <summary>
     /// This converts the hex string to a byte array
@@ -42,9 +40,7 @@ public static class Conversion
     /// <param name="unixTimeStamp">The Unix time stamp to convert</param>
     /// <returns>A <see cref="DateTime"/> value in <see cref="DateTimeKind.Utc"/> format</returns>
     public static DateTime UnixTimeStampToDateTime(long unixTimeStamp)
-    {
-        return DateTime.UnixEpoch.AddSeconds(unixTimeStamp).ToUniversalTime();
-    }
+        => DateTime.UnixEpoch.AddSeconds(unixTimeStamp).ToUniversalTime();
 
     /// <summary>
     /// Gets the UnixTimeStamp as <see cref="Int64"/> value
@@ -52,9 +48,7 @@ public static class Conversion
     /// <param name="dateTime">The date value in <seealso cref="DateTimeKind.Utc"/> format</param>
     /// <returns>A <see cref="Int64"/> value representing the UnixTimeStamp</returns>
     public static long DateTimeToUnixTimeStamp(DateTime dateTime)
-    {
-        return (long)dateTime.Subtract(DateTime.UnixEpoch).TotalSeconds;
-    }
+        => (long)dateTime.Subtract(DateTime.UnixEpoch).TotalSeconds;
 
     /// <summary>
     /// This converts the base 64 string to a byte array

@@ -1,6 +1,4 @@
-﻿using gitViwe.Shared.FluentValidation.FluentValidators;
-
-namespace gitViwe.Shared.FluentValidation.Extension;
+﻿namespace gitViwe.Shared.FluentValidation.Extension;
 
 /// <summary>
 /// Provides additional Fluent validation methods

@@ -29,7 +29,5 @@ internal class StatusCodeProblemDetails
     }
 
     internal static string GetDefaultType(int statusCode)
-    {
-        return $"https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/{statusCode}";
-    }
+        => $"https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/{statusCode}";
 }
