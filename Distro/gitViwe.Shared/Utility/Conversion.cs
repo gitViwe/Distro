@@ -98,7 +98,7 @@ public static class Conversion
         if (resolvedNames.Any())
         {
             // Join the property names with "|" to create the regex pattern
-            string pattern = $"(\"({string.Join("|", resolvedNames)})\":\\s*)\"[^\\\"]*\"";
+            string pattern = $"(\"({string.Join('|', resolvedNames)})\":\\s*)\"[^\\\"]*\"";
             string replacement = "$1\"*****\"";
 
             return Regex.Replace(text, pattern, replacement); 

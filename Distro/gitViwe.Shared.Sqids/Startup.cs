@@ -26,8 +26,7 @@ public static class Startup
     /// <returns>An <see cref="IServiceCollection"/> to chain additional calls.</returns>
     public static IServiceCollection AddGitViweSqidsIdEncoder(this IServiceCollection services, Action<SqidsIdEncoderOption> options)
     {
-        services.Configure(options)
-            .AddSingleton(typeof(ISqidsIdEncoder<>), typeof(DefaultSqidsIdEncoder<>))
+        services.AddSingleton(typeof(ISqidsIdEncoder<>), typeof(DefaultSqidsIdEncoder<>))
             .AddOptionsWithValidateOnStart<SqidsIdEncoderOption, SqidsIdEncoderOptionValidator>("SqidsIdEncoderOption", options);
 
         return services;

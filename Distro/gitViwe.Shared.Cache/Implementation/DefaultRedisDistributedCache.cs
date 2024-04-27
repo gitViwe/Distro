@@ -24,6 +24,7 @@ internal class DefaultRedisDistributedCache(
 
         if (byteValue is null)
         {
+            _logger.FailedToRetrieveCacheItem(key);
             return default;
         }
 
@@ -39,6 +40,7 @@ internal class DefaultRedisDistributedCache(
 
         if (byteValue is null)
         {
+            _logger.FailedToRetrieveCacheItem(key);
             return null;
         }
 

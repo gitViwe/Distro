@@ -14,12 +14,12 @@ internal class NotContainValidator<T> : PropertyValidator<T, string>, INotContai
 
     public override bool IsValid(ValidationContext<T> context, string value)
     {
-        if (false == string.IsNullOrWhiteSpace(value))
+        if (string.IsNullOrWhiteSpace(value))
         {
-            return false == value.Contains(SearchString, StringComparison.InvariantCulture);
+            return false;
         }
 
-        return false;
+        return false == value.Contains(SearchString, StringComparison.InvariantCulture);
     }
 
     protected override string GetDefaultMessageTemplate(string errorCode)
