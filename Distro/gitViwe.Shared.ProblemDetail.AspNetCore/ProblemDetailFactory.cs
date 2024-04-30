@@ -21,7 +21,7 @@ public static class ProblemDetailFactory
     /// <param name="statusCode">The value for <see cref="DefaultProblemDetails.Status"/>.</param>
     /// <param name="detail">The value for <see cref="DefaultProblemDetails.Detail" />.</param>
     /// <returns>A custom <see cref="DefaultProblemDetails"/> class</returns>
-    public static IDefaultProblemDetails CreateProblemDetails(HttpContext context, int statusCode, string? detail = null)
+    public static DefaultProblemDetails CreateProblemDetails(HttpContext context, int statusCode, string? detail = null)
     {
         context.Response.ContentType = CONTENT_TYPE;
         context.Response.StatusCode = statusCode;
@@ -43,7 +43,7 @@ public static class ProblemDetailFactory
     /// <returns>A <see cref="IResult"/> class</returns>
     public static IResult CreateProblemResult(HttpContext context, int statusCode, string? detail = null)
     {
-        IDefaultProblemDetails problem = CreateProblemDetails(context, statusCode, detail);
+        DefaultProblemDetails problem = CreateProblemDetails(context, statusCode, detail);
 
         return Results.Problem(problem.Detail, problem.Instance, problem.Status, problem.Title, problem.Type, problem.Extensions);
     }
@@ -61,7 +61,7 @@ public static class ProblemDetailFactory
     /// <param name="extensions">The object extension associated with this instance of <see cref="DefaultProblemDetails"/></param>
     /// <param name="detail">The value for <see cref="DefaultProblemDetails.Detail" />.</param>
     /// <returns>A custom <see cref="DefaultProblemDetails"/> class</returns>
-    public static IDefaultProblemDetails CreateProblemDetails(HttpContext context, int statusCode, IDictionary<string, object?> extensions, string? detail = null)
+    public static DefaultProblemDetails CreateProblemDetails(HttpContext context, int statusCode, IDictionary<string, object?> extensions, string? detail = null)
     {
         context.Response.ContentType = CONTENT_TYPE;
         context.Response.StatusCode = statusCode;
@@ -84,7 +84,7 @@ public static class ProblemDetailFactory
     /// <returns>A <see cref="IResult"/> class</returns>
     public static IResult CreateProblemResult(HttpContext context, int statusCode, IDictionary<string, object?> extensions, string? detail = null)
     {
-        IDefaultProblemDetails problem = CreateProblemDetails(context, statusCode, extensions, detail);
+        DefaultProblemDetails problem = CreateProblemDetails(context, statusCode, extensions, detail);
 
         return Results.Problem(problem.Detail, problem.Instance, problem.Status, problem.Title, problem.Type, problem.Extensions);
     }
@@ -102,7 +102,7 @@ public static class ProblemDetailFactory
     /// <param name="errors">The errors associated with this instance of <see cref="DefaultValidationProblemDetails"/></param>
     /// <param name="detail">The value for <see cref="DefaultProblemDetails.Detail" />.</param>
     /// <returns>A custom <see cref="DefaultValidationProblemDetails"/> class</returns>
-    public static IValidationProblemDetails CreateValidationProblemDetails(HttpContext context, int statusCode, IDictionary<string, string[]> errors, string? detail = null)
+    public static DefaultValidationProblemDetails CreateValidationProblemDetails(HttpContext context, int statusCode, IDictionary<string, string[]> errors, string? detail = null)
     {
         context.Response.ContentType = CONTENT_TYPE;
         context.Response.StatusCode = statusCode;
@@ -125,7 +125,7 @@ public static class ProblemDetailFactory
     /// <returns>A <see cref="IResult"/> class</returns>
     public static IResult CreateValidationProblemResult(HttpContext context, int statusCode, IDictionary<string, string[]> errors, string? detail = null)
     {
-        IValidationProblemDetails problem = CreateValidationProblemDetails(context, statusCode, errors, detail);
+        DefaultValidationProblemDetails problem = CreateValidationProblemDetails(context, statusCode, errors, detail);
 
         return Results.ValidationProblem(problem.Errors, problem.Detail, problem.Instance, problem.Status, problem.Title, problem.Type, problem.Extensions);
     }

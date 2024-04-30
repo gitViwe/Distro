@@ -28,6 +28,7 @@ public class DefaultValidationProblemDetails : DefaultProblemDetails, IValidatio
     /// <summary>
     /// Gets the validation errors associated with this instance of HttpValidationProblemDetails
     /// </summary>
+    [JsonPropertyName("errors")]
     public IDictionary<string, string[]> Errors { get; set; } = new Dictionary<string, string[]>();
 
     private void AddErrors(IDictionary<string, string[]> errors)

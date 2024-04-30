@@ -9,8 +9,8 @@ dotnet add package gitViwe.Shared.ProblemDetail
 
 ```csharp
 static class ProblemDetailFactory {
-    static IDefaultProblemDetails CreateProblemDetails(int statusCode, string instance, string? detail = null);
-    static IDefaultProblemDetails CreateProblemDetails(int statusCode, string instance, IDictionary<string, object?> extensions, string? detail = null);
-    static IValidationProblemDetails CreateValidationProblemDetails(int statusCode, string instance, IDictionary<string, string[]> errors, string? detail = null);
+    static DefaultProblemDetails CreateProblemDetails(int statusCode, string instance, string? detail = null);
+    static DefaultProblemDetails CreateProblemDetails(int statusCode, string instance, IDictionary<string, object?> extensions, string? detail = null);
+    static DefaultValidationProblemDetails CreateValidationProblemDetails(int statusCode, string instance, IDictionary<string, string[]> errors, string? detail = null);
 }
 ```

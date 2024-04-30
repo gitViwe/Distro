@@ -14,8 +14,8 @@ public static class ProblemDetailFactory
     /// <param name="statusCode">The value for <see cref="DefaultProblemDetails.Status"/>.</param>
     /// <param name="instance">The value for <see cref="DefaultProblemDetails.Instance" />.</param>
     /// <param name="detail">The value for <see cref="DefaultProblemDetails.Detail" />.</param>
-    /// <returns>A custom <see cref="IDefaultProblemDetails"/> class</returns>
-    public static IDefaultProblemDetails CreateProblemDetails(int statusCode, string instance, string? detail = null)
+    /// <returns>A custom <see cref="DefaultProblemDetails"/> class</returns>
+    public static DefaultProblemDetails CreateProblemDetails(int statusCode, string instance, string? detail = null)
     {
         var problemDetails = Create(statusCode, detail, instance);
         return new DefaultProblemDetails(Activity.Current?.Id, problemDetails);
@@ -31,8 +31,8 @@ public static class ProblemDetailFactory
     /// <param name="instance">The value for <see cref="DefaultProblemDetails.Instance" />.</param>
     /// <param name="extensions">The object extension associated with this instance of <see cref="DefaultProblemDetails"/></param>
     /// <param name="detail">The value for <see cref="DefaultProblemDetails.Detail" />.</param>
-    /// <returns>A custom <see cref="IDefaultProblemDetails"/> class</returns>
-    public static IDefaultProblemDetails CreateProblemDetails(int statusCode, string instance, IDictionary<string, object?> extensions, string? detail = null)
+    /// <returns>A custom <see cref="DefaultProblemDetails"/> class</returns>
+    public static DefaultProblemDetails CreateProblemDetails(int statusCode, string instance, IDictionary<string, object?> extensions, string? detail = null)
     {
         var problemDetails = Create(statusCode, detail, instance);
         return new DefaultProblemDetails(Activity.Current?.Id, problemDetails, extensions);
@@ -48,8 +48,8 @@ public static class ProblemDetailFactory
     /// <param name="instance">The value for <see cref="DefaultProblemDetails.Instance" />.</param>
     /// <param name="errors">The errors associated with this instance of <see cref="DefaultValidationProblemDetails"/></param>
     /// <param name="detail">The value for <see cref="DefaultProblemDetails.Detail" />.</param>
-    /// <returns>A custom <see cref="IValidationProblemDetails"/> class</returns>
-    public static IValidationProblemDetails CreateValidationProblemDetails(int statusCode, string instance, IDictionary<string, string[]> errors, string? detail = null)
+    /// <returns>A custom <see cref="DefaultValidationProblemDetails"/> class</returns>
+    public static DefaultValidationProblemDetails CreateValidationProblemDetails(int statusCode, string instance, IDictionary<string, string[]> errors, string? detail = null)
     {
         return Create(statusCode, errors, detail, instance);
     }
