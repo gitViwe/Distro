@@ -50,7 +50,7 @@ public class PaginatedResponse<TData> where TData : class, new()
             return new PaginatedResponse<TData>(data, count, page, pageSize); 
         }
 
-        return new PaginatedResponse<TData>(data?.Count() > 0 ? data : Enumerable.Empty<TData>(), count, 1, 15);
+        return new PaginatedResponse<TData>(data?.Count() > 0 ? data : [], count, 1, 15);
     }
 
     /// <summary>
@@ -67,7 +67,7 @@ public class PaginatedResponse<TData> where TData : class, new()
             return new PaginatedResponse<TData>(dataToPaginate.Skip((page - 1) * pageSize).Take(pageSize), count, page, pageSize);
         }
 
-        return new PaginatedResponse<TData>(count > 0 ? dataToPaginate.Take(15) : Enumerable.Empty<TData>(), count, 1, 15);
+        return new PaginatedResponse<TData>(count > 0 ? dataToPaginate.Take(15) : [], count, 1, 15);
     }
 
     private static bool IsValidPagination(IEnumerable<TData> dataToPaginate, int page, int pageSize, out int count)

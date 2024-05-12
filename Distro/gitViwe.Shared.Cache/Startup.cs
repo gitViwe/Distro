@@ -17,14 +17,13 @@ public static class Startup
         RedisDistributedCacheOption def = new();
         options(def);
 
-        services.Configure(options)
-            .AddStackExchangeRedisCache(options =>
-            {
-                options.Configuration = def.Configuration;
-                options.InstanceName = def.InstanceName;
-            })
-            .AddScoped<IRedisDistributedCache, DefaultRedisDistributedCache>()
-            .AddOptionsWithValidateOnStart<RedisDistributedCacheOption, RedisDistributedCacheOptionValidator>("RedisDistributedCacheOption", options);
+        services.AddStackExchangeRedisCache(options =>
+        {
+            options.Configuration = def.Configuration;
+            options.InstanceName = def.InstanceName;
+        })
+        .AddScoped<IRedisDistributedCache, DefaultRedisDistributedCache>()
+        .AddOptionsWithValidateOnStart<RedisDistributedCacheOption, RedisDistributedCacheOptionValidator>("RedisDistributedCacheOption", options);
 
         return services;
     }

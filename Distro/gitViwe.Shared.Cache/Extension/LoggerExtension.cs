@@ -8,7 +8,7 @@ internal static partial class RedisDistributedCacheLoggerExtension
     /// <param name="logger">Logger.</param>
     /// <param name="key">A string identifying the requested value.</param>
     [LoggerMessage(
-        Level = LogLevel.Information,
+        Level = LogLevel.Warning,
         Message = "Failed to get cache item value with key: {Key}")]
     internal static partial void FailedToRetrieveCacheItem(this ILogger logger, string key);
 }

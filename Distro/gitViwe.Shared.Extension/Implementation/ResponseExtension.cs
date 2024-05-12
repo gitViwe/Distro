@@ -27,7 +27,7 @@ public static class ResponseExtension
     {
         var responseObject = await response.Content.ReadFromJsonAsync<TData>(options ?? _serializerOptions, token);
 
-        return responseObject!;
+        return responseObject ?? new();
     }
 
     /// <summary>
@@ -45,6 +45,6 @@ public static class ResponseExtension
     {
         var responseObject = await response.Content.ReadFromJsonAsync<PaginatedResponse<TData>>(options ?? _serializerOptions, token);
 
-        return responseObject!;
+        return responseObject ?? PaginatedResponse<TData>.Fail();
     }
 }

@@ -1,11 +1,14 @@
-﻿namespace gitViwe.Shared.Sqids.MediatR;
+﻿using gitViwe.Shared.Constant.OpenTelemetry;
+
+namespace gitViwe.Shared.Sqids.MediatR;
 
 /// <summary>
 /// Creates a pipeline for decoding a Sqids Id for MediatR requests that implement <see cref="ISqidsIdEncoderPreProcessMarker"/>
 /// </summary>
 /// <typeparam name="TRequest">The MediatR type</typeparam>
 /// <remarks>
-/// Ensure the call to <seealso cref="Startup.AddGitViweSqidsIdEncoder(IServiceCollection)"/> is made.
+/// Ensure the call to <seealso cref="Startup.AddGitViweSqidsIdEncoder(IServiceCollection)"/> is made. <br/>
+/// Add the <seealso cref="OpenTelemetrySource.MEDIATR"/> source to register a listener for these traces.
 /// </remarks>
 /// <remarks>
 /// Creates a new instance of <see cref="SqidsIdEncoderPreProcessor{TRequest}"/>

@@ -3,6 +3,9 @@
 /// <summary>
 /// Creates a trace pipeline for recording MediatR response details
 /// </summary>
+/// <remarks>
+/// Add the <seealso cref="OpenTelemetrySource.MEDIATR"/> source to register a listener for these traces
+/// </remarks>
 /// <typeparam name="TRequest">The MediatR request type</typeparam>
 /// <typeparam name="TResponse">The MediatR response type</typeparam>
 public class OpenTelemetryPostProcessor<TRequest, TResponse> : IRequestPostProcessor<TRequest, TResponse>

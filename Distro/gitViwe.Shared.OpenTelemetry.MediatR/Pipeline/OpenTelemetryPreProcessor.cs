@@ -5,7 +5,7 @@
 /// </summary>
 /// <typeparam name="TRequest">The MediatR type</typeparam>
 /// <remarks>
-/// Creates a new instance of <see cref="OpenTelemetryPreProcessor{TRequest}"/>
+/// Add the <seealso cref="OpenTelemetrySource.MEDIATR"/> source to register a listener for these traces
 /// </remarks>
 /// <param name="options">The option values</param>
 public class OpenTelemetryPreProcessor<TRequest>(IOptions<OpenTelemetryBehaviourOption> options) : IRequestPreProcessor<TRequest>

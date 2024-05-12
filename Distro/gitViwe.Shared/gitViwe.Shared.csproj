@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
-    <Version>3.0.6</Version>
+    <Version>3.0.7</Version>
     <Authors>Viwe Nkepu</Authors>
     <Description>A .NET library for helper classes, wrapper classes, exception classes, API contract interfaces and more...</Description>
     <PackageProjectUrl>https://github.com/gitViwe/Distro</PackageProjectUrl>

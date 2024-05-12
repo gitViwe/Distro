@@ -5,7 +5,7 @@
 /// </summary>
 /// <typeparam name="TRequest">The MediatR notification type</typeparam>
 /// <remarks>
-/// Creates a new instance of <see cref="FluentValidationPreProcessor{TRequest}"/>
+/// Add the <seealso cref="OpenTelemetrySource.MEDIATR"/> source to register a listener for these traces
 /// </remarks>
 /// <param name="validators">A collection of the registered validators</param>
 public class FluentValidationPreProcessor<TRequest>(IEnumerable<IValidator<TRequest>> validators) : IRequestPreProcessor<TRequest>
