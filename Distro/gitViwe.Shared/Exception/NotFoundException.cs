@@ -3,7 +3,7 @@
 /// <summary>
 /// A custom exception when a resource is not found
 /// </summary>
-public class NotFoundException : BaseException
+public sealed class NotFoundException : BaseException
 {
     /// <summary>
     /// Create a new instance of <see cref="NotFoundException"/>

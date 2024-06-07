@@ -9,10 +9,10 @@
 
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="11.9.1" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
     <PackageReference Include="SoloX.CodeQuality.Test.Helpers" Version="2.1.0" />
-    <PackageReference Include="xunit" Version="2.7.1" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.8">
+    <PackageReference Include="xunit" Version="2.8.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.1">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
@@ -23,10 +23,22 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\gitViwe.Shared.Cache\gitViwe.Shared.Cache.csproj" />
     <ProjectReference Include="..\gitViwe.Shared.Extension\gitViwe.Shared.Extension.csproj" />
+    <ProjectReference Include="..\gitViwe.Shared.FluentValidation.MediatR\gitViwe.Shared.FluentValidation.MediatR.csproj" />
     <ProjectReference Include="..\gitViwe.Shared.FluentValidation\gitViwe.Shared.FluentValidation.csproj" />
     <ProjectReference Include="..\gitViwe.Shared.Imgbb\gitViwe.Shared.Imgbb.csproj" />
+    <ProjectReference Include="..\gitViwe.Shared.JsonWebToken\gitViwe.Shared.JsonWebToken.csproj" />
+    <ProjectReference Include="..\gitViwe.Shared.Model\gitViwe.Shared.Model.csproj" />
+    <ProjectReference Include="..\gitViwe.Shared.MongoDB\gitViwe.Shared.MongoDB.csproj" />
+    <ProjectReference Include="..\gitViwe.Shared.OpenTelemetry.MediatR\gitViwe.Shared.OpenTelemetry.MediatR.csproj" />
+    <ProjectReference Include="..\gitViwe.Shared.OpenTelemetry\gitViwe.Shared.OpenTelemetry.csproj" />
+    <ProjectReference Include="..\gitViwe.Shared.ProblemDetail.AspNetCore\gitViwe.Shared.ProblemDetail.AspNetCore.csproj" />
     <ProjectReference Include="..\gitViwe.Shared.ProblemDetail.Extension\gitViwe.Shared.ProblemDetail.Extension.csproj" />
+    <ProjectReference Include="..\gitViwe.Shared.ProblemDetail\gitViwe.Shared.ProblemDetail.csproj" />
+    <ProjectReference Include="..\gitViwe.Shared.Sqids.MediatR\gitViwe.Shared.Sqids.MediatR.csproj" />
+    <ProjectReference Include="..\gitViwe.Shared.Sqids\gitViwe.Shared.Sqids.csproj" />
+    <ProjectReference Include="..\gitViwe.Shared.TimeBasedOneTimePassword\gitViwe.Shared.TimeBasedOneTimePassword.csproj" />
     <ProjectReference Include="..\gitViwe.Shared\gitViwe.Shared.csproj" />
   </ItemGroup>
 

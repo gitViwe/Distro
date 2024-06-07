@@ -5,7 +5,7 @@ namespace gitViwe.Shared;
 /// <summary>
 /// A unified return type for the API endpoint.
 /// </summary>
-public class Response : IResponse
+public sealed class Response : IResponse
 {
     internal Response(string message, int statusCode)
     {
@@ -72,12 +72,13 @@ public class Response : IResponse
 /// Extends on <see cref="Response"/> to return data
 /// </summary>
 /// <typeparam name="TData">The data type returned from the request</typeparam>
-public class Response<TData> : Response, IResponse<TData>
+public sealed class Response<TData> : IResponse<TData>
 {
     internal Response(string message, int statusCode, TData? data)
-        : base(message, statusCode)
     {
         Data = data;
+        Message = message;
+        StatusCode = statusCode;
     }
 
     /// <summary>
@@ -86,11 +87,21 @@ public class Response<TData> : Response, IResponse<TData>
     public TData? Data { get; }
 
     /// <summary>
+    /// The response messages.
+    /// </summary>
+    public string Message { get; }
+
+    /// <summary>
+    /// The HTTP status code.
+    /// </summary>
+    public int StatusCode { get; }
+
+    /// <summary>
     /// Creates a new <see cref="Response{TData}"/> instance.
     /// </summary>
     /// <param name="message">The message containing the failure details.</param>
     /// <returns>A new <see cref="Response{TData}"/> instance with the <seealso cref="Response.StatusCode"/> value of 400.</returns>
-    public static new IResponse<TData> Fail(string message)
+    public static IResponse<TData> Fail(string message)
     {
         return new Response<TData>(message, 400, default);
     }
@@ -101,7 +112,7 @@ public class Response<TData> : Response, IResponse<TData>
     /// <param name="message">The message containing the failure details.</param>
     /// <param name="statusCode">The HTTP status code relating to this failure.</param>
     /// <returns>A new <see cref="Response{TData}"/> instance..</returns>
-    public static new IResponse<TData> Fail(string message, int statusCode)
+    public static IResponse<TData> Fail(string message, int statusCode)
     {
         GuardException.Against.SuccessStatusCode(statusCode);
         return new Response<TData>(message, statusCode, default);

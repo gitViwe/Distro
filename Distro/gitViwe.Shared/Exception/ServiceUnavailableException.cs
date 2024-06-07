@@ -3,7 +3,7 @@
 /// <summary>
 /// A custom exception when a service is unavailable
 /// </summary>
-public class ServiceUnavailableException : BaseException
+public sealed class ServiceUnavailableException : BaseException
 {
     /// <summary>
     /// Create a new instance of <see cref="NotFoundException"/>

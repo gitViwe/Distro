@@ -3,7 +3,7 @@
 /// <summary>
 /// A custom exception when validation fails
 /// </summary>
-public class ValidationException : System.Exception
+public sealed class ValidationException : System.Exception
 {
     private readonly IDictionary<string, string[]> _errors;
 

@@ -3,7 +3,7 @@
 /// <summary>
 /// A custom exception when a request lacks valid authentication credentials
 /// </summary>
-public class UnauthorizedException : BaseException
+public sealed class UnauthorizedException : BaseException
 {
     /// <summary>
     /// Create a new instance of <see cref="UnauthorizedException"/>

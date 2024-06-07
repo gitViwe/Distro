@@ -8,14 +8,9 @@ using Xunit.Abstractions;
 
 namespace Shared.Test;
 
-public class ResultsWrapperTests
+public class ResultsWrapperTests(ITestOutputHelper output)
 {
-    private readonly ITestOutputHelper _output;
-
-    public ResultsWrapperTests(ITestOutputHelper output)
-    {
-        _output = output;
-    }
+    private readonly ITestOutputHelper _output = output;
 
     [Fact]
     public void Fail_With_400_StatusCode()

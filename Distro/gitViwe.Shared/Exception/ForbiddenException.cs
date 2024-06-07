@@ -3,7 +3,7 @@
 /// <summary>
 /// A custom exception when a request has insufficient rights to a resource
 /// </summary>
-public class ForbiddenException : BaseException
+public sealed class ForbiddenException : BaseException
 {
     /// <summary>
     /// Create a new instance of <see cref="ForbiddenException"/>
