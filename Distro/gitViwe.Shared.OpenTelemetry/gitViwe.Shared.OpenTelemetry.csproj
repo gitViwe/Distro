@@ -6,14 +6,14 @@
     <Nullable>enable</Nullable>
 	<GenerateDocumentationFile>True</GenerateDocumentationFile>
 	<DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
-    <Version>3.0.13</Version>
+    <Version>3.0.14</Version>
     <Authors>Viwe Nkepu</Authors>
     <Description>An abstraction of OpenTelemetry methods.</Description>
     <PackageProjectUrl>https://github.com/gitViwe/Distro</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="OpenTelemetry" Version="1.8.1" />
+    <PackageReference Include="OpenTelemetry" Version="1.9.0" />
   </ItemGroup>
 
   <ItemGroup>

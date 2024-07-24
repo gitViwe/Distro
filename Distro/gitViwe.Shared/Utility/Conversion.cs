@@ -18,7 +18,7 @@ public static class Conversion
     /// </summary>
     /// <param name="value">The byte array to convert</param>
     public static string ByteArrayToString(byte[] value)
-        => BitConverter.ToString(value).Replace("-", "");
+        => BitConverter.ToString(value).Replace("-", string.Empty);
 
     /// <summary>
     /// This converts the hex string to a byte array

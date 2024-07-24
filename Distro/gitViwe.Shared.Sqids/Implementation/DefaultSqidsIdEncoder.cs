@@ -1,6 +1,6 @@
 ﻿namespace gitViwe.Shared.Sqids;
 
-internal class DefaultSqidsIdEncoder<T> : ISqidsIdEncoder<T> where T : unmanaged, IBinaryInteger<T>, IMinMaxValue<T>
+internal sealed class DefaultSqidsIdEncoder<T> : ISqidsIdEncoder<T> where T : unmanaged, IBinaryInteger<T>, IMinMaxValue<T>
 {
     private readonly SqidsEncoder<T> _sqids;
 

@@ -1,6 +1,6 @@
 ﻿namespace gitViwe.Shared.Imgbb;
 
-internal class LocalMockClient : IImgBBClient
+internal sealed class LocalMockClient : IImgBBClient
 {
     private static async Task<string> GetBase64StringFromFormFileAsync(IFormFile file)
     {

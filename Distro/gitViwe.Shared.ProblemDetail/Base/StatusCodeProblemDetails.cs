@@ -4,7 +4,7 @@
 /// A basic problem details representation for an HTTP status code.
 /// It includes default values for <see cref="DefaultProblemDetails.Status"/>, <see cref="DefaultProblemDetails.Type"/> and <see cref="DefaultProblemDetails.Title"/>.
 /// </summary>
-internal class StatusCodeProblemDetails
+internal sealed class StatusCodeProblemDetails
 {
     /// <summary>
     /// Creates a <see cref="DefaultProblemDetails"/> class based on the <paramref name="statusCode"/>

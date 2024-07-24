@@ -1,6 +1,6 @@
 ﻿namespace gitViwe.Shared.Cache;
 
-internal class DefaultRedisDistributedCache(
+internal sealed class DefaultRedisDistributedCache(
     IDistributedCache distributedCache,
     IOptionsMonitor<RedisDistributedCacheOption> options,
     ILogger<DefaultRedisDistributedCache> logger) : IRedisDistributedCache

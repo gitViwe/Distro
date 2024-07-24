@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
 	<GenerateDocumentationFile>True</GenerateDocumentationFile>
 	<DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
-    <Version>3.0.8</Version>
+    <Version>3.0.9</Version>
     <Authors>Viwe Nkepu</Authors>
     <Description>MediatR implementation using the abstraction on top of Sqids.</Description>
     <PackageProjectUrl>https://github.com/gitViwe/Distro</PackageProjectUrl>
@@ -14,7 +14,7 @@
 
   <ItemGroup>
     <PackageReference Include="MediatR" Version="12.3.0" />
-    <PackageReference Include="Microsoft.Extensions.Telemetry.Abstractions" Version="8.5.0" />
+    <PackageReference Include="Microsoft.Extensions.Telemetry.Abstractions" Version="8.7.0" />
   </ItemGroup>
 
   <ItemGroup>

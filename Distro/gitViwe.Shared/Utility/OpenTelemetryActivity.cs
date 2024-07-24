@@ -36,7 +36,7 @@ public static class OpenTelemetryActivity
         /// <param name="eventName">The event name</param>
         /// <param name="tags">The event tags</param>
         /// <param name="statusCode">The status of the current activity</param>
-        public static void StartActivity(string activityName, string eventName, Dictionary<string, object?> tags, ActivityStatusCode statusCode = ActivityStatusCode.Unset)
+        public static void StartActivity(string activityName, string eventName, IEnumerable<KeyValuePair<string, object?>> tags, ActivityStatusCode statusCode = ActivityStatusCode.Unset)
         {
             using var activity = _activitySource.StartActivity(activityName);
             activity?.SetStatus(statusCode);
@@ -71,7 +71,7 @@ public static class OpenTelemetryActivity
         /// <param name="eventName">The event name</param>
         /// <param name="tags">The event tags</param>
         /// <param name="statusCode">The status of the current activity</param>
-        public static void StartActivity(string activityName, string eventName, Dictionary<string, object?> tags, ActivityStatusCode statusCode = ActivityStatusCode.Unset)
+        public static void StartActivity(string activityName, string eventName, IEnumerable<KeyValuePair<string, object?>> tags, ActivityStatusCode statusCode = ActivityStatusCode.Unset)
         {
             using var activity = _activitySource.StartActivity(activityName);
             activity?.SetStatus(statusCode);

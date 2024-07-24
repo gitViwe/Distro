@@ -1,6 +1,6 @@
 ﻿namespace gitViwe.Shared.JsonWebToken;
 
-internal class DefaultJsonWebToken(IOptions<JsonWebTokenOption> options, ILogger<DefaultJsonWebToken> logger) : IJsonWebToken
+internal sealed class DefaultJsonWebToken(IOptions<JsonWebTokenOption> options, ILogger<DefaultJsonWebToken> logger) : IJsonWebToken
 {
     private readonly JsonWebTokenOption _options = options.Value;
     private readonly ILogger<DefaultJsonWebToken> _logger = logger;

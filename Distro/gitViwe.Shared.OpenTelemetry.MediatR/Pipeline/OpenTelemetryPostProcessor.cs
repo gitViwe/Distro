@@ -8,7 +8,7 @@
 /// </remarks>
 /// <typeparam name="TRequest">The MediatR request type</typeparam>
 /// <typeparam name="TResponse">The MediatR response type</typeparam>
-public class OpenTelemetryPostProcessor<TRequest, TResponse> : IRequestPostProcessor<TRequest, TResponse>
+public sealed class OpenTelemetryPostProcessor<TRequest, TResponse> : IRequestPostProcessor<TRequest, TResponse>
     where TRequest : notnull
     where TResponse : IResponse
 {

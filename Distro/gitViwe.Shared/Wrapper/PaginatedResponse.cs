@@ -4,7 +4,7 @@
 /// A unified return type for the API endpoint
 /// </summary>
 /// <typeparam name="TData">The data type returned from the request</typeparam>
-public class PaginatedResponse<TData> where TData : class, new()
+public sealed class PaginatedResponse<TData> where TData : class, new()
 {
     /// <summary>
     /// Instantiate a new page-able result to return 
@@ -15,14 +15,14 @@ public class PaginatedResponse<TData> where TData : class, new()
     /// Instantiate a new page-able result to return 
     /// </summary>
     /// <param name="data">The content returned from the request</param>
-    /// <param name="count">The total number of items</param>
-    /// <param name="page">The current page number</param>
+    /// <param name="totalCount">The total number of items</param>
+    /// <param name="currentPage">The current page number</param>
     /// <param name="pageSize">The number of items in a single page</param>
-    internal PaginatedResponse(IEnumerable<TData> data, int count, int page, int pageSize)
+    internal PaginatedResponse(IEnumerable<TData> data, int totalCount, int currentPage, int pageSize)
     {
         Data = data;
-        TotalCount = count;
-        CurrentPage = page;
+        TotalCount = totalCount;
+        CurrentPage = currentPage;
         PageSize = pageSize;
     }
 
@@ -39,32 +39,32 @@ public class PaginatedResponse<TData> where TData : class, new()
     /// A successful response
     /// </summary>
     /// <param name="data">The content returned from the request</param>
-    /// <param name="count">The total number of items</param>
-    /// <param name="page">The current page number</param>
+    /// <param name="totalCount">The total number of items</param>
+    /// <param name="currentPage">The current page number</param>
     /// <param name="pageSize">The number of items in a single page</param>
     /// <returns>An instance of <typeparamref name="TData"/></returns>
-    public static PaginatedResponse<TData> Success(IEnumerable<TData> data, int count, int page, int pageSize)
+    public static PaginatedResponse<TData> Success(IEnumerable<TData> data, int totalCount, int currentPage, int pageSize)
     {
-        if (IsValidPagination(data, page, pageSize, out _))
+        if (IsValidPagination(data, currentPage, pageSize, out _))
         {
-            return new PaginatedResponse<TData>(data, count, page, pageSize); 
+            return new PaginatedResponse<TData>(data, totalCount, currentPage, pageSize); 
         }
 
-        return new PaginatedResponse<TData>(data?.Count() > 0 ? data : [], count, 1, 15);
+        return new PaginatedResponse<TData>(data?.Count() > 0 ? data : [], totalCount, 1, 15);
     }
 
     /// <summary>
     /// Paginates the <paramref name="dataToPaginate"/> and returns a successful response
     /// </summary>
     /// <param name="dataToPaginate">The content to paginate and return</param>
-    /// <param name="page">The current page number</param>
+    /// <param name="currentPage">The current page number</param>
     /// <param name="pageSize">The number of items in a single page</param>
     /// <returns>An instance of <typeparamref name="TData"/> if pagination is valid. Else an empty instance of <typeparamref name="TData"/></returns>
-    public static PaginatedResponse<TData> Success(IEnumerable<TData> dataToPaginate, int page, int pageSize)
+    public static PaginatedResponse<TData> Success(IEnumerable<TData> dataToPaginate, int currentPage, int pageSize)
     {
-        if (IsValidPagination(dataToPaginate, page, pageSize, out int count))
+        if (IsValidPagination(dataToPaginate, currentPage, pageSize, out int count))
         {
-            return new PaginatedResponse<TData>(dataToPaginate.Skip((page - 1) * pageSize).Take(pageSize), count, page, pageSize);
+            return new PaginatedResponse<TData>(dataToPaginate.Skip((currentPage - 1) * pageSize).Take(pageSize), count, currentPage, pageSize);
         }
 
         return new PaginatedResponse<TData>(count > 0 ? dataToPaginate.Take(15) : [], count, 1, 15);

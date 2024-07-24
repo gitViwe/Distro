@@ -8,7 +8,7 @@
 /// Add the <seealso cref="OpenTelemetrySource.MEDIATR"/> source to register a listener for these traces
 /// </remarks>
 /// <param name="validators">A collection of the registered validators</param>
-public class FluentValidationPreProcessor<TRequest>(IEnumerable<IValidator<TRequest>> validators) : IRequestPreProcessor<TRequest>
+public sealed class FluentValidationPreProcessor<TRequest>(IEnumerable<IValidator<TRequest>> validators) : IRequestPreProcessor<TRequest>
     where TRequest : notnull
 {
     private readonly IEnumerable<IValidator<TRequest>> _validators = validators;
@@ -22,13 +22,13 @@ public class FluentValidationPreProcessor<TRequest>(IEnumerable<IValidator<TRequ
     /// <exception cref="ValidationException"></exception>
     public async Task Process(TRequest request, CancellationToken cancellationToken)
     {
-        Dictionary<string, object?> requestTagDictionary = new()
+        Dictionary<string, object?> tag = new()
         {
             { OpenTelemetryTagKey.MediatR.REQUEST_TYPE, request.GetType().Name },
             { OpenTelemetryTagKey.MediatR.REQUEST_VALIDATOR, string.Join('|', _validators.Select(x => x.GetType().Name)) },
         };
 
-        OpenTelemetryActivity.MediatR.StartActivity("Fluent Validation PreProcessor", "Starting Request Validation.", requestTagDictionary);
+        OpenTelemetryActivity.MediatR.StartActivity("Fluent Validation PreProcessor", "Starting Request Validation.", tag);
 
         if (_validators is not null && _validators.Any())
         {

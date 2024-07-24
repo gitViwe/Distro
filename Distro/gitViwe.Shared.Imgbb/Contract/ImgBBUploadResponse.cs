@@ -3,7 +3,7 @@
 /// <summary>
 /// The response object from performing an upload
 /// </summary>
-public class ImgBBUploadResponse
+public sealed class ImgBBUploadResponse
 {
     /// <summary>
     /// The image data
@@ -27,7 +27,7 @@ public class ImgBBUploadResponse
 /// <summary>
 /// The image data
 /// </summary>
-public class ImgBBData
+public sealed class ImgBBData
 {
     /// <summary>
     /// The image id
@@ -111,7 +111,7 @@ public class ImgBBData
 /// <summary>
 /// The main image data
 /// </summary>
-public class ImgBBImage
+public sealed class ImgBBImage
 {
     /// <summary>
     /// The image file name
@@ -147,7 +147,7 @@ public class ImgBBImage
 /// <summary>
 /// The image thumbnail
 /// </summary>
-public class ImgBBThumb
+public sealed class ImgBBThumb
 {
     /// <summary>
     /// The image file name
@@ -183,7 +183,7 @@ public class ImgBBThumb
 /// <summary>
 /// The error detail
 /// </summary>
-public class ImgBBClientPingError
+public sealed class ImgBBClientPingError
 {
     /// <summary>
     /// Error message
@@ -201,7 +201,7 @@ public class ImgBBClientPingError
 /// <summary>
 /// The ping response
 /// </summary>
-public class ImgBBClientPingErrorResponse
+public sealed class ImgBBClientPingErrorResponse
 {
     /// <summary>
     /// Error status code

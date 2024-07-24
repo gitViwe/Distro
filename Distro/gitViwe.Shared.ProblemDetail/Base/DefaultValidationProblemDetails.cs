@@ -3,7 +3,7 @@
 /// <summary>
 /// The implementation for creating a custom <see cref="DefaultValidationProblemDetails"/> class
 /// </summary>
-public class DefaultValidationProblemDetails : DefaultProblemDetails, IValidationProblemDetails
+public sealed class DefaultValidationProblemDetails : DefaultProblemDetails, IValidationProblemDetails
 {
     /// <summary>
     /// Creates a custom <see cref="DefaultValidationProblemDetails"/> class

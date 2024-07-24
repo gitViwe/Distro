@@ -3,7 +3,7 @@
 /// <summary>
 /// Configuration options for creating a security token.
 /// </summary>
-public class JsonWebTokenOption
+public sealed class JsonWebTokenOption
 {
     /// <summary>
     /// Gets or sets the value of the 'expiration' claim.

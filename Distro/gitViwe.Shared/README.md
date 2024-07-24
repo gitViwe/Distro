@@ -70,12 +70,12 @@ static class Generator {
 static class OpenTelemetryActivity {
     static class MediatR {
         static void StartActivity(string activityName, string eventName, ActivityStatusCode statusCode = ActivityStatusCode.Unset);
-        static void StartActivity(string activityName, string eventName, Dictionary<string, object?> tags, ActivityStatusCode statusCode = ActivityStatusCode.Unset);
+        static void StartActivity(string activityName, string eventName, IEnumerable<KeyValuePair<string, object?>> tags, ActivityStatusCode statusCode = ActivityStatusCode.Unset);
     }
     static class InternalProcess {
         static void StartActivity(string activityName, string eventName, ActivityStatusCode statusCode = ActivityStatusCode.Unset);
         static void StartActivity(string activityName, string eventName, System.Exception exception);
-        static void StartActivity(string activityName, string eventName, Dictionary<string, object?> tags, ActivityStatusCode statusCode = ActivityStatusCode.Unset);
+        static void StartActivity(string activityName, string eventName, IEnumerable<KeyValuePair<string, object?>> tags, ActivityStatusCode statusCode = ActivityStatusCode.Unset);
     }
 }
 
@@ -107,7 +107,7 @@ Response<TData> {
 }
 
 PaginatedResponse<TData> {
-    static PaginatedResponse<TData> Success(IEnumerable<TData> data, int count, int page, int pageSize);
-    static PaginatedResponse<TData> Success(IEnumerable<TData> dataToPaginate, int page, int pageSize);
+    static PaginatedResponse<TData> Success(IEnumerable<TData> data, int totalCount, int currentPage, int pageSize);
+    static PaginatedResponse<TData> Success(IEnumerable<TData> dataToPaginate, int currentPage, int pageSize);
 }
 ```

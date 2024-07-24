@@ -24,14 +24,12 @@ public static class ResponseExtension
     /// <param name="options">The serializer options</param>
     /// <param name="token">The cancellation token</param>
     /// <returns>The content of an HTTP response message as a <see cref="DefaultProblemDetails"/></returns>
-    public static async Task<IDefaultProblemDetails> ToProblemResponseAsync(
+    public static async Task<IDefaultProblemDetails?> ToProblemResponseAsync(
         this HttpResponseMessage response,
         JsonSerializerOptions? options = null,
         CancellationToken token = default)
     {
-        var problem = await response.Content.ReadFromJsonAsync<DefaultProblemDetails>(options ?? _serializerOptions, token);
-
-        return problem!;
+        return await response.Content.ReadFromJsonAsync<DefaultProblemDetails>(options ?? _serializerOptions, token);
     }
 
     /// <summary>
@@ -41,13 +39,11 @@ public static class ResponseExtension
     /// <param name="options">The serializer options</param>
     /// <param name="token">The cancellation token</param>
     /// <returns>The content of an HTTP response message as a <see cref="DefaultValidationProblemDetails"/></returns>
-    public static async Task<IValidationProblemDetails> ToValidationProblemResponseAsync(
+    public static async Task<IValidationProblemDetails?> ToValidationProblemResponseAsync(
         this HttpResponseMessage response,
         JsonSerializerOptions? options = null,
         CancellationToken token = default)
     {
-        var problem = await response.Content.ReadFromJsonAsync<DefaultValidationProblemDetails>(options ?? _serializerOptions, token);
-
-        return problem!;
+        return await response.Content.ReadFromJsonAsync<DefaultValidationProblemDetails>(options ?? _serializerOptions, token);
     }
 }

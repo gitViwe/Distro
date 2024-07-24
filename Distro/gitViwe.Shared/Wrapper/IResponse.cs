@@ -16,7 +16,7 @@ public interface IResponse
     public int StatusCode { get; }
 
     /// <summary>
-    /// Flags whether the process was successful
+    /// Flags whether the process resulted in a success <see cref="StatusCode"/>
     /// </summary>
     bool Succeeded => (StatusCode >= 200) && (StatusCode <= 299);
 }

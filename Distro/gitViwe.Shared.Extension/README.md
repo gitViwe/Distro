@@ -12,11 +12,11 @@ class ClaimsPrincipalExtension {
 }
 
 class ResponseExtension {
-    static async Task<TData> ToResponseAsync<TData>(
+    static Task<TData?> ToResponseAsync<TData>(
         this HttpResponseMessage response,
         JsonSerializerOptions? options = null,
         CancellationToken token = default);
-    static async Task<PaginatedResponse<TData>> ToPaginatedResponseAsync<TData>(
+    static Task<PaginatedResponse<TData>?> ToPaginatedResponseAsync<TData>(
         this HttpResponseMessage response,
         JsonSerializerOptions? options = null,
         CancellationToken token = default);

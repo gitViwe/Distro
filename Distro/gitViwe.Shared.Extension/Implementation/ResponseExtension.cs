@@ -20,14 +20,12 @@ public static class ResponseExtension
     /// <param name="options">The serializer options</param>
     /// <param name="token">The cancellation token</param>
     /// <returns>The content of an HTTP response message as a <typeparamref name="TData"/></returns>
-    public static async Task<TData> ToResponseAsync<TData>(
+    public static Task<TData?> ToResponseAsync<TData>(
         this HttpResponseMessage response,
         JsonSerializerOptions? options = null,
-        CancellationToken token = default) where TData : class, new()
+        CancellationToken token = default)
     {
-        var responseObject = await response.Content.ReadFromJsonAsync<TData>(options ?? _serializerOptions, token);
-
-        return responseObject ?? new();
+        return response.Content.ReadFromJsonAsync<TData>(options ?? _serializerOptions, token);
     }
 
     /// <summary>
@@ -38,13 +36,11 @@ public static class ResponseExtension
     /// <param name="options">The serializer options</param>
     /// <param name="token">The cancellation token</param>
     /// <returns>The content of an HTTP response message as a <see cref="PaginatedResponse{TData}"/> model</returns>
-    public static async Task<PaginatedResponse<TData>> ToPaginatedResponseAsync<TData>(
+    public static Task<PaginatedResponse<TData>?> ToPaginatedResponseAsync<TData>(
         this HttpResponseMessage response,
         JsonSerializerOptions? options = null,
         CancellationToken token = default) where TData : class, new()
     {
-        var responseObject = await response.Content.ReadFromJsonAsync<PaginatedResponse<TData>>(options ?? _serializerOptions, token);
-
-        return responseObject ?? PaginatedResponse<TData>.Fail();
+        return response.Content.ReadFromJsonAsync<PaginatedResponse<TData>>(options ?? _serializerOptions, token);
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace gitViwe.Shared.MongoDB;
 
-internal class MongoDBRepository<TMongoDocument> : IMongoDBRepository<TMongoDocument> where TMongoDocument : MongoDocument
+internal sealed class MongoDBRepository<TMongoDocument> : IMongoDBRepository<TMongoDocument> where TMongoDocument : MongoDocument
 {
     private readonly IMongoCollection<TMongoDocument> _collection;
 
@@ -10,7 +10,7 @@ internal class MongoDBRepository<TMongoDocument> : IMongoDBRepository<TMongoDocu
         _collection = database.GetCollection<TMongoDocument>(GetCollectionName(typeof(TMongoDocument)));
     }
 
-    private protected string GetCollectionName(Type documentType)
+    private string GetCollectionName(Type documentType)
     {
         var data = documentType.GetCustomAttributes(typeof(BsonCollectionAttribute), true).FirstOrDefault()
             ?? throw new ArgumentException($"'{nameof(documentType)}' does not have the class attribute/decorator '{nameof(BsonCollectionAttribute)}'");

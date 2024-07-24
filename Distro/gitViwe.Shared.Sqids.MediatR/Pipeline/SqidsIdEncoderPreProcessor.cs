@@ -13,7 +13,7 @@ namespace gitViwe.Shared.Sqids.MediatR;
 /// <remarks>
 /// Creates a new instance of <see cref="SqidsIdEncoderPreProcessor{TRequest}"/>
 /// </remarks>
-public class SqidsIdEncoderPreProcessor<TRequest>(
+public sealed class SqidsIdEncoderPreProcessor<TRequest>(
     ISqidsIdEncoder<int> encoder,
     ILogger<SqidsIdEncoderPreProcessor<TRequest>> logger) : IRequestPreProcessor<TRequest>
     where TRequest : notnull, ISqidsIdEncoderPreProcessMarker

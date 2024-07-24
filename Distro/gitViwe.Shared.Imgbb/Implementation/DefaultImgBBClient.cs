@@ -1,6 +1,6 @@
 ﻿namespace gitViwe.Shared.Imgbb;
 
-internal class DefaultImgBBClient : IImgBBClient
+internal sealed class DefaultImgBBClient : IImgBBClient
 {
     private readonly HttpClient _httpClient;
     private readonly ILogger<DefaultImgBBClient> _logger;

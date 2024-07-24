@@ -1,6 +1,6 @@
 ﻿namespace gitViwe.Shared.TimeBasedOneTimePassword;
 
-internal class DefaultTimeBasedOneTimePassword(IOptions<TimeBasedOneTimePasswordOption> options) : ITimeBasedOneTimePassword
+internal sealed class DefaultTimeBasedOneTimePassword(IOptions<TimeBasedOneTimePasswordOption> options) : ITimeBasedOneTimePassword
 {
     private readonly TimeBasedOneTimePasswordOption _option = options.Value;
 

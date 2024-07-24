@@ -8,7 +8,7 @@
 /// Add the <seealso cref="OpenTelemetrySource.MEDIATR"/> source to register a listener for these traces
 /// </remarks>
 /// <param name="options">The option values</param>
-public class OpenTelemetryPreProcessor<TRequest>(IOptions<OpenTelemetryBehaviourOption> options) : IRequestPreProcessor<TRequest>
+public sealed class OpenTelemetryPreProcessor<TRequest>(IOptions<OpenTelemetryBehaviourOption> options) : IRequestPreProcessor<TRequest>
     where TRequest : notnull
 {
     private readonly OpenTelemetryBehaviourOption _options = options.Value;
