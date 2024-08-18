@@ -14,18 +14,12 @@ internal sealed class StatusCodeProblemDetails
     /// <see cref="DefaultProblemDetails.Status"/>, <see cref="DefaultProblemDetails.Type"/> and <see cref="DefaultProblemDetails.Title"/>.</returns>
     internal static DefaultProblemDetails Create(int statusCode)
     {
-        var details = new DefaultProblemDetails();
-
-        SetDetails(details, statusCode);
-
-        return details;
-    }
-
-    private static void SetDetails(DefaultProblemDetails details, int statusCode)
-    {
-        details.Status = statusCode;
-        details.Type = GetDefaultType(statusCode);
-        details.Title = ReasonPhrases.GetReasonPhrase(statusCode);
+        return new DefaultProblemDetails
+        {
+            Status = statusCode,
+            Type = GetDefaultType(statusCode),
+            Title = ReasonPhrases.GetReasonPhrase(statusCode)
+        };
     }
 
     internal static string GetDefaultType(int statusCode)

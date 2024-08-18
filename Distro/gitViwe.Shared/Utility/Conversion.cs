@@ -17,7 +17,19 @@ public static class Conversion
     /// representation in hexadecimal
     /// </summary>
     /// <param name="value">The byte array to convert</param>
+    [Obsolete("ByteArrayToString(byte[] value) is deprecated, please use ByteArrayToHexadecimalString(byte[] value) instead.")]
     public static string ByteArrayToString(byte[] value)
+        => BitConverter.ToString(value).Replace("-", string.Empty);
+
+    /// <summary>
+    /// This converts the 64 byte hash into the string hex representation of byte values 
+    /// (shown by default as 2 hex characters per byte) that looks like 
+    /// "FB-2F-85-C8-85-67-F3-C8-CE-9B-79-9C-7C-54-64-2D-0C-7B-41-F6...", each pair represents
+    /// the byte value of 0-255. Removing the "-" separator creates a 128 character string 
+    /// representation in hexadecimal
+    /// </summary>
+    /// <param name="value">The byte array to convert</param>
+    public static string ByteArrayToHexadecimalString(byte[] value)
         => BitConverter.ToString(value).Replace("-", string.Empty);
 
     /// <summary>
@@ -25,7 +37,22 @@ public static class Conversion
     /// </summary>
     /// <param name="hex">The hexadecimal string to convert</param>
     /// <returns>A <see cref="byte"/> array value representing the string data</returns>
+    [Obsolete("StringToByteArray(string hex) is deprecated, please use HexadecimalStringToByteArray(string hex) instead.")]
     public static byte[] StringToByteArray(string hex)
+    {
+        int NumberChars = hex.Length;
+        byte[] bytes = new byte[NumberChars / 2];
+        for (int i = 0; i < NumberChars; i += 2)
+            bytes[i / 2] = Convert.ToByte(hex.Substring(i, 2), 16);
+        return bytes;
+    }
+
+    /// <summary>
+    /// This converts the hex string to a byte array
+    /// </summary>
+    /// <param name="hex">The hexadecimal string to convert</param>
+    /// <returns>A <see cref="byte"/> array value representing the string data</returns>
+    public static byte[] HexadecimalStringToByteArray(string hex)
     {
         int NumberChars = hex.Length;
         byte[] bytes = new byte[NumberChars / 2];
