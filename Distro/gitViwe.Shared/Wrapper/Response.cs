@@ -7,7 +7,7 @@ namespace gitViwe.Shared;
 /// </summary>
 public sealed class Response : IResponse
 {
-    internal Response(string message, int statusCode)
+    private Response(string message, int statusCode)
     {
         Message = message;
         StatusCode = statusCode;
@@ -111,7 +111,7 @@ public sealed class Response<TData> : IResponse<TData>
     /// </summary>
     /// <param name="message">The message containing the failure details.</param>
     /// <param name="statusCode">The HTTP status code relating to this failure.</param>
-    /// <returns>A new <see cref="Response{TData}"/> instance..</returns>
+    /// <returns>A new <see cref="Response{TData}"/> instance.</returns>
     public static IResponse<TData> Fail(string message, int statusCode)
     {
         GuardException.Against.SuccessStatusCode(statusCode);

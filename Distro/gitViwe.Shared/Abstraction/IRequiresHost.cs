@@ -8,5 +8,5 @@ public interface IRequiresHost
     /// <summary>
     /// The Origin HTTP header value
     /// </summary>
-    public string Origin { get; init; }
+    string Origin { get; init; }
 }

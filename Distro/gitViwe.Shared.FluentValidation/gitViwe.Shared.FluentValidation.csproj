@@ -6,14 +6,14 @@
     <Nullable>enable</Nullable>
 	<GenerateDocumentationFile>True</GenerateDocumentationFile>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
-    <Version>3.0.11</Version>
+    <Version>4.0.0-alpha.1</Version>
     <Authors>Viwe Nkepu</Authors>
 	<Description>A .NET library for some additional Fluent Validation validators</Description>
     <PackageProjectUrl>https://github.com/gitViwe/Distro</PackageProjectUrl>
   </PropertyGroup>
 	
   <ItemGroup>
-    <PackageReference Include="FluentValidation" Version="11.9.2" />
+    <PackageReference Include="FluentValidation" Version="11.9.1" />
   </ItemGroup>
 
 </Project>

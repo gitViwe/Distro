@@ -18,7 +18,7 @@ public interface IResponse
     /// <summary>
     /// Flags whether the process resulted in a success <see cref="StatusCode"/>
     /// </summary>
-    bool Succeeded => (StatusCode >= 200) && (StatusCode <= 299);
+    bool Succeeded => StatusCode is >= 200 and <= 299;
 }
 
 /// <summary>
