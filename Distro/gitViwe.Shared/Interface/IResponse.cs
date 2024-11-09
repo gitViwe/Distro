@@ -32,3 +32,16 @@ public interface IResponse<out TData> : IResponse
     /// </summary>
     TData? Data { get; }
 }
+
+/// <summary>
+/// Extends on <see cref="IResponse"/> to return a validation error
+/// </summary>
+public interface IValidationErrorResponse : IResponse
+{
+    /// <summary>
+    /// The key value pair of the errors.
+    /// </summary>
+    /// <returns>A dictionary keyed by property name
+    /// where each value is an array of error messages associated with that property.</returns>
+    IDictionary<string, string[]> Errors { get; }
+}

@@ -74,7 +74,7 @@ public sealed class Response : IResponse
 /// <typeparam name="TData">The data type returned from the request</typeparam>
 public sealed class Response<TData> : IResponse<TData>
 {
-    internal Response(string message, int statusCode, TData? data)
+    private Response(string message, int statusCode, TData? data)
     {
         Data = data;
         Message = message;
@@ -140,5 +140,43 @@ public sealed class Response<TData> : IResponse<TData>
     {
         GuardException.Against.ErrorStatusCode(statusCode);
         return new Response<TData>(message, statusCode, data);
+    }
+}
+
+/// <summary>
+/// Extends on <see cref="IResponse"/> to return a validation error
+/// </summary>
+public sealed class ValidationErrorResponse : IValidationErrorResponse
+{
+    private ValidationErrorResponse(IDictionary<string, string[]> errors)
+    {
+        Errors = errors;
+    }
+
+    /// <summary>
+    /// The response messages.
+    /// </summary>
+    public string Message => "One or more validation failures have occurred.";
+
+    /// <summary>
+    /// The HTTP status code.
+    /// </summary>
+    public int StatusCode => 400;
+    
+    /// <summary>
+    /// The key value pair of the errors.
+    /// </summary>
+    public IDictionary<string, string[]> Errors { get; }
+    
+    /// <summary>
+    /// Creates a new <see cref="ValidationErrorResponse"/> instance.
+    /// </summary>
+    /// <param name="errors">The message containing the success details.</param>
+    /// <returns>A new <see cref="ValidationErrorResponse"/> instance
+    /// where <see cref="ValidationErrorResponse.StatusCode"/> value of 400
+    /// and <see cref="Message"/> defaults to 'One or more validation failures have occurred.'.</returns>
+    public static IValidationErrorResponse Success(IDictionary<string, string[]> errors)
+    {
+        return new ValidationErrorResponse(errors);
     }
 }
