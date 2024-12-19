@@ -25,7 +25,6 @@
   <ItemGroup>
     <ProjectReference Include="..\gitViwe.Shared.Cache\gitViwe.Shared.Cache.csproj" />
     <ProjectReference Include="..\gitViwe.Shared.Extension\gitViwe.Shared.Extension.csproj" />
-    <ProjectReference Include="..\gitViwe.Shared.FluentValidation.MediatR\gitViwe.Shared.FluentValidation.MediatR.csproj" />
     <ProjectReference Include="..\gitViwe.Shared.FluentValidation\gitViwe.Shared.FluentValidation.csproj" />
     <ProjectReference Include="..\gitViwe.Shared.Imgbb\gitViwe.Shared.Imgbb.csproj" />
     <ProjectReference Include="..\gitViwe.Shared.JsonWebToken\gitViwe.Shared.JsonWebToken.csproj" />

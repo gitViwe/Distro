@@ -17,18 +17,6 @@ public static class Conversion
     /// representation in hexadecimal
     /// </summary>
     /// <param name="value">The byte array to convert</param>
-    [Obsolete("ByteArrayToString(byte[] value) is deprecated, please use ByteArrayToHexadecimalString(byte[] value) instead.")]
-    public static string ByteArrayToString(byte[] value)
-        => BitConverter.ToString(value).Replace("-", string.Empty);
-
-    /// <summary>
-    /// This converts the 64 byte hash into the string hex representation of byte values 
-    /// (shown by default as 2 hex characters per byte) that looks like 
-    /// "FB-2F-85-C8-85-67-F3-C8-CE-9B-79-9C-7C-54-64-2D-0C-7B-41-F6...", each pair represents
-    /// the byte value of 0-255. Removing the "-" separator creates a 128 character string 
-    /// representation in hexadecimal
-    /// </summary>
-    /// <param name="value">The byte array to convert</param>
     public static string ByteArrayToHexadecimalString(byte[] value)
         => BitConverter.ToString(value).Replace("-", string.Empty);
 
@@ -37,26 +25,11 @@ public static class Conversion
     /// </summary>
     /// <param name="hex">The hexadecimal string to convert</param>
     /// <returns>A <see cref="byte"/> array value representing the string data</returns>
-    [Obsolete("StringToByteArray(string hex) is deprecated, please use HexadecimalStringToByteArray(string hex) instead.")]
-    public static byte[] StringToByteArray(string hex)
-    {
-        int NumberChars = hex.Length;
-        byte[] bytes = new byte[NumberChars / 2];
-        for (int i = 0; i < NumberChars; i += 2)
-            bytes[i / 2] = Convert.ToByte(hex.Substring(i, 2), 16);
-        return bytes;
-    }
-
-    /// <summary>
-    /// This converts the hex string to a byte array
-    /// </summary>
-    /// <param name="hex">The hexadecimal string to convert</param>
-    /// <returns>A <see cref="byte"/> array value representing the string data</returns>
     public static byte[] HexadecimalStringToByteArray(string hex)
     {
-        int NumberChars = hex.Length;
-        byte[] bytes = new byte[NumberChars / 2];
-        for (int i = 0; i < NumberChars; i += 2)
+        int numberChars = hex.Length;
+        byte[] bytes = new byte[numberChars / 2];
+        for (int i = 0; i < numberChars; i += 2)
             bytes[i / 2] = Convert.ToByte(hex.Substring(i, 2), 16);
         return bytes;
     }
@@ -88,6 +61,15 @@ public static class Conversion
         var base64 = payload.PadRight(payload.Length + (4 - payload.Length % 4) % 4, '=');
         return Convert.FromBase64String(base64);
     }
+    
+    /// <summary>
+    /// Converts the provided value into a JSON <see cref="string"/> where the property values that have the <see cref="ObfuscateAttribute"/> are hidden.
+    /// </summary>
+    /// <typeparam name="TValue">The type of the value to serialize.</typeparam>
+    /// <param name="request">The value to convert into a JSON <see cref="string"/>.</param>
+    /// <returns>A JSON <see cref="string"/> representation of the value.</returns>
+    public static string ToObfuscatedString<TValue>(TValue request)
+        => ToObfuscatedString(request, []);
 
     /// <summary>
     /// Converts the provided value into a JSON <see cref="string"/> where the property values defined in <paramref name="propertyNames"/> and have the <see cref="ObfuscateAttribute"/> are hidden.
@@ -98,17 +80,26 @@ public static class Conversion
     /// <returns>A JSON <see cref="string"/> representation of the value.</returns>
     public static string ToObfuscatedString<TValue>(TValue request, IEnumerable<string> propertyNames)
     {
+        string text = System.Text.Json.JsonSerializer.Serialize(request);
+        var resolvedNames = ResolvePropertyNames().ToArray();
+
+        if (resolvedNames.Length == 0)
+        {
+            return text;
+        }
+
+        // Join the property names with "|" to create the regex pattern
+        string pattern = $"(\"({string.Join('|', resolvedNames)})\":\\s*)\"[^\\\"]*\"";
+        const string replacement = "$1\"*****\"";
+
+        return Regex.Replace(text, pattern, replacement);
+
         IEnumerable<string> ResolvePropertyNames()
         {
             var additionalPropertyNames = typeof(TValue).GetProperties()
-                                    .Where(x => x.GetCustomAttribute<ObfuscateAttribute>() is not null)
-                                    .Select(x => x.Name)
-                                    .ToHashSet();
-
-            if (propertyNames is null)
-            {
-                return additionalPropertyNames ?? Enumerable.Empty<string>();
-            }
+                .Where(x => x.GetCustomAttribute<ObfuscateAttribute>() is not null)
+                .Select(x => x.Name)
+                .ToHashSet();
 
             // merge propertyNames into additionalPropertyNames
             foreach (string name in propertyNames)
@@ -118,45 +109,5 @@ public static class Conversion
 
             return additionalPropertyNames;
         }
-
-        string text = System.Text.Json.JsonSerializer.Serialize(request);
-        IEnumerable<string> resolvedNames = ResolvePropertyNames();
-
-        if (resolvedNames.Any())
-        {
-            // Join the property names with "|" to create the regex pattern
-            string pattern = $"(\"({string.Join('|', resolvedNames)})\":\\s*)\"[^\\\"]*\"";
-            string replacement = "$1\"*****\"";
-
-            return Regex.Replace(text, pattern, replacement); 
-        }
-
-        return text;
-    }
-
-    /// <summary>
-    /// Converts the provided value into a JSON <see cref="string"/> where the property values that have the <see cref="ObfuscateAttribute"/> are hidden.
-    /// </summary>
-    /// <typeparam name="TValue">The type of the value to serialize.</typeparam>
-    /// <param name="request">The value to convert into a JSON <see cref="string"/>.</param>
-    /// <returns>A JSON <see cref="string"/> representation of the value.</returns>
-    public static string ToObfuscatedString<TValue>(TValue request)
-    {
-        var propertyNames = typeof(TValue).GetProperties()
-                                .Where(x => x.GetCustomAttribute<ObfuscateAttribute>() is not null)
-                                .Select(x => x.Name);
-
-        string text = System.Text.Json.JsonSerializer.Serialize(request);
-
-        if (propertyNames is not null && propertyNames.Any())
-        {
-            // Join the property names with "|" to create the regex pattern
-            string pattern = $"(\"({string.Join("|", propertyNames)})\":\\s*)\"[^\\\"]*\"";
-            string replacement = "$1\"*****\"";
-
-            return Regex.Replace(text, pattern, replacement);
-        }
-
-        return text;
     }
 }

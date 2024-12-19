@@ -21,21 +21,19 @@ public sealed class OpenTelemetryPreProcessor<TRequest>(IOptions<OpenTelemetryBe
     /// <returns>A <see cref="Task"/> that represents the process</returns>
     public Task Process(TRequest request, CancellationToken cancellationToken)
     {
-        string ToObfuscatedString()
-        {
-            return _options.ObfuscatedPropertyNames is not null
-                ? Conversion.ToObfuscatedString(request, _options.ObfuscatedPropertyNames)
-                : Conversion.ToObfuscatedString(request);
-        }
-
         Dictionary<string, object?> requestTagDictionary = new()
         {
             { OpenTelemetryTagKey.MediatR.REQUEST_TYPE, request.GetType().Name },
             { OpenTelemetryTagKey.MediatR.REQUEST_VALUE, ToObfuscatedString() },
         };
 
-        OpenTelemetryActivity.MediatR.StartActivity("OpenTelemetry MediatR PreProcessor", "Starting MediatR Request.", requestTagDictionary);
+        OpenTelemetryActivity.MediatR.StartActivity("OpenTelemetry MediatR PreProcessor", "Starting MediatR Request.", tags: requestTagDictionary);
 
         return Task.CompletedTask;
+
+        string ToObfuscatedString()
+        {
+            return Conversion.ToObfuscatedString(request, _options.ObfuscatedPropertyNames);
+        }
     }
 }

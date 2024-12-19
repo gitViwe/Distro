@@ -32,6 +32,16 @@ public sealed class Response : IResponse
     {
         return new Response(message, 400);
     }
+    
+    /// <summary>
+    /// Creates a new <see cref="TypedResponse{TData}"/> instance.
+    /// </summary>
+    /// <param name="message">The message containing the failure details.</param>
+    /// <returns>A new <see cref="TypedResponse{TData}"/> instance with the <seealso cref="TypedResponse{TData}.StatusCode"/> value of 400.</returns>
+    public static ITypedResponse<TData> Fail<TData>(string message)
+    {
+        return TypedResponse<TData>.Fail(message);
+    }
 
     /// <summary>
     /// Creates a new <see cref="Response"/> instance.
@@ -44,6 +54,17 @@ public sealed class Response : IResponse
         GuardException.Against.SuccessStatusCode(statusCode);
         return new Response(message, statusCode);
     }
+    
+    /// <summary>
+    /// Creates a new <see cref="TypedResponse{TData}"/> instance.
+    /// </summary>
+    /// <param name="message">The message containing the failure details.</param>
+    /// <param name="statusCode">The HTTP status code relating to this failure.</param>
+    /// <returns>A new <see cref="TypedResponse{TData}"/> instance.</returns>
+    public static ITypedResponse<TData> Fail<TData>(string message, int statusCode)
+    {
+        return TypedResponse<TData>.Fail(message, statusCode);
+    }
 
     /// <summary>
     /// Creates a new <see cref="Response"/> instance.
@@ -53,6 +74,17 @@ public sealed class Response : IResponse
     public static IResponse Success(string message)
     {
         return new Response(message, 200);
+    }
+    
+    /// <summary>
+    /// Creates a new <see cref="TypedResponse{TData}"/> instance.
+    /// </summary>
+    /// <param name="message">The message containing the success details.</param>
+    /// <param name="data">The content to add.</param>
+    /// <returns>A new <see cref="TypedResponse{TData}"/> instance where the data is <typeparamref name="TData"/> with the <seealso cref="TypedResponse{TData}.StatusCode"/> value of 200.</returns>
+    public static ITypedResponse<TData> Success<TData>(string message, TData data)
+    {
+        return TypedResponse<TData>.Success(message, data);
     }
 
     /// <summary>
@@ -66,117 +98,16 @@ public sealed class Response : IResponse
         GuardException.Against.ErrorStatusCode(statusCode);
         return new Response(message, statusCode);
     }
-}
-
-/// <summary>
-/// Extends on <see cref="Response"/> to return data
-/// </summary>
-/// <typeparam name="TData">The data type returned from the request</typeparam>
-public sealed class Response<TData> : IResponse<TData>
-{
-    private Response(string message, int statusCode, TData? data)
-    {
-        Data = data;
-        Message = message;
-        StatusCode = statusCode;
-    }
-
+    
     /// <summary>
-    /// The content returned from the request
-    /// </summary>
-    public TData? Data { get; }
-
-    /// <summary>
-    /// The response messages.
-    /// </summary>
-    public string Message { get; }
-
-    /// <summary>
-    /// The HTTP status code.
-    /// </summary>
-    public int StatusCode { get; }
-
-    /// <summary>
-    /// Creates a new <see cref="Response{TData}"/> instance.
-    /// </summary>
-    /// <param name="message">The message containing the failure details.</param>
-    /// <returns>A new <see cref="Response{TData}"/> instance with the <seealso cref="Response.StatusCode"/> value of 400.</returns>
-    public static IResponse<TData> Fail(string message)
-    {
-        return new Response<TData>(message, 400, default);
-    }
-
-    /// <summary>
-    /// Creates a new <see cref="Response{TData}"/> instance.
-    /// </summary>
-    /// <param name="message">The message containing the failure details.</param>
-    /// <param name="statusCode">The HTTP status code relating to this failure.</param>
-    /// <returns>A new <see cref="Response{TData}"/> instance.</returns>
-    public static IResponse<TData> Fail(string message, int statusCode)
-    {
-        GuardException.Against.SuccessStatusCode(statusCode);
-        return new Response<TData>(message, statusCode, default);
-    }
-
-    /// <summary>
-    /// Creates a new <see cref="Response{TData}"/> instance.
-    /// </summary>
-    /// <param name="message">The message containing the success details.</param>
-    /// <param name="data">The content to add.</param>
-    /// <returns>A new <see cref="Response{TData}"/> instance where the data is <typeparamref name="TData"/> with the <seealso cref="Response.StatusCode"/> value of 200.</returns>
-    public static IResponse<TData> Success(string message, TData data)
-    {
-        return new Response<TData>(message, 200, data);
-    }
-
-    /// <summary>
-    /// Creates a new <see cref="Response{TData}"/> instance.
+    /// Creates a new <see cref="TypedResponse{TData}"/> instance.
     /// </summary>
     /// <param name="message">The message containing the success details.</param>
     /// <param name="statusCode">The HTTP status code relating to this response.</param>
     /// <param name="data">The content to add.</param>
-    /// <returns>A new <see cref="Response{TData}"/> instance where the data is <typeparamref name="TData"/> with the <seealso cref="Response.StatusCode"/> value of 200.</returns>
-    public static IResponse<TData> Success(string message, int statusCode, TData data)
+    /// <returns>A new <see cref="TypedResponse{TData}"/> instance where the data is <typeparamref name="TData"/> with the <seealso cref="TypedResponse{TData}.StatusCode"/> value of 200.</returns>
+    public static ITypedResponse<TData> Success<TData>(string message, int statusCode, TData data)
     {
-        GuardException.Against.ErrorStatusCode(statusCode);
-        return new Response<TData>(message, statusCode, data);
-    }
-}
-
-/// <summary>
-/// Extends on <see cref="IResponse"/> to return a validation error
-/// </summary>
-public sealed class ValidationErrorResponse : IValidationErrorResponse
-{
-    private ValidationErrorResponse(IDictionary<string, string[]> errors)
-    {
-        Errors = errors;
-    }
-
-    /// <summary>
-    /// The response messages.
-    /// </summary>
-    public string Message => "One or more validation failures have occurred.";
-
-    /// <summary>
-    /// The HTTP status code.
-    /// </summary>
-    public int StatusCode => 400;
-    
-    /// <summary>
-    /// The key value pair of the errors.
-    /// </summary>
-    public IDictionary<string, string[]> Errors { get; }
-    
-    /// <summary>
-    /// Creates a new <see cref="ValidationErrorResponse"/> instance.
-    /// </summary>
-    /// <param name="errors">The message containing the success details.</param>
-    /// <returns>A new <see cref="ValidationErrorResponse"/> instance
-    /// where <see cref="ValidationErrorResponse.StatusCode"/> value of 400
-    /// and <see cref="Message"/> defaults to 'One or more validation failures have occurred.'.</returns>
-    public static IValidationErrorResponse Success(IDictionary<string, string[]> errors)
-    {
-        return new ValidationErrorResponse(errors);
+        return TypedResponse<TData>.Success(message, statusCode, data);
     }
 }

@@ -18,7 +18,7 @@ public sealed class PaginatedResponse<TData> where TData : class, new()
     /// <param name="totalCount">The total number of items</param>
     /// <param name="currentPage">The current page number</param>
     /// <param name="pageSize">The number of items in a single page</param>
-    internal PaginatedResponse(IEnumerable<TData> data, int totalCount, int currentPage, int pageSize)
+    private PaginatedResponse(IEnumerable<TData> data, int totalCount, int currentPage, int pageSize)
     {
         Data = data;
         TotalCount = totalCount;
