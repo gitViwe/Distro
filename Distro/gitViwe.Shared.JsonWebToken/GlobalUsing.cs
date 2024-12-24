@@ -1,4 +1,4 @@
-﻿global using gitViwe.Shared.Extension;
+﻿global using Microsoft.Extensions.Configuration;
 global using gitViwe.Shared.JsonWebToken.Extension;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Logging;

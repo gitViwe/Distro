@@ -1,4 +1,4 @@
-﻿namespace gitViwe.Shared.Constant.OpenTelemetry;
+﻿namespace gitViwe.Shared;
 
 /// <summary>
 /// Defines the custom telemetry tag keys

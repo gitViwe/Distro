@@ -1,5 +1,4 @@
-﻿using gitViwe.Shared.Attribute;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Text.RegularExpressions;
 
 namespace gitViwe.Shared;
@@ -17,6 +16,7 @@ public static class Conversion
     /// representation in hexadecimal
     /// </summary>
     /// <param name="value">The byte array to convert</param>
+    [Obsolete("This method will be removed in future versions. Use Convert.ToHexString(byte) instead.")]
     public static string ByteArrayToHexadecimalString(byte[] value)
         => BitConverter.ToString(value).Replace("-", string.Empty);
 
@@ -25,6 +25,7 @@ public static class Conversion
     /// </summary>
     /// <param name="hex">The hexadecimal string to convert</param>
     /// <returns>A <see cref="byte"/> array value representing the string data</returns>
+    [Obsolete("This method will be removed in future versions. Use Convert.FromHexString(chars) instead.")]
     public static byte[] HexadecimalStringToByteArray(string hex)
     {
         int numberChars = hex.Length;
@@ -55,6 +56,7 @@ public static class Conversion
     /// </summary>
     /// <param name="payload">The base 64 string without padding</param>
     /// <returns>A <see cref="byte"/> array value representing the string data</returns>
+    [Obsolete("This method will be removed in future versions. Use Convert.FromBase64String(value) instead.")]
     public static byte[] ParseBase64WithoutPadding(string payload)
     {
         payload = payload.Trim().Replace('-', '+').Replace('_', '/');

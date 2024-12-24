@@ -1,4 +1,4 @@
-﻿using gitViwe.Shared.Utility;
+﻿using gitViwe.Shared;
 using Xunit;
 
 namespace Shared.Test;

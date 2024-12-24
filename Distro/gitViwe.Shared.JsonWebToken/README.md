@@ -6,18 +6,23 @@ dotnet add package gitViwe.Shared.JsonWebToken
 ```
 
 ### JSON Web Token:
-#### Register the `IJsonWebToken` service using by specifying the settings values
+#### Register the `IJsonWebToken` service
 ```csharp
-builder.Services.AddGitViweJsonWebToken(options =>
-{
-    var key = Encoding.ASCII.GetBytes("vxL2V6EEj8HjgU6NxMhcNWAf0Ejxmcuj");
+builder.Services.AddGitViweJsonWebToken(builder.Configuration);
+```
 
-    options.Issuer = "https://localhost";
-    options.RefreshValidationParameters = // create new instance with your settings;
-    options.SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature);
-    options.TokenExpiry = TimeSpan.FromMinutes(int.Parse(5));
-    options.ValidationParameters = // create new instance with your settings;
-});
+#### Add configuration options to the `appsettings.json` file
+```
+{
+  "JsonWebTokenOption": {
+    "Issuer": "https://localhost",
+    "Secret": "vxL2V6EEj8HjgU6NxMhcNWAf0Ejxmcuj",
+    "ValidIssuers": ["https://localhost", "https://localhost"],
+    "ValidAudiences": ["https://localhost", "https://localhost"],
+    "ValidateAudience": true,
+    "ValidateIssuer": true
+  }
+}
 ```
 
 ### Usage:

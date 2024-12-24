@@ -1,4 +1,4 @@
-﻿namespace gitViwe.Shared.Utility;
+﻿namespace gitViwe.Shared;
 
 /// <summary>
 /// Provides a converter to formatting values

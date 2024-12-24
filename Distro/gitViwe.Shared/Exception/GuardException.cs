@@ -1,4 +1,4 @@
-﻿namespace gitViwe.Shared.Exception;
+﻿namespace gitViwe.Shared;
 
 /// <summary>
 /// Throws an exception based on the condition being evaluated.

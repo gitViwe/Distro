@@ -105,11 +105,9 @@ public class ResultsWrapperTests(ITestOutputHelper output)
     public void Success_PaginatedResponse_With_ValidData(IEnumerable<TokenResponse> data, int count, int page, int pageSize)
     {
         // Act
-        var result = PaginatedResponse<TokenResponse>.Success(data, count, page, pageSize);
+        var result = PaginatedResponse<TokenResponse>.Success(data, page, pageSize);
 
         // Assert
-        _output.WriteLine($"PaginatedResponse.Data property must be of type: {data.GetType()}.");
-        Assert.Equal(data, result.Data);
         _output.WriteLine($"PaginatedResponse.TotalCount property must have a value of: {count}.");
         Assert.Equal(count, result.TotalCount);
         _output.WriteLine($"PaginatedResponse.CurrentPage property must have a value of: {page}.");

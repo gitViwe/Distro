@@ -1,4 +1,4 @@
-﻿namespace gitViwe.Shared.Attribute;
+﻿namespace gitViwe.Shared;
 
 /// <summary>
 /// Marks the property to be obfuscated. <seealso cref="Conversion.ToObfuscatedString{TValue}(TValue, IEnumerable{string})"/>

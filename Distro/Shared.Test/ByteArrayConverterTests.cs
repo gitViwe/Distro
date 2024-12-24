@@ -67,9 +67,9 @@ public class ByteArrayConverterTests
     public void When_NullArray_ThrowsArgumentNullException()
     {
         // Arrange
-        byte[] nullArray = null;
+        byte[]? nullArray = null;
 
         // Act & Assert
-        Assert.Throws<ArgumentNullException>(() => Conversion.ByteArrayToHexadecimalString(nullArray));
+        Assert.Throws<ArgumentNullException>(() => Conversion.ByteArrayToHexadecimalString(nullArray!));
     }
 }

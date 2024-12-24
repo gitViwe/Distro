@@ -6,15 +6,21 @@ dotnet add package gitViwe.Shared.Cache
 ```
 
 ### Redis distributed cache:
-#### Register the `IRedisDistributedCache` service using by specifying the settings values
+#### Register the `IRedisDistributedCache` service
+```csharp
+builder.Services.AddGitViweRedisCache(builder.Configuration);
 ```
-builder.Services.AddGitViweRedisCache(options =>
+
+#### Add configuration options to the `appsettings.json` file
+```
 {
-    options.Configuration = "localhost:6379";
-    options.InstanceName= "redis_demo";
-    options.AbsoluteExpirationInMinutes = 5;
-    options.SlidingExpirationInMinutes = 2;
-});
+  "RedisDistributedCacheOption": {
+    "Configuration": "localhost:6379",
+    "InstanceName": "redis_demo",
+    "AbsoluteExpirationInSeconds": 300,
+    "SlidingExpirationInSeconds": 120
+  }
+}
 ```
 
 ### Usage:

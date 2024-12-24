@@ -1,4 +1,4 @@
-﻿namespace gitViwe.Shared.Abstraction;
+﻿namespace gitViwe.Shared;
 
 /// <summary>
 /// Defines the property required to validate the request origin host

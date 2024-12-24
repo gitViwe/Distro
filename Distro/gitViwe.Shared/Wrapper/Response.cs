@@ -1,6 +1,4 @@
-﻿using gitViwe.Shared.Exception;
-
-namespace gitViwe.Shared;
+﻿namespace gitViwe.Shared;
 
 /// <summary>
 /// A unified return type for the API endpoint.

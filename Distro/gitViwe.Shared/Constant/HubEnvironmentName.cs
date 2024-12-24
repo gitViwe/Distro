@@ -1,4 +1,4 @@
-﻿namespace gitViwe.Shared.Constant;
+﻿namespace gitViwe.Shared;
 
 /// <summary>
 /// Provides the custom environment names

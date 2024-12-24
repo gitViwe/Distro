@@ -1,6 +1,4 @@
-﻿using gitViwe.Shared.Constant.OpenTelemetry;
-
-namespace gitViwe.Shared.Sqids.MediatR;
+﻿namespace gitViwe.Shared.Sqids.MediatR;
 
 /// <summary>
 /// Creates a pipeline for decoding a Sqids Id for MediatR requests that implement <see cref="ISqidsIdEncoderPreProcessMarker"/>

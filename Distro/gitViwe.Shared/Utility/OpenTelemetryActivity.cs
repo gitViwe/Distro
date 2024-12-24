@@ -1,8 +1,7 @@
 ﻿using System.Diagnostics;
-using gitViwe.Shared.Constant.OpenTelemetry;
 using Microsoft.Extensions.Primitives;
 
-namespace gitViwe.Shared.Utility;
+namespace gitViwe.Shared;
 
 /// <summary>
 /// Exposes some <see cref="ActivitySource"/> methods for the various <seealso cref="OpenTelemetrySource"/>
@@ -104,7 +103,7 @@ public static class OpenTelemetryActivity
     }
 
     /// <summary>
-    /// Defines some enricher methods for instrumented frameworks
+    /// Defines some enrich methods for instrumented frameworks
     /// </summary>
     public static class Instrumentation
     {
@@ -151,7 +150,7 @@ public static class OpenTelemetryActivity
         private static ActivityTagsCollection? GetTagsFromHeaders(IEnumerable<KeyValuePair<string, StringValues>> headers, string tagKeyPrefix)
         {
             var tags = headers
-                .Select(header => new KeyValuePair<string, object?>($"{tagKeyPrefix}.{header.Key.ToLower()}", string.Join(';', header.Value!)))
+                .Select(header => new KeyValuePair<string, object?>($"{tagKeyPrefix}.{header.Key.ToLower()}", string.Join(';', header.Value.ToString())))
                 .ToArray();
 
             return tags.Length == 0 ? null : new ActivityTagsCollection(tags);

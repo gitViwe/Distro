@@ -1,9 +1,8 @@
 ﻿namespace gitViwe.Shared.JsonWebToken;
 
-internal sealed class DefaultJsonWebToken(IOptions<JsonWebTokenOption> options, ILogger<DefaultJsonWebToken> logger) : IJsonWebToken
+internal sealed class DefaultJsonWebToken(IOptionsMonitor<JsonWebTokenOption> options, ILogger<DefaultJsonWebToken> logger) : IJsonWebToken
 {
-    private readonly JsonWebTokenOption _options = options.Value;
-    private readonly ILogger<DefaultJsonWebToken> _logger = logger;
+    private readonly JsonWebTokenOption _options = options.CurrentValue;
 
     public string CreateJsonWebToken(IEnumerable<Claim> claims, string audience)
     {
@@ -12,7 +11,7 @@ internal sealed class DefaultJsonWebToken(IOptions<JsonWebTokenOption> options, 
             Audience = audience,
             Issuer = _options.Issuer,
             Subject = new ClaimsIdentity(claims),
-            Expires = DateTime.UtcNow.Add(_options.TokenExpiry),
+            Expires = DateTime.UtcNow.AddSeconds(_options.ExpiryInSeconds),
             SigningCredentials = _options.SigningCredentials,
         };
 
@@ -29,16 +28,16 @@ internal sealed class DefaultJsonWebToken(IOptions<JsonWebTokenOption> options, 
 
         if (false == result.IsValid)
         {
-            _logger.FailedToValidateJsonWebToken(result.Exception, result.TokenOnFailedValidation);
+            logger.FailedToValidateJsonWebToken(result.Exception, result.TokenOnFailedValidation);
             return null;
         }
 
         if (result.SecurityToken is Microsoft.IdentityModel.JsonWebTokens.JsonWebToken securityToken)
         {
             // verify that the token is encrypted with the security algorithm
-            if (false == securityToken.Alg.Equals(_options.SigningCredentials!.Algorithm, StringComparison.InvariantCultureIgnoreCase))
+            if (false == securityToken.Alg.Equals(_options.SigningCredentials.Algorithm, StringComparison.InvariantCultureIgnoreCase))
             {
-                _logger.InvalidJsonWebTokenAlgorithm(result.SecurityToken, securityToken);
+                logger.InvalidJsonWebTokenAlgorithm(result.SecurityToken, securityToken);
                 return null;
             }
         }

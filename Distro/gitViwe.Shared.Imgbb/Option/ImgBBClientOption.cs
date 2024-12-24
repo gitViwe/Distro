@@ -3,12 +3,17 @@
 /// <summary>
 /// Configuration options for the Imgbb client
 /// </summary>
-public class ImgBBClientOption
+public class ImgBbClientOption
 {
+    /// <summary>
+    /// The configuration values from the "ImgBBClientOption" section inside the appsettings.json file.
+    /// </summary>
+    public const string SectionName = "ImgBBClientOption";
+    
     /// <summary>
     /// The API key.
     /// </summary>
-    public string APIKey { get; set; } = string.Empty;
+    public string ApiKey { get; init; } = string.Empty;
 
     /// <summary>
     /// Enable this if you want to force uploads to be auto deleted after certain time (in seconds 60-15552000)
@@ -16,13 +21,13 @@ public class ImgBBClientOption
     public int? ExpirationInSeconds { get; set; }
 }
 
-internal class ImgBBClientOptionValidator : IValidateOptions<ImgBBClientOption>
+internal class ImgBbClientOptionValidator : IValidateOptions<ImgBbClientOption>
 {
-    public ValidateOptionsResult Validate(string? name, ImgBBClientOption options)
+    public ValidateOptionsResult Validate(string? name, ImgBbClientOption options)
     {
-        if (string.IsNullOrWhiteSpace(options.APIKey))
+        if (string.IsNullOrWhiteSpace(options.ApiKey))
         {
-            return ValidateOptionsResult.Fail($"A value for {name}.{nameof(options.APIKey)} must be provided.");
+            return ValidateOptionsResult.Fail($"A value for {name}.{nameof(options.ApiKey)} must be provided.");
         }
 
         if (options.ExpirationInSeconds.HasValue && options.ExpirationInSeconds is < 60 or > 15552000)

@@ -1,5 +1,3 @@
-using gitViwe.Shared.Exception;
-
 namespace gitViwe.Shared;
 
 /// <summary>

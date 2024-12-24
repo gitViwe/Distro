@@ -1,5 +1,4 @@
 ﻿using gitViwe.Shared;
-using gitViwe.Shared.Attribute;
 using System.Text.Json;
 using Xunit;
 
