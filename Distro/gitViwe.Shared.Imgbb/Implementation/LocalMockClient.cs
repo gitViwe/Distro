@@ -1,6 +1,6 @@
-﻿namespace gitViwe.Shared.Imgbb;
+﻿namespace gitViwe.Shared.Imgbb.Implementation;
 
-internal sealed class LocalMockClient : IImgBBClient
+internal sealed class LocalMockClient : IImgBbClient
 {
     private static async Task<string> GetBase64StringFromFormFileAsync(IFormFile file)
     {
@@ -21,7 +21,7 @@ internal sealed class LocalMockClient : IImgBBClient
         byte[] fileBytes = memoryStream.ToArray();
         string base64String = Convert.ToBase64String(fileBytes);
 
-        return $"data:{httpContent.Headers?.ContentType?.MediaType};base64," + base64String;
+        return $"data:{httpContent.Headers.ContentType?.MediaType};base64," + base64String;
     }
 
     public Task<IResponse> PingAsync(CancellationToken cancellation = default)
@@ -29,11 +29,11 @@ internal sealed class LocalMockClient : IImgBBClient
         return Task.FromResult(Response.Success("ImgBB server integration is online."));
     }
 
-    public async Task<ImgBBUploadResponse> UploadImageAsync(HttpContent httpContent, string fileName, int? expirationInSeconds = null, CancellationToken cancellation = default)
+    public async Task<ImgBbUploadResponse> UploadImageAsync(HttpContent httpContent, string fileName, int? expirationInSeconds = null, CancellationToken cancellation = default)
     {
         string base64 = await GetBase64StringFromHttpContentAsync(httpContent);
 
-        return new ImgBBUploadResponse()
+        return new ImgBbUploadResponse()
         {
             Status = 200,
             Success = true,
@@ -41,13 +41,13 @@ internal sealed class LocalMockClient : IImgBBClient
             {
                 DisplayUrl = base64,
                 Expiration = expirationInSeconds ?? 15552000,
-                Image = new()
+                Image = new ImgBBImage
                 {
                     Filename = fileName,
                     Name = fileName,
                     Url = base64,
                 },
-                Thumb = new()
+                Thumb = new ImgBBThumb
                 {
                     Filename = fileName,
                     Name = fileName,
@@ -57,11 +57,11 @@ internal sealed class LocalMockClient : IImgBBClient
         };
     }
 
-    public async Task<ImgBBUploadResponse> UploadImageAsync(IFormFile file, int? expirationInSeconds = null, CancellationToken cancellation = default)
+    public async Task<ImgBbUploadResponse> UploadImageAsync(IFormFile file, int? expirationInSeconds = null, CancellationToken cancellation = default)
     {
         string base64 = await GetBase64StringFromFormFileAsync(file);
 
-        return new ImgBBUploadResponse()
+        return new ImgBbUploadResponse()
         {
             Status = 200,
             Success = true,
@@ -69,13 +69,13 @@ internal sealed class LocalMockClient : IImgBBClient
             {
                 DisplayUrl = base64,
                 Expiration = expirationInSeconds ?? 15552000,
-                Image = new()
+                Image = new ImgBBImage
                 {
                     Filename = file.Name,
                     Name = file.Name,
                     Url = base64,
                 },
-                Thumb = new()
+                Thumb = new ImgBBThumb
                 {
                     Filename = file.Name,
                     Name = file.Name,

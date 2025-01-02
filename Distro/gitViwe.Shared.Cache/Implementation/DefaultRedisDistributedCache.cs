@@ -7,14 +7,12 @@ internal sealed class DefaultRedisDistributedCache(
 {
     private readonly RedisDistributedCacheOption _cacheOption = options.Value;
 
-    private DistributedCacheEntryOptions CreateCacheEntryOptions(TimeSpan? absoluteExpirationRelativeToNow = null, TimeSpan? slidingExpiration = null)
-    {
-        return new DistributedCacheEntryOptions()
+    private DistributedCacheEntryOptions CreateCacheEntryOptions(TimeSpan? absoluteExpirationRelativeToNow = null, TimeSpan? slidingExpiration = null) =>
+        new()
         {
             AbsoluteExpirationRelativeToNow = absoluteExpirationRelativeToNow ?? TimeSpan.FromSeconds(_cacheOption.AbsoluteExpirationInSeconds),
             SlidingExpiration = slidingExpiration ?? TimeSpan.FromSeconds(_cacheOption.SlidingExpirationInSeconds),
         };
-    }
 
     public TResult? Get<TResult>(string key)
     {

@@ -22,7 +22,7 @@ public class ImgBBClientTests
     public async Task PingAsync_ReturnsTrue()
     {
         // Arrange
-        var client = _serviceProvider.GetRequiredService<IImgBBClient>();
+        var client = _serviceProvider.GetRequiredService<IImgBbClient>();
 
         // Act
         var result = await client.PingAsync(CancellationToken.None);

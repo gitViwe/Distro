@@ -1,59 +1,43 @@
-﻿namespace gitViwe.Shared.Imgbb;
+﻿namespace gitViwe.Shared.Imgbb.Implementation;
 
-internal sealed class DefaultImgBBClient : IImgBBClient
+internal sealed class DefaultImgBbClient(
+    HttpClient httpClient,
+    IOptions<ImgBbClientOption> options,
+    ILogger<DefaultImgBbClient> logger) : IImgBbClient
 {
-    private readonly HttpClient _httpClient;
-    private readonly ILogger<DefaultImgBBClient> _logger;
-    private readonly ImgBbClientOption _options;
-    private readonly string _uploadEndpoint;
+    private readonly ImgBbClientOption _imgBbClientOption = options.Value;
 
-    public DefaultImgBBClient(HttpClient httpClient, IOptionsMonitor<ImgBbClientOption> options, ILogger<DefaultImgBBClient> logger)
-    {
-        _httpClient = httpClient;
-        _logger = logger;
-        _options = options.CurrentValue;
-        _uploadEndpoint = $"1/upload?key={_options.ApiKey}";
-    }
-
-    public Task<ImgBBUploadResponse> UploadImageAsync(IFormFile file, int? expirationInSeconds = null, CancellationToken cancellation = default)
+    public Task<ImgBbUploadResponse> UploadImageAsync(IFormFile file, int? expirationInSeconds = null, CancellationToken cancellation = default)
     {
         return UploadImageAsync(new StreamContent(file.OpenReadStream()), file.FileName, expirationInSeconds, cancellation);
     }
 
-    public async Task<ImgBBUploadResponse> UploadImageAsync(HttpContent httpContent, string fileName, int? expirationInSeconds = null, CancellationToken cancellation = default)
+    public async Task<ImgBbUploadResponse> UploadImageAsync(HttpContent httpContent, string fileName, int? expirationInSeconds = null, CancellationToken cancellation = default)
     {
-        var endpoint = new StringBuilder()
-            .Append(_uploadEndpoint);
-
-        if (expirationInSeconds.HasValue || _options.ExpirationInSeconds.HasValue)
-        {
-            endpoint.Append($"&expiration={expirationInSeconds ?? _options.ExpirationInSeconds}");
-        }
+        var endpoint = $"1/upload?key={_imgBbClientOption.ApiKey}&expiration={expirationInSeconds ?? _imgBbClientOption.ExpirationInSeconds}";
 
         var content = new MultipartFormDataContent
         {
             { httpContent, "image", fileName }
         };
 
-        var result = await _httpClient.PostAsync(endpoint.ToString(), content, cancellation);
+        var result = await httpClient.PostAsync(endpoint, content, cancellation);
 
         if (result.IsSuccessStatusCode)
         {
-            var response = await result.Content.ReadFromJsonAsync<ImgBBUploadResponse>(cancellationToken: cancellation);
+            var response = await result.Content.ReadFromJsonAsync<ImgBbUploadResponse>(cancellationToken: cancellation);
 
             return response!;
         }
 
-        _logger.UploadImageFailed(await result.Content.ReadAsStringAsync(cancellation));
+        logger.UploadImageFailed(await result.Content.ReadAsStringAsync(cancellation));
 
-        return new ImgBBUploadResponse { Success = false };
+        return new ImgBbUploadResponse { Success = false };
     }
 
     public async Task<IResponse> PingAsync(CancellationToken cancellation = default)
     {
-        var endpoint = new StringBuilder()
-            .Append(_uploadEndpoint)
-            .Append("&expiration=60");
+        var endpoint = $"1/upload?key={_imgBbClientOption.ApiKey}&expiration=15";
 
         byte[] image = Convert.FromBase64String("iVBORw0KGgoAAAANSUhEUgAAABEAAAASCAIAAAAym6IDAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACVSURBVDhPY/hPOhjVQ2U9v/YffG/pAEQ/Vq2FCsEATj1A1W9lVIDonbI2VAgGcOr5UlQO0QNEUCEYwG2PoSXJeuAagOhb70SoKBgQpQeIfl+5BpXAowfodWQ9n5MzoRJ49HxtaEHWA0TfpsyASOHU8+/Hj08xSch64IGOUw8QALWhuRAijk8PEADdA9fwtbIWJPT/PwDmpjgaAgZw6QAAAABJRU5ErkJggg==");
 
@@ -62,7 +46,7 @@ internal sealed class DefaultImgBBClient : IImgBBClient
             { new ByteArrayContent(image), "image", "test-image" }
         };
 
-        var result = await _httpClient.PostAsync(endpoint.ToString(), content, cancellation);
+        var result = await httpClient.PostAsync(endpoint, content, cancellation);
 
         if (result.IsSuccessStatusCode)
         {

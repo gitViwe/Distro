@@ -1,4 +1,7 @@
-﻿namespace gitViwe.Shared.Imgbb;
+﻿using gitViwe.Shared.Imgbb.Implementation;
+using Microsoft.Extensions.Configuration;
+
+namespace gitViwe.Shared.Imgbb;
 
 /// <summary>
 /// Implementation of the services registered in the DI container.
@@ -6,31 +9,30 @@
 public static class Startup
 {
     /// <summary>
-    /// Registers the <see cref="IImgBBClient"/> using values from <seealso cref="ImgBbClientOption"/>.
+    /// Registers the <see cref="IImgBbClient"/> using values from <seealso cref="ImgBbClientOption"/>.
     /// </summary>
     /// <param name="services">Specifies the contract for a collection of service descriptors.</param>
-    /// <param name="options">The configuration options for the ImgBBClient</param>
+    /// <param name="configuration">Represents a set of key/ value application configuration properties.</param>
     /// <returns>The <see cref="IServiceCollection"/> so that additional calls can be chained.</returns>
-    public static IServiceCollection AddGitViweImgBBClient(this IServiceCollection services)
+    public static IServiceCollection AddGitViweImgBBClient(this IServiceCollection services, IConfiguration configuration)
     {
         services
-            .AddSingleton<IValidateOptions<ImgBbClientOption>, ImgBbClientOptionValidator>()
-            .AddOptions<ImgBbClientOption>()
+            .AddOptionsWithValidateOnStart<ImgBbClientOption>(null)
             .BindConfiguration(ImgBbClientOption.SectionName)
-            .ValidateOnStart();
+            .ValidateDataAnnotations();
 
-        services.AddHttpClient<IImgBBClient, DefaultImgBBClient>(client => client.BaseAddress = new Uri("https://api.imgbb.com"));
+        services.AddHttpClient<IImgBbClient, DefaultImgBbClient>(client => client.BaseAddress = new Uri("https://api.imgbb.com"));
 
         return services;
     }
 
     /// <summary>
-    /// Registers the <see cref="IImgBBClient"/> with the mock <seealso cref="LocalMockClient"/>.
+    /// Registers the <see cref="IImgBbClient"/> with the mock <seealso cref="LocalMockClient"/>.
     /// </summary>
     /// <param name="services">Specifies the contract for a collection of service descriptors.</param>
     /// <returns>The <see cref="IServiceCollection"/> so that additional calls can be chained.</returns>
     public static IServiceCollection AddGitViweImgBBClientMock(this IServiceCollection services)
     {
-        return services.AddSingleton<IImgBBClient, LocalMockClient>();
+        return services.AddSingleton<IImgBbClient, LocalMockClient>();
     }
 }
