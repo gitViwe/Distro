@@ -29,7 +29,7 @@ jobs:
         run: dotnet build Distro --configuration Release
     
       - name: Test
-        run: dotnet test --verbosity normal
+        run: dotnet test **/*/Shared.Test.csproj --verbosity normal
         env:
           TEST_IMGBBCLIENT_APIKEY: ${{secrets.TEST_IMGBBCLIENT_APIKEY}}
 
