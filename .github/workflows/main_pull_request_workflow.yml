@@ -32,9 +32,3 @@ jobs:
         run: dotnet test --verbosity normal
         env:
           TEST_IMGBBCLIENT_APIKEY: ${{secrets.TEST_IMGBBCLIENT_APIKEY}}
-
-      - name: Publish NuGet
-        run: | # | character makes the "run" property multi-line, so we can put multiple commands in the same step
-          dotnet pack Distro --configuration Release --no-restore
-          dotnet nuget push "./**/*.nupkg" --skip-duplicate  --no-symbols --api-key ${{secrets.NUGET_TOKEN}}
-          rm -rf __out
