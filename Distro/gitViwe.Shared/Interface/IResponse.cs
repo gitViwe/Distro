@@ -18,17 +18,5 @@ public interface IResponse
     /// <summary>
     /// Flags whether the process resulted in a success <see cref="StatusCode"/>
     /// </summary>
-    bool Succeeded => (StatusCode >= 200) && (StatusCode <= 299);
-}
-
-/// <summary>
-/// Extends on <see cref="IResponse"/> to return data
-/// </summary>
-/// <typeparam name="TData">The data type returned from the request</typeparam>
-public interface IResponse<out TData> : IResponse
-{
-    /// <summary>
-    /// The content returned from the request
-    /// </summary>
-    TData? Data { get; }
+    bool Succeeded => StatusCode is >= 200 and <= 299;
 }

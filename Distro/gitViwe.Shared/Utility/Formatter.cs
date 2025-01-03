@@ -1,4 +1,4 @@
-﻿namespace gitViwe.Shared.Utility;
+﻿namespace gitViwe.Shared;
 
 /// <summary>
 /// Provides a converter to formatting values
@@ -23,6 +23,6 @@ public static class Formatter
             counter++;
         }
 
-        return string.Format("{0:#,0} {1}", number, _suffixes[counter]);
+        return $"{number:#,0} {_suffixes[counter]}";
     }
 }

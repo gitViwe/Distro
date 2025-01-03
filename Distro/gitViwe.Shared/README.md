@@ -33,29 +33,16 @@ static class OpenTelemetryTagKey {
 }
 ```
 
-### Exception:
-
-Some custom exceptions
-```csharp
-class BaseException { }
-class ForbiddenException { }
-class NotFoundException { }
-class UnauthorizedException { }
-class ServiceUnavailableException { }
-class ValidationException { }
-```
-
 ### Utility:
 
 Some helper classes
 ```csharp
 static class Conversion {
-    static string ByteArrayToString(byte[] value);
-    static byte[] StringToByteArray(string hex);
-    static string RandomString(int length);
-    static DateTime UnixTimeStampToDateTime(long unixTimeStamp);
     static long DateTimeToUnixTimeStamp(DateTime dateTime);
     static byte[] ParseBase64WithoutPadding(string payload);
+    static string ByteArrayToHexadecimalString(byte[] value);
+    static string ToObfuscatedString<TValue>(TValue request);
+    static DateTime UnixTimeStampToDateTime(long unixTimeStamp);
     static string ToObfuscatedString<TValue>(TValue request, IEnumerable<string> propertyNames);
 }
 
@@ -69,22 +56,47 @@ static class Generator {
 
 static class OpenTelemetryActivity {
     static class MediatR {
-        static void StartActivity(string activityName, string eventName, ActivityStatusCode statusCode = ActivityStatusCode.Unset);
-        static void StartActivity(string activityName, string eventName, IEnumerable<KeyValuePair<string, object?>> tags, ActivityStatusCode statusCode = ActivityStatusCode.Unset);
+        
+        public static void StartActivity(
+            string activityName,
+            string eventName,
+            ActivityStatusCode? statusCode = null,
+            IEnumerable<KeyValuePair<string, object?>>? tags = null);
+        
     }
     static class InternalProcess {
-        static void StartActivity(string activityName, string eventName, ActivityStatusCode statusCode = ActivityStatusCode.Unset);
-        static void StartActivity(string activityName, string eventName, System.Exception exception);
-        static void StartActivity(string activityName, string eventName, IEnumerable<KeyValuePair<string, object?>> tags, ActivityStatusCode statusCode = ActivityStatusCode.Unset);
+        
+        public static void StartActivity(
+            string activityName,
+            string eventName,
+            System.Exception exception);
+        
+        public static void StartActivity(
+            string activityName,
+            string eventName,
+            ActivityStatusCode? statusCode = null,
+            IEnumerable<KeyValuePair<string, object?>>? tags = null);
+        
     }
-}
-
-static class Instrumentation {
-    static IEnumerable<string> DefaultFilterRequestPath;
-    static void EnrichWithHttpRequestHeaders(Activity activity, IEnumerable<KeyValuePair<string, StringValues>> headers);
-    static void EnrichWithHttpRequestHeaders(Activity activity, IEnumerable<KeyValuePair<string, IEnumerable<string>>> headers);
-    static void EnrichWithHttpResponseHeaders(Activity activity, IEnumerable<KeyValuePair<string, StringValues>> headers);
-    static void EnrichWithHttpResponseHeaders(Activity activity, IEnumerable<KeyValuePair<string, IEnumerable<string>>> headers);
+    static class Instrumentation {
+        
+        static void EnrichWithHttpRequestHeaders(
+            Activity activity,
+            IEnumerable<KeyValuePair<string, StringValues>> headers);
+        
+        static void EnrichWithHttpRequestHeaders(
+            Activity activity,
+            IEnumerable<KeyValuePair<string, IEnumerable<string>>> headers);
+        
+        static void EnrichWithHttpResponseHeaders(
+            Activity activity,
+            IEnumerable<KeyValuePair<string, StringValues>> headers);
+        
+        static void EnrichWithHttpResponseHeaders(
+            Activity activity,
+            IEnumerable<KeyValuePair<string, IEnumerable<string>>> headers);
+        
+    }
 }
 ```
 
@@ -93,17 +105,21 @@ static class Instrumentation {
 A unified return type for the API endpoint.
 ```csharp
 Response {
-    static Response Fail(string message);
-    static Response Fail(string message, int statusCode);
-    static Response Success(string message);
-    static Response Success(string message, int statusCode);
+    static IResponse Fail(string message);
+    static IResponse Fail(string message, int statusCode);
+    static IResponse Success(string message);
+    static IResponse Success(string message, int statusCode);
+    static ITypedResponse<TData> Fail<TData>(string message);
+    static ITypedResponse<TData> Fail<TData>(string message, int statusCode);
+    static ITypedResponse<TData> Success<TData>(string message, TData data);
+    static ITypedResponse<TData> Success<TData>(string message, int statusCode, TData data);
 }
 
-Response<TData> {
-    static Response<TData> Fail(string message);
-    static Response<TData> Fail(string message, int statusCode);
-    static Response<TData> Success(string message, TData data);
-    static Response<TData> Success(string message, int statusCode, TData data);
+TypedResponse<TData> {
+    static ITypedResponse<TData> Fail(string message);
+    static ITypedResponse<TData> Fail(string message, int statusCode);
+    static ITypedResponse<TData> Success(string message, TData data);
+    static ITypedResponse<TData> Success(string message, int statusCode, TData data);
 }
 
 PaginatedResponse<TData> {

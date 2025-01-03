@@ -1,4 +1,4 @@
-﻿namespace gitViwe.Shared.Abstraction;
+﻿namespace gitViwe.Shared;
 
 /// <summary>
 /// Defines the property required to validate the request origin host
@@ -8,5 +8,5 @@ public interface IRequiresHost
     /// <summary>
     /// The Origin HTTP header value
     /// </summary>
-    public string Origin { get; init; }
+    string Origin { get; init; }
 }

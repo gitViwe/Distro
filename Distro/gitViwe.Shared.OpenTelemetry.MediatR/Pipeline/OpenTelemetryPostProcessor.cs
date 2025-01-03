@@ -27,7 +27,7 @@ public sealed class OpenTelemetryPostProcessor<TRequest, TResponse> : IRequestPo
             { OpenTelemetryTagKey.MediatR.RESPONSE_MESSAGE, response.Message },
         };
 
-        OpenTelemetryActivity.MediatR.StartActivity("OpenTelemetry MediatR PostProcessor", "Completing MediatR Request.", responseTagDictionary);
+        OpenTelemetryActivity.MediatR.StartActivity("OpenTelemetry MediatR PostProcessor", "Completing MediatR Request.", tags: responseTagDictionary);
 
         return Task.CompletedTask;
     }

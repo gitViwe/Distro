@@ -1,7 +1,7 @@
-﻿namespace gitViwe.Shared.Attribute;
+﻿namespace gitViwe.Shared;
 
 /// <summary>
-/// Marks the property to be obfuscated when used in <seealso cref="Conversion.ToObfuscatedString{TValue}(TValue)"/>
+/// Marks the property to be obfuscated. <seealso cref="Conversion.ToObfuscatedString{TValue}(TValue, IEnumerable{string})"/>
 /// </summary>
-[AttributeUsage(AttributeTargets.Property, Inherited = false, AllowMultiple = false)]
-public sealed class ObfuscateAttribute : System.Attribute { }
+[AttributeUsage(AttributeTargets.Property)]
+public sealed class ObfuscateAttribute : System.Attribute;

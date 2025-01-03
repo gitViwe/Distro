@@ -1,10 +1,9 @@
-﻿using gitViwe.Shared.Constant;
-using Microsoft.Extensions.Hosting;
+﻿using Microsoft.Extensions.Hosting;
 
 namespace gitViwe.Shared.Extension;
 
 /// <summary>
-/// Provides extensions for the the <see cref="IHostEnvironment"/>
+/// Provides extensions for the <see cref="IHostEnvironment"/>
 /// </summary>
 public static class HostEnvironmentExtension
 {

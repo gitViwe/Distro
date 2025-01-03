@@ -1,4 +1,6 @@
-﻿namespace gitViwe.Shared.MongoDB;
+﻿using gitViwe.Shared.MongoDB.Implementation;
+
+namespace gitViwe.Shared.MongoDB;
 
 /// <summary>
 /// Implementation of the services registered in the DI container.
@@ -6,17 +8,18 @@
 public static class Startup
 {
     /// <summary>
-    /// Registers the <see cref="IMongoDBRepository{T}"/> with default implementation of <seealso cref="MongoDBRepository{T}"/>
+    /// Registers the <see cref="IMongoDbRepository{TMongoDocument}"/> with default implementation of <seealso cref="MongoDbRepository{TMongoDocument}"/>
     /// </summary>
     /// <param name="services">Specifies the contract for a collection of service descriptors.</param>
-    /// <param name="options">The mongoDB client settings</param>
     /// <returns>The <see cref="IServiceCollection"/> so that additional calls can be chained.</returns>
-    public static IServiceCollection AddGitViweMongoDBRepository(this IServiceCollection services, Action<MongoDBRepositoryOption> options)
+    public static IServiceCollection AddGitViweMongoDbRepository(this IServiceCollection services)
     {
-        services.Configure(options)
-            .AddScoped(typeof(IMongoDBRepository<>), typeof(MongoDBRepository<>))
-            .AddOptionsWithValidateOnStart<MongoDBRepositoryOption, MongoDBRepositoryOptionValidator>("MongoDBRepositoryOption", options);
+        services
+            .AddOptionsWithValidateOnStart<MongoDbRepositoryOption>(null)
+            .BindConfiguration(MongoDbRepositoryOption.SectionName)
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
 
-        return services;
+        return services.AddScoped(typeof(IMongoDbRepository<>), typeof(MongoDbRepository<>));
     }
 }

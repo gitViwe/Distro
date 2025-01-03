@@ -1,19 +1,20 @@
-﻿using gitViwe.Shared.Imgbb;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Threading;
+﻿using System;
 using System.Threading.Tasks;
+using gitViwe.Shared.Cache;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Shared.Test.TestContainer;
 using Xunit;
 
 namespace Shared.Test;
 
-public class ImgBbClientTests
+public class RedisDistributedCacheTests : BaseIntegrationTest
 {
     private readonly IHost _host;
     
-    public ImgBbClientTests()
+    public RedisDistributedCacheTests(BaseIntegrationFixture baseIntegrationFixture)
+        :base(baseIntegrationFixture)
     {
         _host = Host.CreateDefaultBuilder()
             .ConfigureAppConfiguration((_, config) =>
@@ -24,27 +25,24 @@ public class ImgBbClientTests
             })
             .ConfigureServices((context, services) =>
             {
-                if (Environment.GetEnvironmentVariable("TEST_IMGBBCLIENT_APIKEY") is string apiKey)
-                {
-                    context.Configuration["ImgBBClientOption:APIKey"] = apiKey;
-                }
-                services.AddGitViweImgBbClient(context.Configuration);
+                services.AddGitViweRedisCache(context.Configuration);
             })
             .Build();
     }
     
     [Fact]
-    public async Task PingAsync_ShouldReturnSuccess_WhenServiceIsAvailable()
+    public async Task GetAsync_ReturnsTestValue_WhenSetAsyncKeyUsed()
     {
         // Arrange
         using IServiceScope serviceScope = _host.Services.CreateScope();
-        var imgBbClient = serviceScope.ServiceProvider.GetRequiredService<IImgBbClient>();
-
+        var redisDistributedCache = serviceScope.ServiceProvider.GetRequiredService<IRedisDistributedCache>();
+        var key = "testKey";
+        
         // Act
-        var response = await imgBbClient.PingAsync(CancellationToken.None);
-
+        await redisDistributedCache.SetAsync(key, "testValue");
+        var value = await redisDistributedCache.GetAsync(key);
+        
         // Assert
-        Assert.NotNull(response);
-        Assert.True(response.Succeeded);
+        Assert.Equal("testValue", value);
     }
 }

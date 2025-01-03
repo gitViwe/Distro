@@ -10,7 +10,7 @@ public static class Generator
     /// <summary>
     /// Creates a random string
     /// </summary>
-    /// <param name="combination">The alpha-numeric/none alpha-numeric combination to use</param>
+    /// <param name="combination">The alphanumeric/none alphanumeric combination to use</param>
     /// <param name="length">The number of characters the string will have</param>
     /// <returns>A random string of the specified length</returns>
     /// <exception cref="ArgumentOutOfRangeException" />

@@ -5,26 +5,29 @@
 /// </summary>
 public static class Startup
 {
-
     /// <summary>
     /// Registers the <see cref="IRedisDistributedCache"/> using values from <seealso cref="RedisDistributedCacheOption"/>.
     /// </summary>
     /// <param name="services">Specifies the contract for a collection of service descriptors.</param>
-    /// <param name="options">The configuration options for Redis</param>
+    /// <param name="configuration">Represents a set of key/ value application configuration properties.</param>
     /// <returns>The <see cref="IServiceCollection"/> so that additional calls can be chained.</returns>
-    public static IServiceCollection AddGitViweRedisCache(this IServiceCollection services, Action<RedisDistributedCacheOption> options)
+    public static IServiceCollection AddGitViweRedisCache(this IServiceCollection services, IConfiguration configuration)
     {
-        RedisDistributedCacheOption def = new();
-        options(def);
+        services
+            .AddOptionsWithValidateOnStart<RedisDistributedCacheOption>(null)
+            .BindConfiguration(RedisDistributedCacheOption.SectionName)
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
 
-        services.AddStackExchangeRedisCache(options =>
+        var redisDistributedCacheOption = configuration
+            .GetSection(RedisDistributedCacheOption.SectionName)
+            .Get<RedisDistributedCacheOption>();
+
+        return services.AddStackExchangeRedisCache(options =>
         {
-            options.Configuration = def.Configuration;
-            options.InstanceName = def.InstanceName;
+            options.Configuration = redisDistributedCacheOption!.Configuration;
+            options.InstanceName = redisDistributedCacheOption.InstanceName;
         })
-        .AddScoped<IRedisDistributedCache, DefaultRedisDistributedCache>()
-        .AddOptionsWithValidateOnStart<RedisDistributedCacheOption, RedisDistributedCacheOptionValidator>("RedisDistributedCacheOption", options);
-
-        return services;
+        .AddScoped<IRedisDistributedCache, DefaultRedisDistributedCache>();
     }
 }

@@ -1,6 +1,4 @@
-﻿using gitViwe.Shared.Constant.OpenTelemetry;
-
-namespace gitViwe.Shared.Sqids.MediatR;
+﻿namespace gitViwe.Shared.Sqids.MediatR;
 
 /// <summary>
 /// Creates a pipeline for decoding a Sqids Id for MediatR requests that implement <see cref="ISqidsIdEncoderPreProcessMarker"/>
@@ -16,11 +14,8 @@ namespace gitViwe.Shared.Sqids.MediatR;
 public sealed class SqidsIdEncoderPreProcessor<TRequest>(
     ISqidsIdEncoder<int> encoder,
     ILogger<SqidsIdEncoderPreProcessor<TRequest>> logger) : IRequestPreProcessor<TRequest>
-    where TRequest : notnull, ISqidsIdEncoderPreProcessMarker
+    where TRequest : ISqidsIdEncoderPreProcessMarker
 {
-    private readonly ISqidsIdEncoder<int> _encoder = encoder;
-    private readonly ILogger<SqidsIdEncoderPreProcessor<TRequest>> _logger = logger;
-
     /// <summary>
     /// Decodes the encoded Sqids id into the properties decorated with <see cref="DecodedSqidsIdAttribute"/>
     /// </summary>
@@ -31,10 +26,8 @@ public sealed class SqidsIdEncoderPreProcessor<TRequest>(
         OpenTelemetryActivity.MediatR.StartActivity("Sqids Id Encoder PreProcessor", "Starting Sqids Id Decode.");
 
         var allProperties = typeof(TRequest).GetProperties();
-        if (allProperties is null) { return Task.CompletedTask; }
 
         var targetProperties = allProperties.Where(prop => prop.GetCustomAttribute<DecodedSqidsIdAttribute>() is not null);
-        if (targetProperties is null) { return Task.CompletedTask; }
 
         foreach (var target in targetProperties)
         {
@@ -48,14 +41,13 @@ public sealed class SqidsIdEncoderPreProcessor<TRequest>(
             {
                 var encoded = source.GetValue(request) as string;
                 if (string.IsNullOrWhiteSpace(encoded)) { continue; }
+                
+                string alphaNumeric = Regex.Replace(encoded, "[^a-zA-Z0-9]", string.Empty);
 
-                string pattern = "[^a-zA-Z0-9]";
-                string alphaNumeric = Regex.Replace(encoded, pattern, string.Empty);
-
-                if (_encoder.TryDecode(alphaNumeric, out int decoded))
+                if (encoder.TryDecode(alphaNumeric, out int decoded))
                 {
                     target.SetValue(request, decoded);
-                    _logger.SqidsIdDecoded(alphaNumeric, decoded, target.Name);
+                    logger.SqidsIdDecoded(alphaNumeric, decoded, target.Name);
                 }
             }
         }

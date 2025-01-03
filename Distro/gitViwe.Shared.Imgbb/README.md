@@ -6,13 +6,24 @@ dotnet add package gitViwe.Shared.Imgbb
 ```
 
 ### Image hosting service using Imgbb:
-#### Register the `IImgBBClient` service by specifying the settings values
+#### Register the `IImgBBClient` service
 ```
-builder.Services.AddGitViweImgBBClient(options =>
+builder.Services.AddGitViweImgBBClient(builder.Configuration);
+```
+#### Add configuration options to the `appsettings.json` file
+```
 {
-    options.APIKey = "my-secret-key";
-    options.ExpirationInSeconds = 180;
-});
+  "ImgBBClientOption": {
+    "APIKey": "my-secret-key",
+    "BaseAddress" : "https://api.imgbb.com",
+    "ExpirationInSeconds": 180
+  }
+}
+```
+
+#### Or register the `IImgBBClient` mock service
+```
+builder.Services.AddGitViweImgBBClientMock();
 ```
 
 ### Usage:

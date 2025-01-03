@@ -1,11 +1,11 @@
-﻿namespace gitViwe.Shared.Exception;
+﻿namespace gitViwe.Shared;
 
 /// <summary>
 /// Throws an exception based on the condition being evaluated.
 /// </summary>
 internal static class GuardException
 {
-    private static bool IsSuccessStatusCode(int statusCode) => (statusCode >= 200) && (statusCode <= 299);
+    private static bool IsSuccessStatusCode(int statusCode) => statusCode is >= 200 and <= 299;
     /// <summary>
     /// Specifies conditions that must be false.
     /// </summary>

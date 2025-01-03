@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using gitViwe.Shared.FluentValidation.Extension;
+using gitViwe.Shared.FluentValidation;
 
 namespace Shared.Test.Model;
 

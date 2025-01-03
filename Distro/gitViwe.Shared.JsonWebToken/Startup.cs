@@ -1,4 +1,7 @@
-﻿namespace gitViwe.Shared.JsonWebToken;
+﻿using gitViwe.Shared.JsonWebToken.Implementation;
+using gitViwe.Shared.JsonWebToken.Option;
+
+namespace gitViwe.Shared.JsonWebToken;
 
 /// <summary>
 /// Implementation of the services registered in the DI container.
@@ -9,13 +12,15 @@ public static class Startup
     /// Registers the <see cref="IJsonWebToken"/> with default implementation of <seealso cref="DefaultJsonWebToken"/>
     /// </summary>
     /// <param name="services">Specifies the contract for a collection of service descriptors.</param>
-    /// <param name="options">The option values to use in <see cref="IJsonWebToken"/>.</param>
     /// <returns>The <see cref="IServiceCollection"/> so that additional calls can be chained.</returns>
-    public static IServiceCollection AddGitViweJsonWebToken(this IServiceCollection services, Action<JsonWebTokenOption> options)
+    public static IServiceCollection AddGitViweJsonWebToken(this IServiceCollection services)
     {
-        services.AddScoped<IJsonWebToken, DefaultJsonWebToken>()
-            .AddOptionsWithValidateOnStart<JsonWebTokenOption, JsonWebTokenOptionValidator>("JsonWebTokenOption", options);
+        services
+            .AddOptionsWithValidateOnStart<JsonWebTokenOption>(null)
+            .BindConfiguration(JsonWebTokenOption.SectionName)
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
 
-        return services;
+        return services.AddScoped<IJsonWebToken, DefaultJsonWebToken>();
     }
 }
