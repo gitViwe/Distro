@@ -1,9 +1,13 @@
-﻿using gitViwe.Shared.Cache.Test.TestContainer;
+﻿using System;
+using System.Threading.Tasks;
+using gitViwe.Shared.Cache;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Shared.Test.TestContainer;
+using Xunit;
 
-namespace gitViwe.Shared.Cache.Test;
+namespace Shared.Test;
 
 public class RedisDistributedCacheTests : BaseIntegrationTest
 {

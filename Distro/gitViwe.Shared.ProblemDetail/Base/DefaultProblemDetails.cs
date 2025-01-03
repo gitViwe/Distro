@@ -95,12 +95,9 @@ public class DefaultProblemDetails : IDefaultProblemDetails
 
     private void AddExtensions(IDictionary<string, object?> extensions)
     {
-        if (extensions is not null && extensions.Any())
+        foreach (var item in extensions)
         {
-            foreach (var item in extensions)
-            {
-                Extensions.Add(item);
-            }
+            Extensions.Add(item);
         }
     }
 }

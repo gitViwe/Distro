@@ -12,7 +12,7 @@ public class ConversionTests
         string Password,
         int Age);
 
-    internal record TestObjectObfuscateAttribute(
+    private record TestObjectObfuscateAttribute(
         string Name,
         [property: Obfuscate] string Email,
         [property: Obfuscate] string Password,

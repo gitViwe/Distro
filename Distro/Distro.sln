@@ -42,8 +42,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gitViwe.Shared.OpenTelemetr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gitViwe.Shared.ProblemDetail.AspNetCore", "gitViwe.Shared.ProblemDetail.AspNetCore\gitViwe.Shared.ProblemDetail.AspNetCore.csproj", "{D78EA687-C5CC-4EF2-86CE-45CC92A11E8B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gitViwe.Shared.Cache.Test", "gitViwe.Shared.Cache.Test\gitViwe.Shared.Cache.Test.csproj", "{C6044E55-3E72-4531-9B87-D0BA36DE7CBE}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -118,10 +116,6 @@ Global
 		{D78EA687-C5CC-4EF2-86CE-45CC92A11E8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D78EA687-C5CC-4EF2-86CE-45CC92A11E8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D78EA687-C5CC-4EF2-86CE-45CC92A11E8B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C6044E55-3E72-4531-9B87-D0BA36DE7CBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C6044E55-3E72-4531-9B87-D0BA36DE7CBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C6044E55-3E72-4531-9B87-D0BA36DE7CBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C6044E55-3E72-4531-9B87-D0BA36DE7CBE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

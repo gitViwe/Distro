@@ -16,6 +16,12 @@ public static class Startup
         this IServiceCollection services,
         Action<OpenTelemetryBehaviourOption> options)
     {
+        services
+            .AddOptionsWithValidateOnStart<OpenTelemetryBehaviourOption>(null)
+            .BindConfiguration(OpenTelemetryBehaviourOption.SectionName)
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
+        
         return services.Configure(options);
     }
 }

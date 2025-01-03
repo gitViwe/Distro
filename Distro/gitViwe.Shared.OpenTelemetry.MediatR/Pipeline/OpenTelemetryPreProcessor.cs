@@ -24,16 +24,11 @@ public sealed class OpenTelemetryPreProcessor<TRequest>(IOptions<OpenTelemetryBe
         Dictionary<string, object?> requestTagDictionary = new()
         {
             { OpenTelemetryTagKey.MediatR.REQUEST_TYPE, request.GetType().Name },
-            { OpenTelemetryTagKey.MediatR.REQUEST_VALUE, ToObfuscatedString() },
+            { OpenTelemetryTagKey.MediatR.REQUEST_VALUE, Conversion.ToObfuscatedString(request, _options.ObfuscatedPropertyNames) },
         };
 
         OpenTelemetryActivity.MediatR.StartActivity("OpenTelemetry MediatR PreProcessor", "Starting MediatR Request.", tags: requestTagDictionary);
 
         return Task.CompletedTask;
-
-        string ToObfuscatedString()
-        {
-            return Conversion.ToObfuscatedString(request, _options.ObfuscatedPropertyNames);
-        }
     }
 }

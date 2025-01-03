@@ -17,6 +17,12 @@ public sealed class ImgBbClientOption
     /// </summary>
     [Required]
     public string ApiKey { get; init; } = string.Empty;
+    
+    /// <summary>
+    /// The base Uri.
+    /// </summary>
+    [Required]
+    public string BaseAddress { get; init; } = string.Empty;
 
     /// <summary>
     /// Enable this if you want to force uploads to be auto deleted after certain time (in seconds 60-15552000)

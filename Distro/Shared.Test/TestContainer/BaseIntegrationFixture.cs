@@ -1,11 +1,13 @@
-using DotNet.Testcontainers.Containers;
+using System.Threading.Tasks;
 using Testcontainers.Redis;
+using Xunit;
+using IContainer = DotNet.Testcontainers.Containers.IContainer;
 
-namespace gitViwe.Shared.Cache.Test.TestContainer;
+namespace Shared.Test.TestContainer;
 
-public class BaseIntegrationFixture : IAsyncLifetime
+public sealed class BaseIntegrationFixture : IAsyncLifetime
 {
-    protected static readonly IContainer RedisContainer = new RedisBuilder()
+    private static readonly IContainer _redisContainer = new RedisBuilder()
         .WithImage("redis:7.0")
         .WithName("redis-cache")
         .WithPortBinding(6379, 6379)
@@ -13,17 +15,17 @@ public class BaseIntegrationFixture : IAsyncLifetime
     
     public async Task InitializeAsync()
     {
-        await RedisContainer.StartAsync();
+        await _redisContainer.StartAsync();
     }
 
     public async Task DisposeAsync()
     {
-        await RedisContainer.StopAsync();
+        await _redisContainer.StopAsync();
     }
 }
 
 [CollectionDefinition(nameof(BaseIntegrationFixtureCollection))]
-public class BaseIntegrationFixtureCollection : ICollectionFixture<BaseIntegrationFixture> { }
+public sealed class BaseIntegrationFixtureCollection : ICollectionFixture<BaseIntegrationFixture> { }
 
 [Collection(nameof(BaseIntegrationFixtureCollection))]
 public class BaseIntegrationTest(BaseIntegrationFixture integrationFixture)

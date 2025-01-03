@@ -4,7 +4,7 @@
 /// A mongoDb database repository to interface with the document database
 /// </summary>
 /// <typeparam name="TMongoDocument">The document database entity type</typeparam>
-public interface IMongoDBRepository<TMongoDocument> where TMongoDocument : MongoDocument
+public interface IMongoDbRepository<TMongoDocument> where TMongoDocument : MongoDocument
 {
     /// <summary>
     /// Creates a queryable source of documents.

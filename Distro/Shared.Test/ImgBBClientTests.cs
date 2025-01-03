@@ -3,31 +3,48 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 using Xunit;
 
 namespace Shared.Test;
 
-public class ImgBBClientTests
+public class ImgBbClientTests
 {
-    private readonly IServiceProvider _serviceProvider;
-
-    public ImgBBClientTests()
+    private readonly IHost _host;
+    
+    public ImgBbClientTests()
     {
-        _serviceProvider = new ServiceCollection()
-            .AddGitViweImgBBClientMock()
-            .BuildServiceProvider();
+        _host = Host.CreateDefaultBuilder()
+            .ConfigureAppConfiguration((_, config) =>
+            {
+                config.SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                    .AddJsonFile($"appsettings.json", optional: false, reloadOnChange: true)
+                    .AddEnvironmentVariables();
+            })
+            .ConfigureServices((context, services) =>
+            {
+                if (Environment.GetEnvironmentVariable("TEST_IMGBBCLIENT_APIKEY") is string apiKey)
+                {
+                    context.Configuration["ImgBBClientOption:APIKey"] = apiKey;
+                }
+                services.AddGitViweImgBbClient(context.Configuration);
+            })
+            .Build();
     }
-
+    
     [Fact]
-    public async Task PingAsync_ReturnsTrue()
+    public async Task PingAsync_ShouldReturnSuccess_WhenServiceIsAvailable()
     {
         // Arrange
-        var client = _serviceProvider.GetRequiredService<IImgBbClient>();
+        using IServiceScope serviceScope = _host.Services.CreateScope();
+        var imgBbClient = serviceScope.ServiceProvider.GetRequiredService<IImgBbClient>();
 
         // Act
-        var result = await client.PingAsync(CancellationToken.None);
+        var response = await imgBbClient.PingAsync(CancellationToken.None);
 
         // Assert
-        Assert.True(result.Succeeded);
+        Assert.NotNull(response);
+        Assert.True(response.Succeeded);
     }
 }

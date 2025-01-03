@@ -3,8 +3,8 @@
 /// <summary>
 /// Marks a property that will hold the result of the decoded Sqids Id.
 /// </summary>
-[AttributeUsage(AttributeTargets.Property, Inherited = false, AllowMultiple = false)]
-public sealed class DecodedSqidsIdAttribute : System.Attribute
+[AttributeUsage(AttributeTargets.Property)]
+public sealed class DecodedSqidsIdAttribute : Attribute
 {
     /// <summary>
     /// The property name that holds the encoded Sqids Id.

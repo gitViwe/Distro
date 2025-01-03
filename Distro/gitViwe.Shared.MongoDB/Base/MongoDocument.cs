@@ -1,19 +1,14 @@
-﻿namespace gitViwe.Shared.MongoDB.Base;
+﻿namespace gitViwe.Shared.MongoDB;
 
 /// <summary>
 /// Represents the base implementation of MongoDb documents
 /// </summary>
-public class MongoDocument
+public abstract class MongoDocument
 {
     /// <summary>
     /// MongoDB document ID
     /// </summary>
     [BsonId]
     [BsonRepresentation(BsonType.String)]
-    public ObjectId Id { get; set; } = ObjectId.GenerateNewId();
-
-    /// <summary>
-    /// Value is set during the creation of this element
-    /// </summary>
-    public DateTime CreatedAt => Id.CreationTime;
+    public ObjectId Id { get; init; } = ObjectId.GenerateNewId();
 }

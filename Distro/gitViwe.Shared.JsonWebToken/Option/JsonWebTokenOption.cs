@@ -1,7 +1,4 @@
-﻿using System.Text;
-using gitViwe.Shared.JsonWebToken;
-
-namespace gitViwe.Shared.JsonWebToken;
+﻿namespace gitViwe.Shared.JsonWebToken.Option;
 
 /// <summary>
 /// Configuration options for creating a security token.
@@ -21,40 +18,50 @@ public sealed class JsonWebTokenOption
     /// <summary>
     /// The value of the 'expiration' claim.
     /// </summary>
+    [Required]
+    [DefaultValue(30)]
+    [Range(30, int.MaxValue, ErrorMessage = "Please enter a value bigger than {29}")]
     public int ExpiryInSeconds { get; init; }
 
     /// <summary>
     /// The issuer of the <seealso cref="SecurityTokenDescriptor"/>.
     /// </summary>
-    public required string Issuer { get; init; }
+    [Required]
+    public string Issuer { get; init; } = string.Empty;
     
     /// <summary>
     /// The 32 character security key string.
     /// </summary>
-    public required string Secret { get; init; }
+    [Required]
+    [MinLength(32)]
+    public string Secret { get; init; } = string.Empty;
 
     /// <summary>
     /// The collection that contains valid issuers that will be used to check against the token's issuer. 
     /// </summary>
+    [MinimumItems(1)]
     public IEnumerable<string> ValidIssuers { get; init; } = [];
     
     /// <summary>
     /// The collection that contains valid audiences that will be used to check against the token's audience. 
     /// </summary>
+    [MinimumItems(1)]
     public IEnumerable<string> ValidAudiences { get; init; } = [];
     
     /// <summary>
     /// A boolean to control if the audience will be validated during token validation. 
     /// </summary>
+    [DefaultValue(true)]
     public bool ValidateAudience { get; init; }
     
     /// <summary>
     /// A boolean to control if the issuer will be validated during token validation. 
     /// </summary>
+    [DefaultValue(true)]
     public bool ValidateIssuer { get; init; }
 
     /// <summary>
-    /// Gets or sets the SigningCredentials used to create a security token.
+    /// Gets the SigningCredentials used to create a security token.
     /// </summary>
     public SigningCredentials SigningCredentials =>
         new(new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Secret)), _securityAlgorithm);
@@ -81,37 +88,4 @@ public sealed class JsonWebTokenOption
             ValidAlgorithms = [ _securityAlgorithm ],
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Secret)),
         };
-}
-
-internal class JsonWebTokenOptionValidator : IValidateOptions<JsonWebTokenOption>
-{
-    public ValidateOptionsResult Validate(string? name, JsonWebTokenOption options)
-    {
-        if (options.ExpiryInSeconds <= 0)
-        {
-            return ValidateOptionsResult.Fail($"{name}.{nameof(options.ExpiryInSeconds)} must be greater than 0.");
-        }
-
-        if (string.IsNullOrWhiteSpace(options.Issuer))
-        {
-            return ValidateOptionsResult.Fail($"A value for {name}.{nameof(options.Issuer)} must be provided.");
-        }
-
-        if (options.SigningCredentials is null)
-        {
-            return ValidateOptionsResult.Fail($"{name}.{nameof(options.SigningCredentials)} must be provided.");
-        }
-
-        if (options.ValidationParameters is null)
-        {
-            return ValidateOptionsResult.Fail($"{name}.{nameof(options.ValidationParameters)} must be provided.");
-        }
-
-        if (options.RefreshValidationParameters is null)
-        {
-            return ValidateOptionsResult.Fail($"{name}.{nameof(options.RefreshValidationParameters)} must be provided.");
-        }
-
-        return ValidateOptionsResult.Success;
-    }
 }

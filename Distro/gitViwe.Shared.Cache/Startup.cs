@@ -16,7 +16,8 @@ public static class Startup
         services
             .AddOptionsWithValidateOnStart<RedisDistributedCacheOption>(null)
             .BindConfiguration(RedisDistributedCacheOption.SectionName)
-            .ValidateDataAnnotations();
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
 
         var redisDistributedCacheOption = configuration
             .GetSection(RedisDistributedCacheOption.SectionName)

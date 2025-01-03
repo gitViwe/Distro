@@ -1,21 +1,18 @@
-﻿namespace gitViwe.Shared.MongoDB;
+﻿namespace gitViwe.Shared.MongoDB.Implementation;
 
-internal sealed class MongoDBRepository<TMongoDocument> : IMongoDBRepository<TMongoDocument> where TMongoDocument : MongoDocument
+internal sealed class MongoDbRepository<TMongoDocument>(IOptions<MongoDbRepositoryOption> options) : IMongoDbRepository<TMongoDocument>
+    where TMongoDocument : MongoDocument
 {
-    private readonly IMongoCollection<TMongoDocument> _collection;
+    private readonly IMongoCollection<TMongoDocument> _collection = GetCollectionName(options.Value);
 
-    public MongoDBRepository(IOptionsMonitor<MongoDBRepositoryOption> options)
+    private static IMongoCollection<TMongoDocument> GetCollectionName(MongoDbRepositoryOption options)
     {
-        var database = new MongoClient(options.CurrentValue.MongoClientSettings).GetDatabase(options.CurrentValue.DatabaseName);
-        _collection = database.GetCollection<TMongoDocument>(GetCollectionName(typeof(TMongoDocument)));
-    }
+        var database = new MongoClient(options.MongoClientSettings).GetDatabase(options.DatabaseName);
+        
+        var data = typeof(TMongoDocument).GetCustomAttribute<BsonCollectionAttribute>()
+                   ?? throw new ArgumentException($"'{nameof(TMongoDocument)}' does not have the class attribute/decorator '{nameof(BsonCollectionAttribute)}'");
 
-    private string GetCollectionName(Type documentType)
-    {
-        var data = documentType.GetCustomAttributes(typeof(BsonCollectionAttribute), true).FirstOrDefault()
-            ?? throw new ArgumentException($"'{nameof(documentType)}' does not have the class attribute/decorator '{nameof(BsonCollectionAttribute)}'");
-
-        return ((BsonCollectionAttribute)data).CollectionName;
+        return database.GetCollection<TMongoDocument>(data.CollectionName);
     }
 
     public Task<TMongoDocument> FindByIdAsync(string id, CancellationToken cancellationToken)

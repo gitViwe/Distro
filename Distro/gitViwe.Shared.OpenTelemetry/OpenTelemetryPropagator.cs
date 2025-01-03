@@ -31,6 +31,7 @@ public static class OpenTelemetryPropagator
             ActivityContext contextToInject = activity?.Context ?? Activity.Current?.Context ?? default;
 
             _propagator.Inject(new PropagationContext(contextToInject, Baggage.Current), headers, InjectTraceContext);
+            return;
 
             static void InjectTraceContext(IDictionary<string, string> headers, string key, string value)
             {
@@ -50,26 +51,29 @@ public static class OpenTelemetryPropagator
         /// <returns>The created activity object, if it had active listeners, or null if it has no event listeners.</returns>
         public static Activity? ExtractTraceContextFromHeaders(string activityName, string eventName, IEnumerable<KeyValuePair<string, string>> headers)
         {
-            static IEnumerable<string> ExtractTraceContext(IEnumerable<KeyValuePair<string, string>> headers, string key)
-            {
-                try
-                {
-                    return headers.Select(x => x.Value.ToString()!);
-                }
-                catch (System.Exception) { }
-
-                return [];
-            }
-
-            var parentContext = _propagator.Extract(default, headers, ExtractTraceContext);
+            var parentContext = _propagator.Extract(default, headers, GetTraceContext);
 
             // Need to filter the contents of baggage we want to inject
             // Baggage.Current = parentContext.Baggage;
 
-            var activity = _activitySource.StartActivity(activityName);
+            var activity = _activitySource.StartActivity(activityName, ActivityKind.Internal, parentContext.ActivityContext);
             activity?.AddEvent(new ActivityEvent(eventName));
 
             return activity;
+
+            static IEnumerable<string> GetTraceContext(IEnumerable<KeyValuePair<string, string>> headers, string key)
+            {
+                try
+                {
+                    return headers.Select(x => x.Value);
+                }
+                catch (System.Exception)
+                {
+                    // ignored
+                }
+
+                return [];
+            }
         }
 
         /// <summary>

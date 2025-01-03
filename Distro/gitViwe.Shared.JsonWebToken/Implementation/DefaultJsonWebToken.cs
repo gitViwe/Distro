@@ -1,8 +1,12 @@
-﻿namespace gitViwe.Shared.JsonWebToken;
+﻿using gitViwe.Shared.JsonWebToken.Option;
 
-internal sealed class DefaultJsonWebToken(IOptionsMonitor<JsonWebTokenOption> options, ILogger<DefaultJsonWebToken> logger) : IJsonWebToken
+namespace gitViwe.Shared.JsonWebToken.Implementation;
+
+internal sealed class DefaultJsonWebToken(
+    IOptions<JsonWebTokenOption> options,
+    ILogger<DefaultJsonWebToken> logger) : IJsonWebToken
 {
-    private readonly JsonWebTokenOption _options = options.CurrentValue;
+    private readonly JsonWebTokenOption _options = options.Value;
 
     public string CreateJsonWebToken(IEnumerable<Claim> claims, string audience)
     {
@@ -30,16 +34,6 @@ internal sealed class DefaultJsonWebToken(IOptionsMonitor<JsonWebTokenOption> op
         {
             logger.FailedToValidateJsonWebToken(result.Exception, result.TokenOnFailedValidation);
             return null;
-        }
-
-        if (result.SecurityToken is Microsoft.IdentityModel.JsonWebTokens.JsonWebToken securityToken)
-        {
-            // verify that the token is encrypted with the security algorithm
-            if (false == securityToken.Alg.Equals(_options.SigningCredentials.Algorithm, StringComparison.InvariantCultureIgnoreCase))
-            {
-                logger.InvalidJsonWebTokenAlgorithm(result.SecurityToken, securityToken);
-                return null;
-            }
         }
 
         return new ClaimsPrincipal(result.ClaimsIdentity);

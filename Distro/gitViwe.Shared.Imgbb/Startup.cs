@@ -14,14 +14,19 @@ public static class Startup
     /// <param name="services">Specifies the contract for a collection of service descriptors.</param>
     /// <param name="configuration">Represents a set of key/ value application configuration properties.</param>
     /// <returns>The <see cref="IServiceCollection"/> so that additional calls can be chained.</returns>
-    public static IServiceCollection AddGitViweImgBBClient(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddGitViweImgBbClient(this IServiceCollection services, IConfiguration configuration)
     {
         services
             .AddOptionsWithValidateOnStart<ImgBbClientOption>(null)
             .BindConfiguration(ImgBbClientOption.SectionName)
-            .ValidateDataAnnotations();
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
+        
+        var imgBbClientOption = configuration
+            .GetSection(ImgBbClientOption.SectionName)
+            .Get<ImgBbClientOption>();
 
-        services.AddHttpClient<IImgBbClient, DefaultImgBbClient>(client => client.BaseAddress = new Uri("https://api.imgbb.com"));
+        services.AddHttpClient<IImgBbClient, DefaultImgBbClient>(client => client.BaseAddress = new Uri(imgBbClientOption!.BaseAddress));
 
         return services;
     }
@@ -31,7 +36,7 @@ public static class Startup
     /// </summary>
     /// <param name="services">Specifies the contract for a collection of service descriptors.</param>
     /// <returns>The <see cref="IServiceCollection"/> so that additional calls can be chained.</returns>
-    public static IServiceCollection AddGitViweImgBBClientMock(this IServiceCollection services)
+    public static IServiceCollection AddGitViweImgBbClientMock(this IServiceCollection services)
     {
         return services.AddSingleton<IImgBbClient, LocalMockClient>();
     }

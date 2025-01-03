@@ -1,4 +1,6 @@
-﻿namespace gitViwe.Shared.Sqids;
+﻿using gitViwe.Shared.Sqids.Implementation;
+
+namespace gitViwe.Shared.Sqids;
 
 /// <summary>
 /// Implementation of the services registered in the DI container.
@@ -12,24 +14,13 @@ public static class Startup
     /// <returns>An <see cref="IServiceCollection"/> to chain additional calls.</returns>
     public static IServiceCollection AddGitViweSqidsIdEncoder(this IServiceCollection services)
     {
-        services.AddSingleton(typeof(ISqidsIdEncoder<>), typeof(DefaultSqidsIdEncoder<>))
-            .AddOptionsWithValidateOnStart<SqidsIdEncoderOption, SqidsIdEncoderOptionValidator>("SqidsIdEncoderOption", o => { });
-
-        return services;
-    }
-
-    /// <summary>
-    /// Registers the default implementation for <see cref="ISqidsIdEncoder{T}"/> as <seealso cref="DefaultSqidsIdEncoder{T}"/>
-    /// </summary>
-    /// <param name="services">Specifies the contract for a collection of service descriptors.</param>
-    /// <param name="options">The option values to use in <see cref="ISqidsIdEncoder{T}"/>.</param>
-    /// <returns>An <see cref="IServiceCollection"/> to chain additional calls.</returns>
-    public static IServiceCollection AddGitViweSqidsIdEncoder(this IServiceCollection services, Action<SqidsIdEncoderOption> options)
-    {
-        services.AddSingleton(typeof(ISqidsIdEncoder<>), typeof(DefaultSqidsIdEncoder<>))
-            .AddOptionsWithValidateOnStart<SqidsIdEncoderOption, SqidsIdEncoderOptionValidator>("SqidsIdEncoderOption", options);
-
-        return services;
+        services
+            .AddOptionsWithValidateOnStart<SqidsIdEncoderOption>(null)
+            .BindConfiguration(SqidsIdEncoderOption.SectionName)
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
+        
+        return services.AddSingleton(typeof(ISqidsIdEncoder<>), typeof(DefaultSqidsIdEncoder<>));
     }
 
     /// <summary>

@@ -1,22 +1,15 @@
-﻿namespace gitViwe.Shared.Sqids;
+﻿using System.Diagnostics.CodeAnalysis;
 
-internal sealed class DefaultSqidsIdEncoder<T> : ISqidsIdEncoder<T> where T : unmanaged, IBinaryInteger<T>, IMinMaxValue<T>
+namespace gitViwe.Shared.Sqids.Implementation;
+
+internal sealed class DefaultSqidsIdEncoder<T>(IOptions<SqidsIdEncoderOption> options) : ISqidsIdEncoder<T>
+    where T : unmanaged, IBinaryInteger<T>, IMinMaxValue<T>
 {
-    private readonly SqidsEncoder<T> _sqids;
-
-    public DefaultSqidsIdEncoder(IOptions<SqidsIdEncoderOption> options)
+    private readonly SqidsEncoder<T> _sqids = new(new SqidsOptions
     {
-        _sqids = new(new SqidsOptions
-        {
-            MinLength = options.Value.MinLength,
-            Alphabet = options.Value.Alphabet,
-        });
-    }
-
-    public IReadOnlyList<T> Decode(ReadOnlySpan<char> id)
-    {
-        return _sqids.Decode(id);
-    }
+        MinLength = options.Value.MinLength,
+        Alphabet = options.Value.Alphabet,
+    });
 
     public string Encode(T number)
     {
@@ -50,7 +43,7 @@ internal sealed class DefaultSqidsIdEncoder<T> : ISqidsIdEncoder<T> where T : un
             decoded = output;
 
             // Ensuring an ID is "canonical"
-            return id.SequenceEqual(_sqids.Encode(decoded));
+            return id.SequenceEqual(_sqids.Encode(output));
         }
 
         return false;

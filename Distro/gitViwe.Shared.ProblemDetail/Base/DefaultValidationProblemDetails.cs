@@ -29,7 +29,7 @@ public sealed class DefaultValidationProblemDetails : DefaultProblemDetails, IVa
     /// Gets the validation errors associated with this instance of HttpValidationProblemDetails
     /// </summary>
     [JsonPropertyName("errors")]
-    public IDictionary<string, string[]> Errors { get; set; } = new Dictionary<string, string[]>();
+    public IDictionary<string, string[]> Errors { get; init; } = new Dictionary<string, string[]>();
 
     private void AddErrors(IDictionary<string, string[]> errors)
     {
