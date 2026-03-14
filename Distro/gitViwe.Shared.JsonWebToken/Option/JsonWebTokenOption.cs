@@ -8,7 +8,7 @@ public sealed class JsonWebTokenOption
     /// <summary>
     /// The configuration values from the "JsonWebTokenOption" section inside the appsettings.json file.
     /// </summary>
-    public const string SectionName = "JsonWebTokenOption";
+    public const string SECTION_NAME = "JsonWebTokenOption";
 
     /// <summary>
     /// The Security Algorithm to use.
@@ -22,6 +22,14 @@ public sealed class JsonWebTokenOption
     [DefaultValue(30)]
     [Range(30, int.MaxValue, ErrorMessage = "Please enter a value bigger than {29}")]
     public int ExpiryInSeconds { get; init; }
+    
+    /// <summary>
+    /// The value of the refresh token.
+    /// </summary>
+    [Required]
+    [DefaultValue(60)]
+    [Range(60, int.MaxValue, ErrorMessage = "Please enter a value bigger than {59}")]
+    public int RefreshTokenExpiryInSeconds { get; init; }
 
     /// <summary>
     /// The issuer of the <seealso cref="SecurityTokenDescriptor"/>.

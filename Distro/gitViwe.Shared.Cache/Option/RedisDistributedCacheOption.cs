@@ -11,7 +11,7 @@ public sealed class RedisDistributedCacheOption : RedisCacheOptions
     /// <summary>
     /// The configuration values from the "RedisDistributedCacheOption" section inside the appsettings.json file.
     /// </summary>
-    public const string SectionName = "RedisDistributedCacheOption";
+    public const string SECTION_NAME = "RedisDistributedCacheOption";
     
     /// <summary>
     /// Sets an absolute expiration time, relative to now. Default value is 15.
