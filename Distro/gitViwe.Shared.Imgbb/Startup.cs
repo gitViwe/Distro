@@ -18,12 +18,12 @@ public static class Startup
     {
         services
             .AddOptionsWithValidateOnStart<ImgBbClientOption>(null)
-            .BindConfiguration(ImgBbClientOption.SectionName)
+            .BindConfiguration(ImgBbClientOption.SECTION_NAME)
             .ValidateDataAnnotations()
             .ValidateOnStart();
         
         var imgBbClientOption = configuration
-            .GetSection(ImgBbClientOption.SectionName)
+            .GetSection(ImgBbClientOption.SECTION_NAME)
             .Get<ImgBbClientOption>();
 
         services.AddHttpClient<IImgBbClient, DefaultImgBbClient>(client => client.BaseAddress = new Uri(imgBbClientOption!.BaseAddress));

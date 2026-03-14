@@ -10,7 +10,7 @@ public sealed class ImgBbClientOption
     /// <summary>
     /// The configuration values from the "ImgBBClientOption" section inside the appsettings.json file.
     /// </summary>
-    public const string SectionName = "ImgBBClientOption";
+    public const string SECTION_NAME = "ImgBBClientOption";
     
     /// <summary>
     /// The API key.

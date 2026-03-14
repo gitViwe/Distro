@@ -24,11 +24,7 @@ public class ImgBbClientTests
             })
             .ConfigureServices((context, services) =>
             {
-                if (Environment.GetEnvironmentVariable("TEST_IMGBBCLIENT_APIKEY") is string apiKey)
-                {
-                    context.Configuration["ImgBBClientOption:APIKey"] = apiKey;
-                }
-                services.AddGitViweImgBbClient(context.Configuration);
+                services.AddGitViweImgBbClientMock();
             })
             .Build();
     }

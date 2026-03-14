@@ -17,7 +17,7 @@ public static class Startup
     {
         services
             .AddOptionsWithValidateOnStart<JsonWebTokenOption>(null)
-            .BindConfiguration(JsonWebTokenOption.SectionName)
+            .BindConfiguration(JsonWebTokenOption.SECTION_NAME)
             .ValidateDataAnnotations()
             .ValidateOnStart();
 
