@@ -23,15 +23,15 @@ public static class OpenTelemetryPropagator
         /// <param name="eventName">The event name</param>
         /// <param name="headers">The dictionary where the trace context will be injected.</param>
         /// <param name="kind">The activity kind.</param>
-        public static void InjectTraceContextToHeaders(string activityName, string eventName, IDictionary<string, string> headers, ActivityKind kind = ActivityKind.Server)
+        public static Activity? InjectTraceContextToHeaders(string activityName, string eventName, IDictionary<string, string> headers, ActivityKind kind = ActivityKind.Server)
         {
-            using var activity = _activitySource.StartActivity(activityName, kind);
+            var activity = _activitySource.StartActivity(activityName, kind);
             activity?.AddEvent(new ActivityEvent(eventName));
 
             ActivityContext contextToInject = activity?.Context ?? Activity.Current?.Context ?? default;
 
             _propagator.Inject(new PropagationContext(contextToInject, Baggage.Current), headers, InjectTraceContext);
-            return;
+            return activity;
 
             static void InjectTraceContext(IDictionary<string, string> headers, string key, string value)
             {
@@ -63,16 +63,9 @@ public static class OpenTelemetryPropagator
 
             static IEnumerable<string> GetTraceContext(IEnumerable<KeyValuePair<string, string>> headers, string key)
             {
-                try
-                {
-                    return headers.Select(x => x.Value);
-                }
-                catch (System.Exception)
-                {
-                    // ignored
-                }
-
-                return [];
+                return headers
+                    .Where(header => string.Equals(header.Key, key, StringComparison.OrdinalIgnoreCase))
+                    .Select(header => header.Value);
             }
         }
 
@@ -83,11 +76,10 @@ public static class OpenTelemetryPropagator
         /// <param name="eventName">The event name</param>
         /// <param name="parentId">The ID of the parent operation.</param>
         /// <returns>An <see cref="IDisposable"/> representing the created activity, if it had active listeners, or null if it has no event listeners.</returns>
-        public static IDisposable? ExtractTraceContext(string activityName, string eventName, string parentId)
+        public static Activity? ExtractTraceContext(string activityName, string eventName, string parentId)
         {
-            var activity = _activitySource.StartActivity(activityName);
+            var activity = _activitySource.StartActivity(activityName, ActivityKind.Internal, parentId);
             activity?.AddEvent(new ActivityEvent(eventName));
-            activity?.SetParentId(parentId);
 
             return activity;
         }

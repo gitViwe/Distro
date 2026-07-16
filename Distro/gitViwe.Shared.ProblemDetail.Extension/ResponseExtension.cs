@@ -6,7 +6,7 @@ using System.Text.Json.Serialization;
 namespace gitViwe.Shared.ProblemDetail.Extension;
 
 /// <summary>
-/// Provides wrapper extensions for the the <see cref="HttpResponseMessage"/>
+/// Provides wrapper extensions for the <see cref="HttpResponseMessage"/>
 /// </summary>
 public static class ResponseExtension
 {

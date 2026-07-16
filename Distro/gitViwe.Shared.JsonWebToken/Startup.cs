@@ -16,7 +16,7 @@ public static class Startup
     public static IServiceCollection AddGitViweJsonWebToken(this IServiceCollection services)
     {
         services
-            .AddOptionsWithValidateOnStart<JsonWebTokenOption>(null)
+            .AddOptionsWithValidateOnStart<JsonWebTokenOption>()
             .BindConfiguration(JsonWebTokenOption.SECTION_NAME)
             .ValidateDataAnnotations()
             .ValidateOnStart();

@@ -10,13 +10,18 @@ Defines abstractions for the custom classes
 ```csharp
 interface IPaginatedRequest { }
 interface IRequiresHost { }
+interface IResponse { }
+interface ITypedResponse<T> { }
 ```
 
 ### Attribute:
 
 Some custom attributes
 ```csharp
+class DoesNotContainAttribute { }
+class MinimumItemsAttribute { }
 class ObfuscateAttribute { }
+class ValidValuesAttribute<T> { }
 ```
 
 ### Constant:

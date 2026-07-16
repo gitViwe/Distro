@@ -7,7 +7,7 @@ namespace gitViwe.Shared.ProblemDetail.AspNetCore;
 /// </summary>
 public static class ProblemDetailFactory
 {
-    private const string CONTENT_TYPE = "application/problem+json";
+    private const string _contentType = "application/problem+json";
 
     /// <summary>
     /// Creates a <see cref="DefaultProblemDetails"/> instance that configures defaults for <br></br>
@@ -23,7 +23,7 @@ public static class ProblemDetailFactory
     /// <returns>A custom <see cref="DefaultProblemDetails"/> class</returns>
     public static DefaultProblemDetails CreateProblemDetails(HttpContext context, int statusCode, string? detail = null)
     {
-        context.Response.ContentType = CONTENT_TYPE;
+        context.Response.ContentType = _contentType;
         context.Response.StatusCode = statusCode;
 
         return BaseProblemDetailFactory.CreateProblemDetails(statusCode, context.Request.Path, detail);
@@ -44,6 +44,8 @@ public static class ProblemDetailFactory
     public static IResult CreateProblemResult(HttpContext context, int statusCode, string? detail = null)
     {
         DefaultProblemDetails problem = CreateProblemDetails(context, statusCode, detail);
+        
+        problem.Extensions.TryAdd("traceId", problem.TraceId);
 
         return Results.Problem(problem.Detail, problem.Instance, problem.Status, problem.Title, problem.Type, problem.Extensions);
     }
@@ -63,7 +65,7 @@ public static class ProblemDetailFactory
     /// <returns>A custom <see cref="DefaultProblemDetails"/> class</returns>
     public static DefaultProblemDetails CreateProblemDetails(HttpContext context, int statusCode, IDictionary<string, object?> extensions, string? detail = null)
     {
-        context.Response.ContentType = CONTENT_TYPE;
+        context.Response.ContentType = _contentType;
         context.Response.StatusCode = statusCode;
 
         return BaseProblemDetailFactory.CreateProblemDetails(statusCode, context.Request.Path, extensions, detail);
@@ -85,6 +87,8 @@ public static class ProblemDetailFactory
     public static IResult CreateProblemResult(HttpContext context, int statusCode, IDictionary<string, object?> extensions, string? detail = null)
     {
         DefaultProblemDetails problem = CreateProblemDetails(context, statusCode, extensions, detail);
+        
+        problem.Extensions.TryAdd("traceId", problem.TraceId);
 
         return Results.Problem(problem.Detail, problem.Instance, problem.Status, problem.Title, problem.Type, problem.Extensions);
     }
@@ -104,7 +108,7 @@ public static class ProblemDetailFactory
     /// <returns>A custom <see cref="DefaultValidationProblemDetails"/> class</returns>
     public static DefaultValidationProblemDetails CreateValidationProblemDetails(HttpContext context, int statusCode, IDictionary<string, string[]> errors, string? detail = null)
     {
-        context.Response.ContentType = CONTENT_TYPE;
+        context.Response.ContentType = _contentType;
         context.Response.StatusCode = statusCode;
 
         return BaseProblemDetailFactory.CreateValidationProblemDetails(statusCode, context.Request.Path, errors, detail);
@@ -126,6 +130,8 @@ public static class ProblemDetailFactory
     public static IResult CreateValidationProblemResult(HttpContext context, int statusCode, IDictionary<string, string[]> errors, string? detail = null)
     {
         DefaultValidationProblemDetails problem = CreateValidationProblemDetails(context, statusCode, errors, detail);
+        
+        problem.Extensions.TryAdd("traceId", problem.TraceId);
 
         return Results.ValidationProblem(problem.Errors, problem.Detail, problem.Instance, problem.Status, problem.Title, problem.Type, problem.Extensions);
     }
